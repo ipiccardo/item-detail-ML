@@ -36,14 +36,4 @@ export interface Product {
   model: string;
 }
 
-export interface ProductResponse {
-  success: boolean;
-  data?: Product;
-  error?: string;
-}
-
-export interface ProductsResponse {
-  success: boolean;
-  data?: Product[];
-  error?: string;
-}
+// These are now in types/api.ts

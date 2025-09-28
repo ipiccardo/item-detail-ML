@@ -1,68 +1,33 @@
 "use client";
 
-import { JSX, useState } from "react";
-import Image from "next/image";
+import { JSX } from "react";
 import { Product } from "@/types/product";
-import { formatPrice, formatNumber, generateStars } from "@/lib/utils";
+import { formatNumber, generateStars } from "@/lib/utils";
+import { useQuantity } from "@/hooks/useQuantity";
+import { createProductActions } from "@/handlers/productHandlers";
 import {
     Star,
     Truck,
     CreditCard,
     MapPin,
-    Heart,
-    Share2,
 } from "lucide-react";
+import ImageGallery from "./ui/ImageGallery";
+import ProductPrice from "./ui/ProductPrice";
+import ProductActions from "./ui/ProductActions";
 
 interface ProductDetailProps {
     product: Product;
 }
 
 export default function ProductDetail({ product }: ProductDetailProps): JSX.Element {
-    const [selectedImage, setSelectedImage] = useState(0);
-    const [quantity, setQuantity] = useState(1);
-
-    const handleBuyNow = (): void => {
-        // eslint-disable-next-line no-alert
-        alert("Funcionalidad de compra no implementada en este prototipo");
-    };
-
-    const handleAddToCart = (): void => {
-        // eslint-disable-next-line no-alert
-        alert("Funcionalidad de carrito no implementada en este prototipo");
-    };
+    const { quantity, increment, decrement } = useQuantity(product.stock);
+    const actions = createProductActions();
 
     return (
         <div className="max-w-7xl mx-auto px-4 py-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Images Section */}
-                <div className="space-y-4">
-                    <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden relative">
-                        <Image
-                            src={product.images[selectedImage]}
-                            alt={product.title}
-                            fill
-                            className="object-cover"
-                            priority
-                        />
-                    </div>
-                    <div className="grid grid-cols-4 gap-2">
-                        {product.images.map((image, index) => (
-                            <button
-                                key={index}
-                                onClick={() => setSelectedImage(index)}
-                                className={`aspect-square bg-gray-100 rounded-lg overflow-hidden 
-                  border-2 relative ${selectedImage === index ? "border-blue-500" : "border-gray-200"}`}
-                            >
-                                <Image
-                                    src={image}
-                                    alt={`${product.title} ${index + 1}`}
-                                    fill
-                                    className="object-cover"
-                                />
-                            </button>
-                        ))}
-                    </div>
-                </div>
+                <ImageGallery images={product.images} title={product.title} />
 
                 {/* Product Info Section */}
                 <div className="space-y-6">
@@ -92,28 +57,7 @@ export default function ProductDetail({ product }: ProductDetailProps): JSX.Elem
                     </div>
 
                     {/* Price */}
-                    <div className="bg-gray-50 p-4 rounded-lg">
-                        <div className="flex items-baseline gap-2">
-                            <span className="text-3xl font-bold text-gray-900">
-                                {formatPrice(product.price.amount)}
-                            </span>
-                            {product.price.originalPrice && (
-                                <span className="text-lg text-gray-500 line-through">
-                                    {formatPrice(product.price.originalPrice)}
-                                </span>
-                            )}
-                            {product.price.discount && (
-                                <span className="bg-red-100 text-red-600 px-2 py-1 rounded text-sm font-medium">
-                                    {product.price.discount}% OFF
-                                </span>
-                            )}
-                        </div>
-                        {product.price.originalPrice && (
-                            <p className="text-sm text-gray-600 mt-1">
-                                En 12 cuotas sin interés de {formatPrice(product.price.amount / 12)}
-                            </p>
-                        )}
-                    </div>
+                    <ProductPrice product={product} />
 
                     {/* Stock and Quantity */}
                     <div className="space-y-4">
@@ -121,14 +65,14 @@ export default function ProductDetail({ product }: ProductDetailProps): JSX.Elem
                             <span className="text-sm text-gray-600">Cantidad:</span>
                             <div className="flex items-center border border-gray-300 rounded">
                                 <button
-                                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                                    onClick={decrement}
                                     className="px-3 py-1 hover:bg-gray-100"
                                 >
                                     -
                                 </button>
                                 <span className="px-4 py-1 border-x border-gray-300">{quantity}</span>
                                 <button
-                                    onClick={() => setQuantity(Math.min(product.stock, quantity + 1))}
+                                    onClick={increment}
                                     className="px-3 py-1 hover:bg-gray-100"
                                 >
                                     +
@@ -140,34 +84,7 @@ export default function ProductDetail({ product }: ProductDetailProps): JSX.Elem
                         </div>
 
                         {/* Action Buttons */}
-                        <div className="flex gap-3">
-                            <button
-                                onClick={handleBuyNow}
-                                className="flex-1 bg-blue-600 text-white py-3 px-6 rounded-lg
-                  font-medium hover:bg-blue-700 transition-colors"
-                            >
-                                Comprar ahora
-                            </button>
-                            <button
-                                onClick={handleAddToCart}
-                                className="flex-1 border border-blue-600 text-blue-600 py-3 px-6
-                  rounded-lg font-medium hover:bg-blue-50 transition-colors"
-                            >
-                                Agregar al carrito
-                            </button>
-                        </div>
-
-                        {/* Additional Actions */}
-                        <div className="flex gap-4">
-                            <button className="flex items-center gap-2 text-gray-600 hover:text-gray-800">
-                                <Heart className="w-5 h-5" />
-                                <span>Favoritos</span>
-                            </button>
-                            <button className="flex items-center gap-2 text-gray-600 hover:text-gray-800">
-                                <Share2 className="w-5 h-5" />
-                                <span>Compartir</span>
-                            </button>
-                        </div>
+                        <ProductActions actions={actions} />
                     </div>
 
                     {/* Shipping Info */}

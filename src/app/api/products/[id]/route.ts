@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Product, ProductResponse } from "@/types/product";
+import { Product } from "@/types/product";
+import { ApiResponse } from "@/types/api";
 import productsData from "@/data/products.json";
 
 export async function GET(
   request: NextRequest,
   { params }: { params: { id: string } },
-): Promise<NextResponse<ProductResponse>> {
+): Promise<NextResponse<ApiResponse<Product>>> {
   try {
     const { id } = params;
 

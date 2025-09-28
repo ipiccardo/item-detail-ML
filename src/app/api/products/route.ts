@@ -1,10 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Product, ProductsResponse } from "@/types/product";
+import { Product } from "@/types/product";
+import { ApiResponse } from "@/types/api";
 import productsData from "@/data/products.json";
 
-export async function GET(
-  request: NextRequest,
-): Promise<NextResponse<ProductsResponse>> {
+export async function GET(request: NextRequest): Promise<NextResponse<ApiResponse<Product[]>>> {
   try {
     const { searchParams } = new URL(request.url);
     const category = searchParams.get("category");
@@ -31,16 +30,12 @@ export async function GET(
     // Filter by price range
     if (minPrice) {
       const min = parseInt(minPrice);
-      filteredProducts = filteredProducts.filter(
-        (product) => product.price.amount >= min,
-      );
+      filteredProducts = filteredProducts.filter((product) => product.price.amount >= min);
     }
 
     if (maxPrice) {
       const max = parseInt(maxPrice);
-      filteredProducts = filteredProducts.filter(
-        (product) => product.price.amount <= max,
-      );
+      filteredProducts = filteredProducts.filter((product) => product.price.amount <= max);
     }
 
     return NextResponse.json({

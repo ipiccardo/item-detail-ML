@@ -26,15 +26,17 @@ export const CompareProducts: React.FC<CompareProductsProps> = ({
     const specifications = products[0]?.specifications ? Object.keys(products[0].specifications) : [];
 
     return (
-        <div className={`bg-white border border-gray-200 rounded-lg p-6 ${className}`}>
+        <div className={`bg-white border border-gray-200 rounded-xl shadow-lg p-6 ${className}`}>
             {/* Header */}
             <div className="flex items-center justify-between mb-6">
-                <h3 className="text-lg font-semibold text-gray-900">
+                <h3 className="text-xl font-bold text-gray-900">
                     Comparar productos ({products.length}/3)
                 </h3>
                 <button
                     onClick={onClear}
-                    className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-800"
+                    className="flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:text-red-600
+                    hover:bg-red-50 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2
+                    focus:ring-red-500 focus:ring-offset-2"
                 >
                     <Trash2 className="w-4 h-4" />
                     Limpiar todo
@@ -45,46 +47,50 @@ export const CompareProducts: React.FC<CompareProductsProps> = ({
             <div className="overflow-x-auto">
                 <div className="min-w-full">
                     {/* Product Headers */}
-                    <div className="grid grid-cols-4 gap-4 mb-6">
-                        <div className="text-sm font-medium text-gray-500">Producto</div>
+                    <div className="grid grid-cols-4 gap-6 mb-8">
+                        <div className="text-sm font-semibold text-gray-500 uppercase tracking-wide">Producto</div>
                         {products.map((product) => (
-                            <div key={product.id} className="relative">
+                            <div key={product.id} className="relative group">
                                 <button
                                     onClick={() => onRemove(product.id)}
-                                    className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1
-                                    hover:bg-red-600 transition-colors"
+                                    className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1.5
+                                    hover:bg-red-600 hover:scale-110 transition-all duration-200 shadow-lg
+                                    focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
                                 >
                                     <X className="w-3 h-3" />
                                 </button>
 
-                                <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden mb-3">
+                                <div className="aspect-square bg-gray-100 rounded-xl overflow-hidden mb-4 shadow-md
+                                group-hover:shadow-lg transition-shadow duration-200">
                                     <Image
                                         src={product.images[0] || "/placeholder.png"}
                                         alt={product.title}
                                         width={120}
                                         height={120}
-                                        className="w-full h-full object-cover"
+                                        className="w-full h-full object-cover group-hover:scale-105
+                                        transition-transform duration-200"
                                     />
                                 </div>
 
-                                <h4 className="text-sm font-medium text-gray-900 line-clamp-2 mb-2">
+                                <h4 className="text-sm font-semibold text-gray-900 line-clamp-2 mb-3 leading-tight">
                                     {product.title}
                                 </h4>
 
-                                <div className="space-y-1">
-                                    <div className="text-lg font-bold text-gray-900">
+                                <div className="space-y-2">
+                                    <div className="text-xl font-bold text-gray-900">
                                         {formatPrice(product.price.amount)}
                                     </div>
                                     {product.price.discount && product.price.discount > 0 && (
-                                        <div className="text-sm text-green-600">
+                                        <div className="inline-block bg-green-100 text-green-800 text-xs font-semibold
+                                        px-2 py-1 rounded-full">
                                             {product.price.discount}% OFF
                                         </div>
                                     )}
-                                    <div className="flex items-center gap-1">
-                                        <span className="text-yellow-500 text-xs">
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-yellow-500 text-sm">
                                             {generateStars(product.rating.average)}
                                         </span>
-                                        <span className="text-xs text-gray-600">
+                                        <span className="text-xs text-gray-600 font-medium">
                                             ({product.rating.totalReviews})
                                         </span>
                                     </div>

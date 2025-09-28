@@ -15,10 +15,12 @@ export function useImageGallery(images: string[]): {
   };
 
   const nextImage = (): void => {
+    if (images.length === 0) return;
     setSelectedImage((prev) => (prev + 1) % images.length);
   };
 
   const prevImage = (): void => {
+    if (images.length === 0) return;
     setSelectedImage((prev) => (prev - 1 + images.length) % images.length);
   };
 

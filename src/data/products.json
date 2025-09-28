@@ -1,55 +1,388 @@
 [
   {
     "id": "MLA50303499",
-    "title": "Samsung Galaxy A26 5 GB 256 GB 5G White",
-    "description": "El Samsung Galaxy A26 5G combina rendimiento y estilo en un diseño elegante. Con 5GB de RAM y 256GB de almacenamiento, este smartphone te ofrece la potencia necesaria para todas tus actividades diarias. Su pantalla de 6.5 pulgadas te brinda una experiencia visual inmersiva, mientras que la cámara de 50MP captura momentos únicos con gran detalle. El procesador 5G te mantiene conectado a alta velocidad, y la batería de larga duración te acompaña todo el día.",
+    "title": "Samsung Galaxy A55 5G Dual SIM 256 GB azul oscuro 8 GB RAM",
+    "description": "El Samsung Galaxy A55 5G combina rendimiento y estilo en un diseño elegante. Con 8GB de RAM y 256GB de almacenamiento, este smartphone te ofrece la potencia necesaria para todas tus actividades diarias. Su pantalla de 6.6 pulgadas te brinda una experiencia visual inmersiva, mientras que la cámara de 50MP captura momentos únicos con gran detalle. El procesador 5G te mantiene conectado a alta velocidad, y la batería de larga duración te acompaña todo el día.",
     "price": {
-      "amount": 299999,
+      "amount": 439000,
       "currency": "ARS",
-      "originalPrice": 349999,
-      "discount": 14
+      "originalPrice": 499000,
+      "discount": 12
     },
     "images": ["/1.png", "/2.png", "/3.png", "/4.png"],
     "seller": {
       "id": "123456789",
-      "name": "Samsung Oficial",
+      "name": "Tienda oficial Samsung",
       "reputation": 4.8,
-      "sales": 15420,
-      "location": "Buenos Aires, Argentina"
+      "sales": 5000,
+      "location": "Buenos Aires, Argentina",
+      "warranty": "1 año de garantía"
     },
     "condition": "new",
     "stock": 15,
     "shipping": {
       "free": true,
-      "estimatedDays": "1-2 días hábiles"
+      "estimatedDays": "1-2 días hábiles",
+      "calculator": "Calculá cuándo llega"
     },
-    "paymentMethods": [
-      "Tarjeta de crédito",
-      "Tarjeta de débito",
-      "Mercado Pago",
-      "Efectivo",
-      "Transferencia bancaria"
-    ],
+    "paymentMethods": ["Tarjeta de crédito", "Tarjeta de débito", "Mercado Pago", "Efectivo", "Transferencia bancaria"],
     "rating": {
-      "average": 4.6,
-      "totalReviews": 2847
+      "average": 4.3,
+      "totalReviews": 43
     },
     "specifications": {
-      "Pantalla": "6.5 pulgadas Super AMOLED",
-      "Resolución": "1080 x 2400 píxeles",
-      "Procesador": "MediaTek Dimensity 6100+",
-      "RAM": "5 GB",
+      "Pantalla": "6.6 pulgadas Super AMOLED",
+      "Resolución": "1080 x 2340 píxeles",
+      "Procesador": "Exynos 1480",
+      "RAM": "8 GB",
       "Almacenamiento": "256 GB",
+      "Cámara principal": "50 MP",
+      "Cámara frontal": "32 MP",
+      "Batería": "5000 mAh",
+      "Sistema operativo": "Android 14",
+      "Conectividad": "5G, Wi-Fi 6, Bluetooth 5.3",
+      "Peso": "213 g",
+      "Dimensiones": "161.1 x 77.4 x 8.2 mm",
+      "Desbloqueo": "Huella dactilar y reconocimiento facial",
+      "NFC": "Sí",
+      "Tamaño de pantalla": "6.6 pulgadas (16.7 cm x 7.74 cm x 8.2 mm)"
+    },
+    "variants": {
+      "color": [
+        {
+          "name": "Azul oscuro",
+          "value": "blue",
+          "available": true,
+          "image": "/1.png"
+        },
+        {
+          "name": "Blanco",
+          "value": "white",
+          "available": true,
+          "image": "/2.png"
+        },
+        {
+          "name": "Negro",
+          "value": "black",
+          "available": false,
+          "image": "/3.png"
+        }
+      ],
+      "storage": [
+        {
+          "name": "128 GB",
+          "value": "128gb",
+          "available": true,
+          "priceModifier": -50000
+        },
+        {
+          "name": "256 GB",
+          "value": "256gb",
+          "available": true,
+          "priceModifier": 0
+        },
+        {
+          "name": "512 GB",
+          "value": "512gb",
+          "available": true,
+          "priceModifier": 100000
+        }
+      ]
+    },
+    "keyFeatures": [
+      "Memoria RAM 8 GB",
+      "Dispositivo desbloqueado",
+      "Memoria interna 256 GB",
+      "Pantalla de 6.6 pulgadas",
+      "Cámara principal 50 MP",
+      "Cámara frontal 32 MP",
+      "Batería 5000 mAh",
+      "Conectividad 5G"
+    ],
+    "breadcrumbs": ["También puede interesarte", "Celulares y Teléfonos", "Celulares y Smartphones", "Samsung"],
+    "category": "Celulares y Teléfonos",
+    "subcategory": "Celulares y Smartphones",
+    "brand": "Samsung",
+    "model": "Galaxy A55 5G"
+  },
+  {
+    "id": "MLA50303500",
+    "title": "Samsung Galaxy M55 5G 8/256gb Dual Sim 128gb Azul",
+    "description": "El Samsung Galaxy M55 5G ofrece un excelente rendimiento con 8GB de RAM y 256GB de almacenamiento. Su pantalla de 6.7 pulgadas Super AMOLED te brinda colores vibrantes y una experiencia visual excepcional.",
+    "price": {
+      "amount": 421000,
+      "currency": "ARS",
+      "originalPrice": 479000,
+      "discount": 12
+    },
+    "images": ["/m55-1.png", "/m55-2.png", "/m55-3.png"],
+    "seller": {
+      "id": "123456790",
+      "name": "Tienda oficial Samsung",
+      "reputation": 4.7,
+      "sales": 3200,
+      "location": "Buenos Aires, Argentina",
+      "warranty": "1 año de garantía"
+    },
+    "condition": "new",
+    "stock": 8,
+    "shipping": {
+      "free": true,
+      "estimatedDays": "1-2 días hábiles"
+    },
+    "paymentMethods": ["Tarjeta de crédito", "Tarjeta de débito", "Mercado Pago"],
+    "rating": {
+      "average": 4.2,
+      "totalReviews": 156
+    },
+    "specifications": {
+      "Pantalla": "6.7 pulgadas Super AMOLED",
+      "Resolución": "1080 x 2400 píxeles",
+      "Procesador": "Snapdragon 7 Gen 1",
+      "RAM": "8 GB",
+      "Almacenamiento": "256 GB",
+      "Cámara principal": "50 MP",
+      "Cámara frontal": "32 MP",
+      "Batería": "6000 mAh",
+      "Sistema operativo": "Android 14"
+    },
+    "variants": {
+      "color": [
+        {
+          "name": "Azul",
+          "value": "blue",
+          "available": true,
+          "image": "/m55-1.png"
+        },
+        {
+          "name": "Verde",
+          "value": "green",
+          "available": true,
+          "image": "/m55-2.png"
+        }
+      ]
+    },
+    "keyFeatures": [
+      "Memoria RAM 8 GB",
+      "Dispositivo desbloqueado",
+      "Memoria interna 256 GB",
+      "Pantalla de 6.7 pulgadas",
+      "Batería 6000 mAh"
+    ],
+    "breadcrumbs": ["También puede interesarte", "Celulares y Teléfonos", "Celulares y Smartphones", "Samsung"],
+    "category": "Celulares y Teléfonos",
+    "subcategory": "Celulares y Smartphones",
+    "brand": "Samsung",
+    "model": "Galaxy M55 5G"
+  },
+  {
+    "id": "MLA50303501",
+    "title": "Motorola Edge 50 Fusion 5G 8/256gb Dual Sim 128gb Negro",
+    "description": "El Motorola Edge 50 Fusion 5G combina diseño premium con rendimiento excepcional. Con 8GB de RAM y 256GB de almacenamiento, este smartphone está diseñado para usuarios que buscan calidad y funcionalidad.",
+    "price": {
+      "amount": 419000,
+      "currency": "ARS",
+      "originalPrice": 423000,
+      "discount": 1
+    },
+    "images": ["/edge50-1.png", "/edge50-2.png"],
+    "seller": {
+      "id": "123456791",
+      "name": "Motorola Store",
+      "reputation": 4.5,
+      "sales": 1800,
+      "location": "Córdoba, Argentina",
+      "warranty": "1 año de garantía"
+    },
+    "condition": "new",
+    "stock": 12,
+    "shipping": {
+      "free": true,
+      "estimatedDays": "2-3 días hábiles"
+    },
+    "paymentMethods": ["Tarjeta de crédito", "Tarjeta de débito", "Mercado Pago"],
+    "rating": {
+      "average": 4.1,
+      "totalReviews": 89
+    },
+    "specifications": {
+      "Pantalla": "6.7 pulgadas pOLED",
+      "Resolución": "1080 x 2400 píxeles",
+      "Procesador": "Snapdragon 7s Gen 2",
+      "RAM": "8 GB",
+      "Almacenamiento": "256 GB",
+      "Cámara principal": "50 MP",
+      "Cámara frontal": "32 MP",
+      "Batería": "5000 mAh",
+      "Sistema operativo": "Android 14"
+    },
+    "variants": {
+      "color": [
+        {
+          "name": "Negro",
+          "value": "black",
+          "available": true,
+          "image": "/edge50-1.png"
+        },
+        {
+          "name": "Azul",
+          "value": "blue",
+          "available": true,
+          "image": "/edge50-2.png"
+        }
+      ]
+    },
+    "keyFeatures": [
+      "Memoria RAM 8 GB",
+      "Dispositivo desbloqueado",
+      "Memoria interna 256 GB",
+      "Pantalla pOLED 6.7 pulgadas",
+      "Cámara principal 50 MP"
+    ],
+    "breadcrumbs": ["También puede interesarte", "Celulares y Teléfonos", "Celulares y Smartphones", "Motorola"],
+    "category": "Celulares y Teléfonos",
+    "subcategory": "Celulares y Smartphones",
+    "brand": "Motorola",
+    "model": "Edge 50 Fusion 5G"
+  },
+  {
+    "id": "MLA50303502",
+    "title": "Samsung Galaxy A35 5G 6/128gb Dual Sim 128gb Azul",
+    "description": "El Samsung Galaxy A35 5G es la opción perfecta para quienes buscan un smartphone confiable con conectividad 5G. Con 6GB de RAM y 128GB de almacenamiento, ofrece un excelente rendimiento a un precio accesible.",
+    "price": {
+      "amount": 326000,
+      "currency": "ARS",
+      "originalPrice": 336000,
+      "discount": 3
+    },
+    "images": ["/a35-1.png", "/a35-2.png"],
+    "seller": {
+      "id": "123456792",
+      "name": "Tienda oficial Samsung",
+      "reputation": 4.6,
+      "sales": 4200,
+      "location": "Buenos Aires, Argentina",
+      "warranty": "1 año de garantía"
+    },
+    "condition": "new",
+    "stock": 20,
+    "shipping": {
+      "free": true,
+      "estimatedDays": "1-2 días hábiles"
+    },
+    "paymentMethods": ["Tarjeta de crédito", "Tarjeta de débito", "Mercado Pago"],
+    "rating": {
+      "average": 4.0,
+      "totalReviews": 234
+    },
+    "specifications": {
+      "Pantalla": "6.6 pulgadas Super AMOLED",
+      "Resolución": "1080 x 2340 píxeles",
+      "Procesador": "Exynos 1380",
+      "RAM": "6 GB",
+      "Almacenamiento": "128 GB",
       "Cámara principal": "50 MP",
       "Cámara frontal": "13 MP",
       "Batería": "5000 mAh",
-      "Sistema operativo": "Android 14",
-      "Conectividad": "5G, Wi-Fi 6, Bluetooth 5.2",
-      "Peso": "199 g",
-      "Dimensiones": "162.1 x 77.5 x 8.1 mm"
+      "Sistema operativo": "Android 14"
     },
+    "variants": {
+      "color": [
+        {
+          "name": "Azul",
+          "value": "blue",
+          "available": true,
+          "image": "/a35-1.png"
+        },
+        {
+          "name": "Blanco",
+          "value": "white",
+          "available": true,
+          "image": "/a35-2.png"
+        }
+      ]
+    },
+    "keyFeatures": [
+      "Memoria RAM 6 GB",
+      "Dispositivo desbloqueado",
+      "Memoria interna 128 GB",
+      "Pantalla de 6.6 pulgadas",
+      "Conectividad 5G"
+    ],
+    "breadcrumbs": ["También puede interesarte", "Celulares y Teléfonos", "Celulares y Smartphones", "Samsung"],
     "category": "Celulares y Teléfonos",
+    "subcategory": "Celulares y Smartphones",
     "brand": "Samsung",
-    "model": "Galaxy A26 5G"
+    "model": "Galaxy A35 5G"
+  },
+  {
+    "id": "MLA50303503",
+    "title": "Motorola G85 5G 8/256gb Dual Sim 256gb Verde",
+    "description": "El Motorola G85 5G ofrece un excelente equilibrio entre rendimiento y precio. Con 8GB de RAM y 256GB de almacenamiento, este smartphone está diseñado para usuarios que buscan calidad y funcionalidad sin comprometer el presupuesto.",
+    "price": {
+      "amount": 329000,
+      "currency": "ARS",
+      "originalPrice": 365000,
+      "discount": 10
+    },
+    "images": ["/g85-1.png", "/g85-2.png"],
+    "seller": {
+      "id": "123456793",
+      "name": "Motorola Store",
+      "reputation": 4.4,
+      "sales": 2100,
+      "location": "Rosario, Argentina",
+      "warranty": "1 año de garantía"
+    },
+    "condition": "new",
+    "stock": 18,
+    "shipping": {
+      "free": true,
+      "estimatedDays": "2-3 días hábiles"
+    },
+    "paymentMethods": ["Tarjeta de crédito", "Tarjeta de débito", "Mercado Pago"],
+    "rating": {
+      "average": 4.2,
+      "totalReviews": 167
+    },
+    "specifications": {
+      "Pantalla": "6.6 pulgadas IPS LCD",
+      "Resolución": "1080 x 2400 píxeles",
+      "Procesador": "Snapdragon 6 Gen 1",
+      "RAM": "8 GB",
+      "Almacenamiento": "256 GB",
+      "Cámara principal": "50 MP",
+      "Cámara frontal": "32 MP",
+      "Batería": "5000 mAh",
+      "Sistema operativo": "Android 14"
+    },
+    "variants": {
+      "color": [
+        {
+          "name": "Verde",
+          "value": "green",
+          "available": true,
+          "image": "/g85-1.png"
+        },
+        {
+          "name": "Negro",
+          "value": "black",
+          "available": true,
+          "image": "/g85-2.png"
+        }
+      ]
+    },
+    "keyFeatures": [
+      "Memoria RAM 8 GB",
+      "Dispositivo desbloqueado",
+      "Memoria interna 256 GB",
+      "Pantalla de 6.6 pulgadas",
+      "Conectividad 5G"
+    ],
+    "breadcrumbs": ["También puede interesarte", "Celulares y Teléfonos", "Celulares y Smartphones", "Motorola"],
+    "category": "Celulares y Teléfonos",
+    "subcategory": "Celulares y Smartphones",
+    "brand": "Motorola",
+    "model": "G85 5G"
   }
 ]

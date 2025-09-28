@@ -15,6 +15,7 @@ export interface Product {
     reputation: number;
     sales: number;
     location: string;
+    warranty?: string;
   };
   condition: "new" | "used";
   stock: number;
@@ -22,6 +23,7 @@ export interface Product {
     free: boolean;
     cost?: number;
     estimatedDays: string;
+    calculator?: string;
   };
   paymentMethods: string[];
   rating: {
@@ -31,9 +33,24 @@ export interface Product {
   specifications: {
     [key: string]: string;
   };
+  variants?: {
+    color?: Variant[];
+    storage?: Variant[];
+  };
+  keyFeatures?: string[];
+  breadcrumbs?: string[];
   category: string;
+  subcategory?: string;
   brand: string;
   model: string;
+}
+
+export interface Variant {
+  name: string;
+  value: string;
+  available: boolean;
+  image?: string;
+  priceModifier?: number;
 }
 
 // These are now in types/api.ts

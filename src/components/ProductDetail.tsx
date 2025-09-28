@@ -4,6 +4,8 @@ import { JSX } from "react";
 import { Product } from "@/types/product";
 import { formatNumber, generateStars } from "@/lib/utils";
 import { useQuantity } from "@/hooks/useQuantity";
+import { useVariants } from "@/hooks/useVariants";
+import { useRelatedProductsService } from "@/hooks/useRelatedProductsService";
 import { createProductActions } from "@/handlers/productHandlers";
 import {
     Star,
@@ -14,6 +16,11 @@ import {
 import ImageGallery from "./ui/ImageGallery";
 import ProductPrice from "./ui/ProductPrice";
 import ProductActions from "./ui/ProductActions";
+import { Breadcrumbs } from "./ui/Breadcrumbs";
+import { VariantSelector } from "./ui/VariantSelector";
+import { KeyFeatures } from "./ui/KeyFeatures";
+import { ProductSpecifications } from "./ui/ProductSpecifications";
+import { RelatedProducts } from "./ui/RelatedProducts";
 
 interface ProductDetailProps {
     product: Product;
@@ -22,12 +29,34 @@ interface ProductDetailProps {
 export default function ProductDetail({ product }: ProductDetailProps): JSX.Element {
     const { quantity, increment, decrement } = useQuantity(product.stock);
     const actions = createProductActions();
+    const {
+        selectedVariants,
+        selectColor,
+        selectStorage,
+        getCurrentPrice,
+        getCurrentImage,
+    } = useVariants(product);
+    const { relatedProducts, isLoading: isLoadingRelated } = useRelatedProductsService(product.id);
+
+    // Update product price based on selected variants
+    const currentPrice = getCurrentPrice();
+    const currentImage = getCurrentImage();
+    const updatedProduct = {
+        ...product,
+        price: { ...product.price, amount: currentPrice },
+        images: currentImage ? [currentImage, ...product.images.filter(img => img !== currentImage)] : product.images,
+    };
 
     return (
         <div className="max-w-7xl mx-auto px-4 py-8">
+            {/* Breadcrumbs */}
+            {product.breadcrumbs && product.breadcrumbs.length > 0 && (
+                <Breadcrumbs items={product.breadcrumbs} className="mb-6" />
+            )}
+
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Images Section */}
-                <ImageGallery images={product.images} title={product.title} />
+                <ImageGallery images={updatedProduct.images} title={updatedProduct.title} />
 
                 {/* Product Info Section */}
                 <div className="space-y-6">
@@ -57,7 +86,21 @@ export default function ProductDetail({ product }: ProductDetailProps): JSX.Elem
                     </div>
 
                     {/* Price */}
-                    <ProductPrice product={product} />
+                    <ProductPrice product={updatedProduct} />
+
+                    {/* Variant Selector */}
+                    <VariantSelector
+                        product={product}
+                        selectedColor={selectedVariants.color}
+                        selectedStorage={selectedVariants.storage}
+                        onColorSelect={selectColor}
+                        onStorageSelect={selectStorage}
+                    />
+
+                    {/* Key Features */}
+                    {product.keyFeatures && product.keyFeatures.length > 0 && (
+                        <KeyFeatures features={product.keyFeatures} />
+                    )}
 
                     {/* Stock and Quantity */}
                     <div className="space-y-4">
@@ -96,6 +139,11 @@ export default function ProductDetail({ product }: ProductDetailProps): JSX.Elem
                         <p className="text-sm text-green-600">
                             Llega {product.shipping.estimatedDays} a {product.seller.location}
                         </p>
+                        {product.shipping.calculator && (
+                            <button className="text-sm text-blue-600 hover:text-blue-800 mt-2">
+                                {product.shipping.calculator}
+                            </button>
+                        )}
                     </div>
 
                     {/* Payment Methods */}
@@ -129,6 +177,11 @@ export default function ProductDetail({ product }: ProductDetailProps): JSX.Elem
                             <div className="text-sm text-gray-600">
                                 {formatNumber(product.seller.sales)} ventas
                             </div>
+                            {product.seller.warranty && (
+                                <div className="text-sm text-gray-600">
+                                    {product.seller.warranty}
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -143,22 +196,12 @@ export default function ProductDetail({ product }: ProductDetailProps): JSX.Elem
             </div>
 
             {/* Specifications */}
-            <div className="mt-12">
-                <h2 className="text-xl font-semibold text-gray-900 mb-4">
-                    Especificaciones técnicas
-                </h2>
-                <div className="bg-gray-50 rounded-lg p-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {Object.entries(product.specifications).map(([key, value]) => (
-                            <div key={key} className="flex justify-between py-2 border-b
-                border-gray-200 last:border-b-0">
-                                <span className="font-medium text-gray-700">{key}:</span>
-                                <span className="text-gray-600">{value}</span>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
+            <ProductSpecifications specifications={product.specifications} className="mt-12" />
+
+            {/* Related Products */}
+            {!isLoadingRelated && relatedProducts.length > 0 && (
+                <RelatedProducts products={relatedProducts} className="mt-12" />
+            )}
         </div>
     );
 }

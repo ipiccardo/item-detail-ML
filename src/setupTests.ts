@@ -99,8 +99,9 @@ const mockLocation = {
   reload: jest.fn(),
 };
 
-// Delete the existing location property and replace it
+// Mock window.location by replacing the entire window object
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-delete (window as any).location;
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-window.location = mockLocation as any;
+(global as any).window = {
+  ...window,
+  location: mockLocation,
+};

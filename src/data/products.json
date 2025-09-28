@@ -1,0 +1,60 @@
+[
+  {
+    "id": "MLA50303499",
+    "title": "Samsung Galaxy A26 8 GB 256 GB 5G White",
+    "description": "El Samsung Galaxy A26 5G combina rendimiento y estilo en un diseño elegante. Con 8GB de RAM y 256GB de almacenamiento, este smartphone te ofrece la potencia necesaria para todas tus actividades diarias. Su pantalla de 6.5 pulgadas te brinda una experiencia visual inmersiva, mientras que la cámara de 50MP captura momentos únicos con gran detalle. El procesador 5G te mantiene conectado a alta velocidad, y la batería de larga duración te acompaña todo el día.",
+    "price": {
+      "amount": 299999,
+      "currency": "ARS",
+      "originalPrice": 349999,
+      "discount": 14
+    },
+    "images": [
+      "https://http2.mlstatic.com/D_NQ_NP_2X_123456-MLA12345678901_012024-F.webp",
+      "https://http2.mlstatic.com/D_NQ_NP_2X_234567-MLA12345678901_012024-F.webp",
+      "https://http2.mlstatic.com/D_NQ_NP_2X_345678-MLA12345678901_012024-F.webp",
+      "https://http2.mlstatic.com/D_NQ_NP_2X_456789-MLA12345678901_012024-F.webp"
+    ],
+    "seller": {
+      "id": "123456789",
+      "name": "Samsung Oficial",
+      "reputation": 4.8,
+      "sales": 15420,
+      "location": "Buenos Aires, Argentina"
+    },
+    "condition": "new",
+    "stock": 15,
+    "shipping": {
+      "free": true,
+      "estimatedDays": "1-2 días hábiles"
+    },
+    "paymentMethods": [
+      "Tarjeta de crédito",
+      "Tarjeta de débito",
+      "Mercado Pago",
+      "Efectivo",
+      "Transferencia bancaria"
+    ],
+    "rating": {
+      "average": 4.6,
+      "totalReviews": 2847
+    },
+    "specifications": {
+      "Pantalla": "6.5 pulgadas Super AMOLED",
+      "Resolución": "1080 x 2400 píxeles",
+      "Procesador": "MediaTek Dimensity 6100+",
+      "RAM": "8 GB",
+      "Almacenamiento": "256 GB",
+      "Cámara principal": "50 MP",
+      "Cámara frontal": "13 MP",
+      "Batería": "5000 mAh",
+      "Sistema operativo": "Android 14",
+      "Conectividad": "5G, Wi-Fi 6, Bluetooth 5.2",
+      "Peso": "199 g",
+      "Dimensiones": "162.1 x 77.5 x 8.1 mm"
+    },
+    "category": "Celulares y Teléfonos",
+    "brand": "Samsung",
+    "model": "Galaxy A26 5G"
+  }
+]

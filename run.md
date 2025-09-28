@@ -1,8 +1,18 @@
-# MercadoLibre Item Detail - Guía de Ejecución
+# MercadoLibre Item Detail - Prototipo
 
-## Descripción del Proyecto
+## 📋 Descripción del Proyecto
 
-Este proyecto es un prototipo de página de detalle de producto inspirado en MercadoLibre, desarrollado con Next.js 15, TypeScript y Tailwind CSS. Incluye tanto el frontend como el backend API.
+Este es un prototipo de página de detalle de producto inspirado en MercadoLibre, desarrollado con Next.js 15, TypeScript y Tailwind CSS. Incluye tanto el frontend como el backend API.
+
+**Características principales:**
+
+- 🎨 Diseño responsive inspirado en MercadoLibre
+- 🖼️ Galería de imágenes interactiva
+- 💰 Sistema de precios con descuentos
+- ⭐ Sistema de calificaciones
+- 🚚 Información de envío
+- 💳 Medios de pago
+- 📱 Completamente responsive
 
 ## Características Implementadas
 

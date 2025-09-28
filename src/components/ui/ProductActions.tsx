@@ -1,8 +1,8 @@
 "use client";
 
 import { JSX } from "react";
-import { Heart, Share2 } from "lucide-react";
-import { ProductActions } from "@/types/ui";
+import { Heart, Share2, GitCompare } from "lucide-react";
+import type { ProductActions } from "@/types/ui";
 
 interface ProductActionsProps {
     actions: ProductActions;
@@ -33,11 +33,38 @@ export default function ProductActions({ actions }: ProductActionsProps): JSX.El
             <div className="flex gap-4">
                 <button
                     onClick={actions.onAddToFavorites}
-                    className="flex items-center gap-2 text-gray-600 hover:text-gray-800"
+                    className={`flex items-center gap-2 transition-colors ${actions.isFavorite
+                        ? "text-red-600 hover:text-red-700"
+                        : "text-gray-600 hover:text-gray-800"
+                        }`}
                 >
-                    <Heart className="w-5 h-5" />
-                    <span>Favoritos</span>
+                    <Heart
+                        className={`w-5 h-5 ${actions.isFavorite ? "fill-current" : ""}`}
+                    />
+                    <span>{actions.isFavorite ? "En favoritos" : "Favoritos"}</span>
                 </button>
+
+                <button
+                    onClick={actions.onAddToCompare}
+                    disabled={!actions.canAddToCompare && !actions.isInCompare}
+                    className={`flex items-center gap-2 transition-colors ${actions.isInCompare
+                        ? "text-blue-600 hover:text-blue-700"
+                        : actions.canAddToCompare
+                            ? "text-gray-600 hover:text-gray-800"
+                            : "text-gray-400 cursor-not-allowed"
+                        }`}
+                >
+                    <GitCompare className="w-5 h-5" />
+                    <span>
+                        {actions.isInCompare
+                            ? "En comparar"
+                            : actions.canAddToCompare
+                                ? "Comparar"
+                                : "Límite alcanzado"
+                        }
+                    </span>
+                </button>
+
                 <button
                     onClick={actions.onShare}
                     className="flex items-center gap-2 text-gray-600 hover:text-gray-800"

@@ -6,6 +6,8 @@ import { formatNumber, generateStars } from "@/lib/utils";
 import { useQuantity } from "@/hooks/useQuantity";
 import { useVariants } from "@/hooks/useVariants";
 import { useRelatedProductsService } from "@/hooks/useRelatedProductsService";
+import { useCompare } from "@/hooks/useCompare";
+import { useFavorites } from "@/hooks/useFavorites";
 import { createProductActions } from "@/handlers/productHandlers";
 import {
     Star,
@@ -21,6 +23,7 @@ import { VariantSelector } from "./ui/VariantSelector";
 import { KeyFeatures } from "./ui/KeyFeatures";
 import { ProductSpecifications } from "./ui/ProductSpecifications";
 import { RelatedProducts } from "./ui/RelatedProducts";
+import { CompareProducts } from "./ui/CompareProducts";
 
 interface ProductDetailProps {
     product: Product;
@@ -28,7 +31,6 @@ interface ProductDetailProps {
 
 export default function ProductDetail({ product }: ProductDetailProps): JSX.Element {
     const { quantity, increment, decrement } = useQuantity(product.stock);
-    const actions = createProductActions();
     const {
         selectedVariants,
         selectColor,
@@ -37,6 +39,21 @@ export default function ProductDetail({ product }: ProductDetailProps): JSX.Elem
         getCurrentImage,
     } = useVariants(product);
     const { relatedProducts, isLoading: isLoadingRelated } = useRelatedProductsService(product.id);
+    const {
+        products: compareProducts,
+        removeFromCompare,
+        clearCompare,
+        addToCompare,
+        isInCompare,
+        canAddMore,
+    } = useCompare();
+    const { toggleFavorite, isFavorite } = useFavorites();
+
+    const actions = createProductActions(
+        product,
+        { toggleFavorite, isFavorite },
+        { addToCompare, isInCompare, canAddMore },
+    );
 
     // Update product price based on selected variants
     const currentPrice = getCurrentPrice();
@@ -197,6 +214,16 @@ export default function ProductDetail({ product }: ProductDetailProps): JSX.Elem
 
             {/* Specifications */}
             <ProductSpecifications specifications={product.specifications} className="mt-12" />
+
+            {/* Compare Products */}
+            {compareProducts.length > 0 && (
+                <CompareProducts
+                    products={compareProducts}
+                    onRemove={removeFromCompare}
+                    onClear={clearCompare}
+                    className="mt-12"
+                />
+            )}
 
             {/* Related Products */}
             {!isLoadingRelated && relatedProducts.length > 0 && (

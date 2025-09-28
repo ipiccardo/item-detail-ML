@@ -18,5 +18,9 @@ export interface ProductActions {
   onBuyNow: () => void;
   onAddToCart: () => void;
   onAddToFavorites: () => void;
+  onAddToCompare: () => void;
   onShare: () => void;
+  isFavorite: boolean;
+  isInCompare: boolean;
+  canAddToCompare: boolean;
 }

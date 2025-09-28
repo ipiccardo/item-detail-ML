@@ -2,3 +2,5 @@
 export * from "./product";
 export * from "./api";
 export * from "./ui";
+export * from "./favorites";
+export * from "./compare";

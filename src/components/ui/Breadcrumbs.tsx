@@ -12,7 +12,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items, className = "" 
     }
 
     return (
-        <nav className={`flex items-center space-x-1 text-sm text-gray-600 ${className}`} aria-label="Breadcrumb">
+        <nav className={`flex items-center space-x-1 text-sm ml-text-secondary ${className}`} aria-label="Breadcrumb">
             <Home className="h-4 w-4" />
             {items.map((item, index) => (
                 <React.Fragment key={index}>
@@ -20,7 +20,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items, className = "" 
                     <span
                         className={
                             index === items.length - 1
-                                ? "text-gray-900 font-medium"
+                                ? "ml-text-primary font-medium"
                                 : "hover:text-blue-600 cursor-pointer"
                         }
                     >

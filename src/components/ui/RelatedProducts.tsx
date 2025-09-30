@@ -12,7 +12,7 @@ interface RelatedProductsProps {
 
 export const RelatedProducts: React.FC<RelatedProductsProps> = ({
     products,
-    title = "Productos relacionados",
+    title = "Quienes vieron este producto también compraron",
     className = "",
 }) => {
     if (!products || products.length === 0) {
@@ -20,9 +20,9 @@ export const RelatedProducts: React.FC<RelatedProductsProps> = ({
     }
 
     return (
-        <div className={`mt-8 ${className}`}>
-            <h3 className="text-lg font-medium text-gray-900 mb-4">{title}</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className={`ml-card p-6 ${className}`}>
+            <h3 className="text-lg font-semibold ml-text-primary mb-4">{title}</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {products.map((product) => (
                     <Link
                         key={product.id}
@@ -39,29 +39,29 @@ export const RelatedProducts: React.FC<RelatedProductsProps> = ({
                             />
                         </div>
 
-                        <h4 className="text-sm font-medium text-gray-900 line-clamp-2 mb-2">
+                        <h4 className="text-sm font-medium ml-text-primary line-clamp-2 mb-2">
                             {product.title}
                         </h4>
 
                         <div className="space-y-1">
                             <div className="flex items-center space-x-2">
-                                <span className="text-lg font-bold text-gray-900">
+                                <span className="text-lg font-bold ml-price">
                                     {formatPrice(product.price.amount)}
                                 </span>
                                 {product.price.discount && product.price.discount > 0 && (
-                                    <span className="text-sm text-green-600 font-medium">
+                                    <span className="text-xs ml-tag-mas-vendido">
                                         {product.price.discount}% OFF
                                     </span>
                                 )}
                             </div>
 
                             {product.price.originalPrice && (
-                                <span className="text-sm text-gray-500 line-through">
+                                <span className="text-sm ml-text-secondary line-through">
                                     {formatPrice(product.price.originalPrice)}
                                 </span>
                             )}
 
-                            <div className="text-xs text-green-600">
+                            <div className="text-xs ml-shipping-free">
                                 Envío gratis
                             </div>
                         </div>

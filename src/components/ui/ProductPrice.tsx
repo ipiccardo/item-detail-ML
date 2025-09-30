@@ -13,27 +13,38 @@ export default function ProductPrice({ product }: ProductPriceProps): JSX.Elemen
     const installmentAmount = calculateInstallments(price.amount);
 
     return (
-        <div className="bg-gray-50 p-4 rounded-lg">
-            <div className="flex items-baseline gap-2">
-                <span className="text-3xl font-bold text-gray-900">
-                    {formatPrice(price.amount)}
-                </span>
-                {price.originalPrice && (
-                    <span className="text-lg text-gray-500 line-through">
-                        {formatPrice(price.originalPrice)}
+        <div className="space-y-4">
+            {/* Price Section */}
+            <div className="space-y-2">
+                <div className="flex items-baseline gap-3">
+                    <span className="ml-price">
+                        {formatPrice(price.amount)}
                     </span>
-                )}
-                {price.discount && (
-                    <span className="bg-red-100 text-red-600 px-2 py-1 rounded text-sm font-medium">
-                        {price.discount}% OFF
-                    </span>
-                )}
+                    {price.originalPrice && (
+                        <span className="text-lg ml-text-secondary line-through">
+                            {formatPrice(price.originalPrice)}
+                        </span>
+                    )}
+                    {price.discount && (
+                        <span className="ml-tag-mas-vendido">
+                            {price.discount}% OFF
+                        </span>
+                    )}
+                </div>
+
+                {/* Installments */}
+                <div className="space-y-1">
+                    <p className="text-base ml-text-primary font-medium">
+                        6 cuotas de {formatPrice(installmentAmount)}
+                    </p>
+                    <p className="text-sm text-gray-600">
+                        Precio sin impuestos nacionales: {formatPrice(price.amount)}
+                    </p>
+                    <p className="text-sm text-blue-600 hover:underline cursor-pointer">
+                        Ver los medios de pago
+                    </p>
+                </div>
             </div>
-            {price.originalPrice && (
-                <p className="text-sm text-gray-600 mt-1">
-                    En 12 cuotas sin interés de {formatPrice(installmentAmount)}
-                </p>
-            )}
         </div>
     );
 }

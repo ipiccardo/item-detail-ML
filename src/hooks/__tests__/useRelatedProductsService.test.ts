@@ -1,4 +1,4 @@
-import { renderHook, waitFor } from "@testing-library/react";
+import { renderHook, waitFor, act } from "@testing-library/react";
 import { useRelatedProductsService } from "../useRelatedProductsService";
 import { RelatedProductsService } from "@/services/relatedProductsService";
 
@@ -84,8 +84,11 @@ describe("useRelatedProductsService", () => {
       expect(result.current.isLoading).toBe(false);
     });
 
-    expect(result.current.relatedProducts).toEqual(mockProducts);
-    expect(result.current.error).toBe(null);
+    await act(async () => {
+      expect(result.current.relatedProducts).toEqual(mockProducts);
+      expect(result.current.error).toBe(null);
+    });
+
     expect(mockRelatedProductsService.getRelatedProducts).toHaveBeenCalledWith("1", 4);
   });
 
@@ -98,8 +101,10 @@ describe("useRelatedProductsService", () => {
       expect(result.current.isLoading).toBe(false);
     });
 
-    expect(result.current.relatedProducts).toEqual([]);
-    expect(result.current.error).toBe("Error al cargar productos relacionados");
+    await act(async () => {
+      expect(result.current.relatedProducts).toEqual([]);
+      expect(result.current.error).toBe("Error al cargar productos relacionados");
+    });
   });
 
   it("should use custom limit", async () => {
@@ -111,7 +116,9 @@ describe("useRelatedProductsService", () => {
       expect(result.current.isLoading).toBe(false);
     });
 
-    expect(mockRelatedProductsService.getRelatedProducts).toHaveBeenCalledWith("1", 6);
+    await act(async () => {
+      expect(mockRelatedProductsService.getRelatedProducts).toHaveBeenCalledWith("1", 6);
+    });
   });
 
   it("should not fetch if productId is empty", () => {

@@ -1,4 +1,4 @@
-import { renderHook, waitFor } from "@testing-library/react";
+import { renderHook, waitFor, act } from "@testing-library/react";
 import { useProduct } from "../useProduct";
 import { ProductService } from "@/services/productService";
 
@@ -65,8 +65,11 @@ describe("useProduct", () => {
       expect(result.current.isLoading).toBe(false);
     });
 
-    expect(result.current.product).toEqual(mockProduct);
-    expect(result.current.error).toBe(null);
+    await act(async () => {
+      expect(result.current.product).toEqual(mockProduct);
+      expect(result.current.error).toBe(null);
+    });
+
     expect(mockProductService.getProduct).toHaveBeenCalledWith("1");
   });
 
@@ -82,8 +85,10 @@ describe("useProduct", () => {
       expect(result.current.isLoading).toBe(false);
     });
 
-    expect(result.current.product).toBe(null);
-    expect(result.current.error).toBe("Product not found");
+    await act(async () => {
+      expect(result.current.product).toBe(null);
+      expect(result.current.error).toBe("Product not found");
+    });
   });
 
   it("should return error when API call throws", async () => {
@@ -95,8 +100,10 @@ describe("useProduct", () => {
       expect(result.current.isLoading).toBe(false);
     });
 
-    expect(result.current.product).toBe(null);
-    expect(result.current.error).toBe("Error de conexión");
+    await act(async () => {
+      expect(result.current.product).toBe(null);
+      expect(result.current.error).toBe("Error de conexión");
+    });
   });
 
   it("should refetch when productId changes", async () => {
@@ -115,7 +122,9 @@ describe("useProduct", () => {
 
     expect(mockProductService.getProduct).toHaveBeenCalledWith("1");
 
-    rerender({ productId: "2" });
+    await act(async () => {
+      rerender({ productId: "2" });
+    });
 
     await waitFor(() => {
       expect(result.current.isLoading).toBe(false);

@@ -60,13 +60,17 @@ export default function ProductDetail({ product }: ProductDetailProps): JSX.Elem
                     {/* Center Column - Product Info */}
                     <div className="col-span-12 lg:col-span-4">
                         <div className="space-y-6">
+                            <div>
+                                <p className="text-sm ml-link">Ver más productos marca Samsung</p>
+                            </div>
                             {/* Status and Actions */}
                             <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-2 text-sm text-gray-600">
-                                    <span className="bg-green-100 text-green-800 px-2 py-1 rounded text-xs\n                                             font-medium">Nuevo</span>
+                                    <span className=" px-2 py-1 rounded text-xs\n font-medium">Nuevo</span>
+                                    <span>|</span>
                                     <span>+{formatNumber(product.seller.sales)} vendidos</span>
                                 </div>
-                                <button className="text-gray-400 hover:text-red-500">
+                                <button className="ml-heart-button">
                                     <Heart className="w-5 h-5" />
                                 </button>
                             </div>
@@ -115,7 +119,6 @@ export default function ProductDetail({ product }: ProductDetailProps): JSX.Elem
                             )}
                         </div>
                     </div>
-
                     {/* Right Column - Purchase Info */}
                     <div className="col-span-12 lg:col-span-3">
                         <SellerInfoCard
@@ -141,7 +144,6 @@ export default function ProductDetail({ product }: ProductDetailProps): JSX.Elem
 
                 {/* Detailed Specifications */}
                 <DetailedSpecifications className="mt-6" />
-
 
                 {/* Compare Products */}
                 {compareProducts.length > 0 && (

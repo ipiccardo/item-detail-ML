@@ -11,6 +11,7 @@
   --ml-blue: #3483fa;
   --ml-green: #00a650;
   --ml-red: #ff4d4d;
+  --ml-orange: #f73;
   --ml-gold: #ffd700;
   --ml-dark: #333333;
   --ml-gray: #666666;
@@ -71,12 +72,16 @@ body {
 }
 
 .ml-tag-mas-vendido {
-  background-color: var(--ml-red);
+  background-color: var(--ml-orange);
   color: white;
-  font-size: 0.75rem;
+  font-size: 12px;
   font-weight: 600;
-  padding: 2px 8px;
-  border-radius: 4px;
+  padding: 3px 4px;
+  border-radius: 3px;
+  box-sizing: border-box;
+  word-break: break-all;
+  line-height: 1;
+  display: inline-flex;
 }
 
 .ml-shipping-free {
@@ -111,6 +116,26 @@ body {
   outline: none;
   border-color: var(--ml-blue);
   box-shadow: 0 0 0 3px rgba(52, 131, 250, 0.1);
+}
+
+.ml-heart-button {
+  color: var(--ml-blue);
+  transition: color 0.2s;
+}
+
+.ml-heart-button:hover {
+  color: #2968c8;
+}
+
+.ml-link {
+  color: var(--ml-blue);
+  transition: color 0.2s;
+  cursor: pointer;
+}
+
+.ml-link:hover {
+  color: #2968c8;
+  text-decoration: underline;
 }
 
 :root {

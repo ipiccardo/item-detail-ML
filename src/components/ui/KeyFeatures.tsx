@@ -1,5 +1,4 @@
 import React from "react";
-import { CheckCircle } from "lucide-react";
 
 interface KeyFeaturesProps {
     features: string[];
@@ -12,18 +11,21 @@ export const KeyFeatures: React.FC<KeyFeaturesProps> = ({ features, className = 
     }
 
     return (
-        <div className={`bg-gray-50 p-4 rounded-lg ${className}`}>
-            <h3 className="text-sm font-semibold ml-text-primary mb-3">
+        <div className={`bg-white ${className}`}>
+            <h3 className="text-lg font-bold ml-text-primary mb-4">
                 Lo que tenés que saber de este producto
             </h3>
-            <ul className="space-y-2">
+            <ul className="space-y-2 mb-4">
                 {features.map((feature, index) => (
-                    <li key={index} className="flex items-start space-x-2">
-                        <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                        <span className="text-sm ml-text-secondary">{feature}</span>
+                    <li key={index} className="flex items-start">
+                        <span className="w-1.5 h-1.5 bg-black rounded-full mt-2.5 mr-3 flex-shrink-0"></span>
+                        <span className="text-base ml-text-secondary">{feature}</span>
                     </li>
                 ))}
             </ul>
+            <button className="text-base ml-link hover:underline">
+                Ver características
+            </button>
         </div>
     );
 };

@@ -53,9 +53,9 @@ export const ProductCharacteristics = ({ className = "" }: ProductCharacteristic
                 </div>
 
                 {/* Right Column */}
-                <div className="space-y-6">
+                <div className="space-y-6 flex align-bottom">
                     {/* Front Camera */}
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-3 ">
                         <div className="w-8 h-8 border border-gray-300 rounded flex items-center justify-center">
                             <Camera className="w-4 h-4 text-gray-600" />
                         </div>

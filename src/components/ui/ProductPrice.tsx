@@ -16,17 +16,18 @@ export default function ProductPrice({ product }: ProductPriceProps): JSX.Elemen
         <div className="space-y-4">
             {/* Price Section */}
             <div className="space-y-2">
+                {price.originalPrice && (
+                    <span className="text-lg ml-text-secondary line-through">
+                        {formatPrice(price.originalPrice)}
+                    </span>
+                )}
                 <div className="flex items-baseline gap-3">
-                    <span className="ml-price">
+                    <span className="ml-ui-pdp-price text-4xl">
                         {formatPrice(price.amount)}
                     </span>
-                    {price.originalPrice && (
-                        <span className="text-lg ml-text-secondary line-through">
-                            {formatPrice(price.originalPrice)}
-                        </span>
-                    )}
+
                     {price.discount && (
-                        <span className="ml-tag-mas-vendido">
+                        <span className="ml-ui-pdp-color--GREEN">
                             {price.discount}% OFF
                         </span>
                     )}
@@ -34,8 +35,8 @@ export default function ProductPrice({ product }: ProductPriceProps): JSX.Elemen
 
                 {/* Installments */}
                 <div className="space-y-1">
-                    <p className="text-base ml-text-primary font-medium">
-                        6 cuotas de {formatPrice(installmentAmount)}
+                    <p className="text-base ml-text-primary font-medium ml-ui-pdp-color--GREEN">
+                        Mismo precio en 6 cuotas de {formatPrice(installmentAmount)}
                     </p>
                     <p className="text-sm text-gray-600">
                         Precio sin impuestos nacionales: {formatPrice(price.amount)}

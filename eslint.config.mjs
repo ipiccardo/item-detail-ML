@@ -64,6 +64,14 @@ const eslintConfig = [
     },
   },
   {
+    files: ["**/*.config.js", "**/*.config.mjs", "postcss.config.js"],
+    rules: {
+      "@typescript-eslint/no-require-imports": "off",
+      "no-var": "off",
+      "prefer-const": "off",
+    },
+  },
+  {
     ignores: ["node_modules/**", ".next/**", "out/**", "build/**", "next-env.d.ts", "jest.config.js"],
   },
 ];

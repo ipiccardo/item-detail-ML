@@ -61,36 +61,37 @@ export default function ProductDetail({ product }: ProductDetailProps): JSX.Elem
 
                     {/* Center Column - Product Info */}
                     <div className="col-span-12 lg:col-span-4 mt-10">
-                        <div className="space-y-6">
-                            <div>
+                        <div>
+                            <div className="mb-1">
                                 <p className="text-sm ml-link">Ver más productos marca Samsung</p>
                             </div>
+
                             {/* Status and Actions */}
-                            <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-2 text-sm text-gray-600">
-                                    <span className=" px-2 rounded text-xs\n font-medium">Nuevo</span>
+                            <div className="flex items-center justify-between mb-3">
+                                <div className="flex items-center gap-2 text-sm ml-text-secondary">
+                                    <span>Nuevo</span>
                                     <span>|</span>
                                     <span>+{formatNumber(product.seller.sales)} vendidos</span>
                                 </div>
                                 <button className="ml-heart-button">
-                                    <Heart className="w-5 h-5" />
+                                    <Heart className="w-6 h-6" />
                                 </button>
                             </div>
 
                             {/* Best Seller Tag */}
-                            <div className="flex items-center gap-2">
+                            <div className="flex items-center gap-2 mb-2">
                                 <span className="ml-tag-mas-vendido">MÁS VENDIDO</span>
                                 <span className="text-sm ml-link">5° en Celulares y Smartphones Samsung</span>
                             </div>
 
                             {/* Title */}
-                            <h1 className="text-2xl font-bold ml-text-primary leading-tight !mt-3">{product.title}</h1>
+                            <h1 className="text-xl font-normal ml-text-primary leading-snug mb-3">{product.title}</h1>
 
                             {/* Rating */}
-                            <div className="flex items-center gap-3 !mt-3">
-                                <div className="flex items-center gap-1">
-                                    <span className="text-sm font-semibold ml-text-primary">{product.rating.average}</span>
-                                    <span className="ml-rating text-lg ">{generateStars(product.rating.average)}</span>
+                            <div className="flex items-center gap-2 mb-4">
+                                <span className="text-sm ml-text-primary">{product.rating.average}</span>
+                                <div className="flex items-center">
+                                    <span className="ml-rating text-sm">{generateStars(product.rating.average)}</span>
                                 </div>
                                 <span className="text-sm ml-text-secondary">({formatNumber(product.rating.totalReviews)})</span>
                             </div>

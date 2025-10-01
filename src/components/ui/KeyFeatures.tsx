@@ -11,19 +11,19 @@ export const KeyFeatures: React.FC<KeyFeaturesProps> = ({ features, className = 
     }
 
     return (
-        <div className={`bg-white ${className}`}>
-            <h3 className="text-lg font-bold ml-text-primary mb-4">
+        <div className={`mt-4 ${className}`}>
+            <h3 className="text-[18px] font-semibold ml-text-primary mb-3">
                 Lo que tenés que saber de este producto
             </h3>
-            <ul className="space-y-2 mb-4">
+            <ul className="space-y-2 mb-3">
                 {features.map((feature, index) => (
                     <li key={index} className="flex items-start">
-                        <span className="w-1.5 h-1.5 bg-black rounded-full mt-2.5 mr-3 flex-shrink-0"></span>
-                        <span className="text-base ml-text-secondary">{feature}</span>
+                        <span className="w-1.5 h-1.5 bg-black rounded-full mt-1.5 mr-2 flex-shrink-0"></span>
+                        <span className="text-[13px] ml-text-primary leading-relaxed">{feature}</span>
                     </li>
                 ))}
             </ul>
-            <button className="text-base ml-link hover:underline">
+            <button className="text-[14px] ml-link hover:underline">
                 Ver características
             </button>
         </div>

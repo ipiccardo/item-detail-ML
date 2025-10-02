@@ -124,7 +124,7 @@ export default function ProductDetail({ product }: ProductDetailProps): JSX.Elem
                     </div>
 
                     {/* Right Column - Purchase Info (Fixed width, Scrolls with page) */}
-                    <div className="w-[309px] flex-shrink-0 absolute right-6">
+                    <div className="w-[309px] flex-shrink-0 absolute flex right-6 flex-col gap-6">
                         <SellerInfoCard
                             seller={product.seller}
                             shipping={product.shipping}
@@ -278,12 +278,12 @@ export default function ProductDetail({ product }: ProductDetailProps): JSX.Elem
                 </div>
 
                 {/* Full-width sections below main layout */}
-                <div className="mt-4">
+                <div className="mt-4 ">
                     <div className="flex gap-4">
                         {/* Left side - Product sections */}
-                        <div className="flex-1 space-y-4">
+                        <div className="flex-1 space-y-4 max-w-[851px]">
                             {/* Product Characteristics */}
-                            <div className="bg-white rounded-md p-6">
+                            <div className="bg-white rounded-md p-6 ">
                                 <ProductCharacteristics />
                             </div>
 

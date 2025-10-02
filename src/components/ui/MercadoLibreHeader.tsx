@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { JSX } from "react";
@@ -12,7 +13,7 @@ export const MercadoLibreHeader = (): JSX.Element => {
             </div>
 
             {/* Main Header */}
-            <div className="max-w-7xl mx-auto px-4 py-3">
+            <div className="max-w-[1200px] mx-auto  py-3">
                 {/* Top Row */}
                 <div className="flex items-center justify-between mb-3">
                     {/* Logo */}
@@ -25,7 +26,7 @@ export const MercadoLibreHeader = (): JSX.Element => {
                     </div>
 
                     {/* Search Bar */}
-                    <div className="flex-1 max-w-2xl mx-8">
+                    <div className="flex-1 max-w-2xl mx-8 px-4">
                         <div className="relative">
                             <input
                                 type="text"

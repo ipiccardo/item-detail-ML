@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable max-len */
 "use client";
 
@@ -51,70 +52,125 @@ export default function ProductDetail({ product }: ProductDetailProps): JSX.Elem
 
     return (
         <div className="min-h-screen" style={{ backgroundColor: "#F5F5F5" }}>
-            {/* Main Content - 3 Column Layout */}
-            <div className="max-w-7xl mx-auto  pt-6">
-                <div className="grid grid-cols-12 gap-6 bg-white">
-                    {/* Left Column - Images */}
-                    <div className="col-span-12 lg:col-span-5  mt-10">
-                        <ImageGallery images={updatedProduct.images} title={updatedProduct.title} />
-                    </div>
-
-                    {/* Center Column - Product Info */}
-                    <div className="col-span-12 lg:col-span-4 mt-10">
-                        <div>
-                            <div className="mb-1">
-                                <p className="text-sm ml-link">Ver más productos marca Samsung</p>
+            {/* Main Content - 2 Column Layout */}
+            <div className="max-w-[1200px] mx-auto px-4 pt-6">
+                <div className="flex gap-4 bg-white">
+                    {/* Left Section - Images and Product Info */}
+                    <div className="flex-1 bg-white rounded-md p-6">
+                        <div className="flex gap-6">
+                            {/* Images Column */}
+                            <div className="w-[400px]">
+                                <ImageGallery images={updatedProduct.images} title={updatedProduct.title} />
                             </div>
 
-                            {/* Status and Actions */}
-                            <div className="flex items-center justify-between mb-3">
-                                <div className="flex items-center gap-2 text-sm ml-text-secondary">
-                                    <span>Nuevo</span>
-                                    <span>|</span>
-                                    <span>+{formatNumber(product.seller.sales)} vendidos</span>
+                            {/* Product Info Column */}
+                            <div className="flex-1">
+                                <div>
+                                    <div className="mb-1">
+                                        <p className="text-sm ml-link">Ver más productos marca Samsung</p>
+                                    </div>
+
+                                    {/* Status and Actions */}
+                                    <div className="flex items-center justify-between mb-3">
+                                        <div className="flex items-center gap-2 text-sm ml-text-secondary">
+                                            <span>Nuevo</span>
+                                            <span>|</span>
+                                            <span>+{formatNumber(product.seller.sales)} vendidos</span>
+                                        </div>
+                                        <button className="ml-heart-button">
+                                            <Heart className="w-6 h-6" />
+                                        </button>
+                                    </div>
+
+                                    {/* Best Seller Tag */}
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <span className="ml-tag-mas-vendido">MÁS VENDIDO</span>
+                                        <span className="text-sm ml-link">5° en Celulares y Smartphones Samsung</span>
+                                    </div>
+
+                                    {/* Title */}
+                                    <h1 className="text-xl font-normal ml-text-primary leading-snug mb-3">{product.title}</h1>
+
+                                    {/* Rating */}
+                                    <div className="flex items-center gap-2 mb-4">
+                                        <span className="text-sm ml-text-primary">{product.rating.average}</span>
+                                        <div className="flex items-center">
+                                            <span className="ml-rating text-sm">{generateStars(product.rating.average)}</span>
+                                        </div>
+                                        <span className="text-sm ml-text-secondary">({formatNumber(product.rating.totalReviews)})</span>
+                                    </div>
+
+                                    {/* Price */}
+                                    <ProductPrice product={updatedProduct} />
+
+                                    {/* Variant Selector */}
+                                    <VariantSelector
+                                        product={product}
+                                        selectedColor={selectedVariants.color}
+                                        selectedStorage={selectedVariants.storage}
+                                        onColorSelect={selectColor}
+                                        onStorageSelect={selectStorage}
+                                    />
+
+                                    {/* Key Features */}
+                                    {product.keyFeatures && product.keyFeatures.length > 0 && <KeyFeatures features={product.keyFeatures} />}
                                 </div>
-                                <button className="ml-heart-button">
-                                    <Heart className="w-6 h-6" />
-                                </button>
                             </div>
+                        </div>
+                        <div className="max-w-[1200px] mx-auto mt-4">
+                            <div className="bg-white rounded-md p-6">
+                                {/* Product Characteristics */}
+                                <ProductCharacteristics />
+                                {/* Detailed Specifications */}
+                                <DetailedSpecifications className="mt-6 pb-10" />
 
-                            {/* Best Seller Tag */}
-                            <div className="flex items-center gap-2 mb-2">
-                                <span className="ml-tag-mas-vendido">MÁS VENDIDO</span>
-                                <span className="text-sm ml-link">5° en Celulares y Smartphones Samsung</span>
-                            </div>
-
-                            {/* Title */}
-                            <h1 className="text-xl font-normal ml-text-primary leading-snug mb-3">{product.title}</h1>
-
-                            {/* Rating */}
-                            <div className="flex items-center gap-2 mb-4">
-                                <span className="text-sm ml-text-primary">{product.rating.average}</span>
-                                <div className="flex items-center">
-                                    <span className="ml-rating text-sm">{generateStars(product.rating.average)}</span>
+                                <div className="mt-8 pt-8 border-t border-gray-200">
+                                    <h2 className="text-xl font-semibold ml-text-primary mb-4">Descripción</h2>
+                                    <div className="space-y-4">
+                                        <p className="text-sm ml-text-secondary leading-relaxed">
+                                            Dale a tu estilo una ventaja con el Galaxy A26 5G. El cuerpo delgado se adapta cómodamente a la mano, mientras que la parte posterior de cristal brillante y el diseño limpio de la cámara llaman la atención.
+                                        </p>
+                                        <p className="text-sm ml-text-secondary leading-relaxed">
+                                            La pantalla Super AMOLED de 6,7" con un bisel delgado y minimizado lo atrae a su entretenimiento con una claridad vívida, desde el último video de su creador favorito hasta las fotos de sus seres queridos.
+                                        </p>
+                                        <p className="text-sm ml-text-secondary leading-relaxed">
+                                            Disfruta de tus actividades favoritas al aire libre con tranquilidad. Con clasificación IP67 para resistencia al polvo y al agua, el Galaxy A26 5G está listo para capturar los momentos más destacados de los conciertos o grabar momentos épicos del entretiempo, incluso bajo la lluvia.
+                                        </p>
+                                        <p className="text-sm ml-text-secondary leading-relaxed">
+                                            Ahora, con OIS para estabilizar tus tomas, puedes capturar las escenas más dinámicas con una claridad impresionante, ya sea que estés en una fiesta, un concierto o un juego deportivo.
+                                        </p>
+                                        <p className="text-sm ml-text-secondary leading-relaxed">
+                                            Aumenta la diversión de navegar y jugar a vídeos en streaming, la CPU actualizada mantiene todo funcionando rápido y sin problemas.
+                                        </p>
+                                        <p className="text-sm ml-text-secondary leading-relaxed">
+                                            Con una batería de larga duración de 5.000 mAh (típica), puede disfrutar de maratones de películas hasta 17 horas sin tener que cargar su Galaxy A26 5G.
+                                        </p>
+                                    </div>
                                 </div>
-                                <span className="text-sm ml-text-secondary">({formatNumber(product.rating.totalReviews)})</span>
+
+
+                                {/* Compare Products */}
+                                {/* {compareProducts.length > 0 && (
+                                    <CompareProducts
+                                        products={compareProducts}
+                                        onRemove={removeFromCompare}
+                                        onClear={clearCompare}
+                                        className="mt-6"
+                                    />
+                                )} */}
+
+                                {/* Related Products */}
+                                {!isLoadingRelated && relatedProducts.length > 0 && (
+                                    <RelatedProducts products={relatedProducts} className="mt-6" />
+                                )}
                             </div>
-
-                            {/* Price */}
-                            <ProductPrice product={updatedProduct} />
-
-                            {/* Variant Selector */}
-                            <VariantSelector
-                                product={product}
-                                selectedColor={selectedVariants.color}
-                                selectedStorage={selectedVariants.storage}
-                                onColorSelect={selectColor}
-                                onStorageSelect={selectStorage}
-                            />
-
-                            {/* Key Features */}
-                            {product.keyFeatures && product.keyFeatures.length > 0 && <KeyFeatures features={product.keyFeatures} />}
                         </div>
                     </div>
 
-                    {/* Right Column - Purchase Info */}
-                    <div className="col-span-12 lg:col-span-3 space-y-4">
+
+
+                    {/* Right Column - Purchase Info (Fixed width, Sticky) */}
+                    <div className="w-[309px] flex-shrink-0 space-y-4 sticky top-4 self-start mr-6 mt-6">
                         <SellerInfoCard
                             seller={product.seller}
                             shipping={product.shipping}
@@ -262,38 +318,7 @@ export default function ProductDetail({ product }: ProductDetailProps): JSX.Elem
             </div>
 
             {/* Product Description */}
-            <div className="max-w-7xl  mx-auto  bg-white">
 
-                <div className="max-w-4xl  bg-white">
-                    {/* Product Characteristics */}
-                    <ProductCharacteristics />
-                    {/* Detailed Specifications */}
-                    <DetailedSpecifications className="mt-6" />
-
-                    <div className="ml-card p-6">
-                        <h2 className="text-lg font-semibold ml-text-primary mb-4">Descripción del producto</h2>
-                        <div className="prose max-w-none">
-                            <p className="ml-text-secondary leading-relaxed">{product.description}</p>
-                        </div>
-                    </div>
-
-
-                    {/* Compare Products */}
-                    {compareProducts.length > 0 && (
-                        <CompareProducts
-                            products={compareProducts}
-                            onRemove={removeFromCompare}
-                            onClear={clearCompare}
-                            className="mt-6"
-                        />
-                    )}
-
-                    {/* Related Products */}
-                    {!isLoadingRelated && relatedProducts.length > 0 && (
-                        <RelatedProducts products={relatedProducts} className="mt-6" />
-                    )}
-                </div>
-            </div>
         </div>
     );
 }

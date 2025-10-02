@@ -115,8 +115,6 @@ body {
 
 .ml-card {
   background: white;
-  /* border-radius: 8px; */
-  /* box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); */
   border-top: 1px solid var(--ml-light-gray);
 }
 
@@ -191,6 +189,13 @@ body {
   border-color: var(--border-light);
 }
 
+.ml-ui-pdp-gallery {
+  height: 100%;
+  min-height: 504px;
+  position: relative;
+  width: 478px;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
@@ -209,9 +214,12 @@ body {
   background: #a8a8a8;
 }
 
-body {
-  background: var(--background);
-  color: var(--text-primary);
-  font-family: "Proxima Nova", -apple-system, "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
-  line-height: 1.4;
+/* Hide scrollbar for product info column */
+.product-info-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.product-info-scroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

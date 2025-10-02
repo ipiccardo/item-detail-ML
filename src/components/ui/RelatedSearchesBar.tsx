@@ -21,7 +21,7 @@ export const RelatedSearchesBar = (): JSX.Element => {
 
     return (
         <div className="bg-gray-100 py-3">
-            <div className="max-w-7xl mx-auto px-4">
+            <div className="max-w-[1200px] mx-auto">
                 {/* Related Searches */}
                 <div className="flex items-center gap-4 text-sm mb-2">
                     <span className="text-gray-800 font-semibold">También puede interesarte:</span>

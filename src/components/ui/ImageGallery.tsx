@@ -14,7 +14,7 @@ export default function ImageGallery({ images, title }: ImageGalleryProps): JSX.
     const { selectedImage, selectImage } = useImageGallery(images);
 
     return (
-        <div className="flex gap-4">
+        <div className="flex">
             {/* Thumbnail Gallery - Vertical on the left */}
             <div className="flex flex-col gap-2 w-16 ml-6">
                 {images.map((image, index) => (
@@ -35,7 +35,7 @@ export default function ImageGallery({ images, title }: ImageGalleryProps): JSX.
             </div>
 
             {/* Main Image */}
-            <div className="flex-1 aspect-square bg-white rounded-md overflow-hidden relative border border-gray-200">
+            <div className="flex-1 aspect-square bg-white rounded-md overflow-hidden relative ">
                 <Image
                     src={images[selectedImage]}
                     alt={title}

@@ -17,8 +17,9 @@ import { KeyFeatures } from "./ui/KeyFeatures";
 import { ProductCharacteristics } from "./ui/ProductCharacteristics";
 import { DetailedSpecifications } from "./ui/DetailedSpecifications";
 import { RelatedProducts } from "./ui/RelatedProducts";
-import { CompareProducts } from "./ui/CompareProducts";
+// import { CompareProducts } from "./ui/CompareProducts";
 import { SellerInfoCard } from "./ui/SellerInfoCard";
+import TradeInPlan from "./ui/TradeInPlan";
 
 interface ProductDetailProps {
     product: Product;
@@ -28,15 +29,17 @@ export default function ProductDetail({ product }: ProductDetailProps): JSX.Elem
     const { quantity, increment, decrement } = useQuantity(product.stock);
     const { selectedVariants, selectColor, selectStorage, getCurrentPrice, getCurrentImage } = useVariants(product);
     const { relatedProducts, isLoading: isLoadingRelated } = useRelatedProductsService(product.id);
-    const { products: compareProducts, removeFromCompare, clearCompare } = useCompare();
+    // const { products: compareProducts, removeFromCompare, clearCompare } = useCompare();
 
     // Handle actions
-    const handleBuyNow = () => {
+    const handleBuyNow = (): void => {
+        // eslint-disable-next-line no-console
         console.log("Comprar ahora:", { productId: product.id, quantity });
         // Aquí iría la lógica de compra
     };
 
-    const handleAddToCart = () => {
+    const handleAddToCart = (): void => {
+        // eslint-disable-next-line no-console
         console.log("Agregar al carrito:", { productId: product.id, quantity });
         // Aquí iría la lógica de agregar al carrito
     };
@@ -53,18 +56,18 @@ export default function ProductDetail({ product }: ProductDetailProps): JSX.Elem
     return (
         <div className="min-h-screen" style={{ backgroundColor: "#F5F5F5" }}>
             {/* Main Content - 2 Column Layout */}
-            <div className="max-w-[1200px] mx-auto px-4 pt-6">
-                <div className="flex gap-4 bg-white">
+            <div className="max-w-[1200px] mx-auto pt-6">
+                <div className="flex gap-4 bg-white items-start">
                     {/* Left Section - Images and Product Info */}
-                    <div className="flex-1 bg-white rounded-md p-6">
-                        <div className="flex gap-6">
-                            {/* Images Column */}
-                            <div className="w-[400px]">
+                    <div className="flex-1 bg-white rounded-md p-6 pr-0 pl-0">
+                        <div className="flex items-start">
+                            {/* Images Column - Fixed */}
+                            <div className="w-[400px] ml-ui-pdp-gallery flex-shrink-0">
                                 <ImageGallery images={updatedProduct.images} title={updatedProduct.title} />
                             </div>
 
-                            {/* Product Info Column */}
-                            <div className="flex-1">
+                            {/* Product Info Column - Scrollable */}
+                            <div className="flex-1 product-info-scroll" style={{ maxHeight: 'calc(100vh - 100px)', overflowY: 'auto' }}>
                                 <div>
                                     <div className="mb-1">
                                         <p className="text-sm ml-link">Ver más productos marca Samsung</p>
@@ -85,7 +88,7 @@ export default function ProductDetail({ product }: ProductDetailProps): JSX.Elem
                                     {/* Best Seller Tag */}
                                     <div className="flex items-center gap-2 mb-2">
                                         <span className="ml-tag-mas-vendido">MÁS VENDIDO</span>
-                                        <span className="text-sm ml-link">5° en Celulares y Smartphones Samsung</span>
+                                        <span className="ml-link text-xs">5° en Celulares y Smartphones Samsung</span>
                                     </div>
 
                                     {/* Title */}
@@ -112,6 +115,9 @@ export default function ProductDetail({ product }: ProductDetailProps): JSX.Elem
                                         onStorageSelect={selectStorage}
                                     />
 
+                                    {/* Trade In Plan */}
+                                    <TradeInPlan className="mb-4" />
+
                                     {/* Key Features */}
                                     {product.keyFeatures && product.keyFeatures.length > 0 && <KeyFeatures features={product.keyFeatures} />}
                                 </div>
@@ -131,7 +137,7 @@ export default function ProductDetail({ product }: ProductDetailProps): JSX.Elem
                                             Dale a tu estilo una ventaja con el Galaxy A26 5G. El cuerpo delgado se adapta cómodamente a la mano, mientras que la parte posterior de cristal brillante y el diseño limpio de la cámara llaman la atención.
                                         </p>
                                         <p className="text-sm ml-text-secondary leading-relaxed">
-                                            La pantalla Super AMOLED de 6,7" con un bisel delgado y minimizado lo atrae a su entretenimiento con una claridad vívida, desde el último video de su creador favorito hasta las fotos de sus seres queridos.
+                                            La pantalla Super AMOLED de 6,7&quot; con un bisel delgado y minimizado lo atrae a su entretenimiento con una claridad vívida, desde el último video de su creador favorito hasta las fotos de sus seres queridos.
                                         </p>
                                         <p className="text-sm ml-text-secondary leading-relaxed">
                                             Disfruta de tus actividades favoritas al aire libre con tranquilidad. Con clasificación IP67 para resistencia al polvo y al agua, el Galaxy A26 5G está listo para capturar los momentos más destacados de los conciertos o grabar momentos épicos del entretiempo, incluso bajo la lluvia.
@@ -147,7 +153,6 @@ export default function ProductDetail({ product }: ProductDetailProps): JSX.Elem
                                         </p>
                                     </div>
                                 </div>
-
 
                                 {/* Compare Products */}
                                 {/* {compareProducts.length > 0 && (
@@ -166,8 +171,6 @@ export default function ProductDetail({ product }: ProductDetailProps): JSX.Elem
                             </div>
                         </div>
                     </div>
-
-
 
                     {/* Right Column - Purchase Info (Fixed width, Sticky) */}
                     <div className="w-[309px] flex-shrink-0 space-y-4 sticky top-4 self-start mr-6 mt-6">
@@ -190,7 +193,7 @@ export default function ProductDetail({ product }: ProductDetailProps): JSX.Elem
                                     alt="Mercado Libre"
                                     className="w-full h-24 object-cover rounded-md mb-3"
                                     onError={(e) => {
-                                        e.currentTarget.style.display = 'none';
+                                        e.currentTarget.style.display = "none";
                                     }}
                                 />
                                 <div className="flex items-center justify-between mb-2">
@@ -260,7 +263,14 @@ export default function ProductDetail({ product }: ProductDetailProps): JSX.Elem
 
                             <div className="mb-3">
                                 <p className="text-xs font-semibold ml-text-primary mb-2">Cuotas sin Tarjeta</p>
-                                <img src="/mercado-pago-logo.png" alt="Mercado Pago" className="h-6" onError={(e) => { e.currentTarget.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"/>' }} />
+                                <img
+                                    src="/mercado-pago-logo.png"
+                                    alt="Mercado Pago"
+                                    className="h-6"
+                                    onError={(e) => {
+                                        e.currentTarget.src = "data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\"/>";
+                                    }}
+                                />
                             </div>
 
                             <div className="mb-3">

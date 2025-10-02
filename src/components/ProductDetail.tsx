@@ -8,7 +8,7 @@ import { formatNumber, generateStars } from "@/lib/utils";
 import { useQuantity } from "@/hooks/useQuantity";
 import { useVariants } from "@/hooks/useVariants";
 import { useRelatedProductsService } from "@/hooks/useRelatedProductsService";
-import { useCompare } from "@/hooks/useCompare";
+// import { useCompare } from "@/hooks/useCompare";
 import { Heart } from "lucide-react";
 import ImageGallery from "./ui/ImageGallery";
 import ProductPrice from "./ui/ProductPrice";
@@ -20,6 +20,7 @@ import { RelatedProducts } from "./ui/RelatedProducts";
 // import { CompareProducts } from "./ui/CompareProducts";
 import { SellerInfoCard } from "./ui/SellerInfoCard";
 import TradeInPlan from "./ui/TradeInPlan";
+import QuestionsAndAnswers from "./ui/QuestionsAndAnswers";
 
 interface ProductDetailProps {
     product: Product;
@@ -30,6 +31,8 @@ export default function ProductDetail({ product }: ProductDetailProps): JSX.Elem
     const { selectedVariants, selectColor, selectStorage, getCurrentPrice, getCurrentImage } = useVariants(product);
     const { relatedProducts, isLoading: isLoadingRelated } = useRelatedProductsService(product.id);
     // const { products: compareProducts, removeFromCompare, clearCompare } = useCompare();
+
+    // No custom scroll - let CSS handle it naturally
 
     // Handle actions
     const handleBuyNow = (): void => {
@@ -54,126 +57,74 @@ export default function ProductDetail({ product }: ProductDetailProps): JSX.Elem
     };
 
     return (
-        <div className="min-h-screen" style={{ backgroundColor: "#F5F5F5" }}>
-            {/* Main Content - 2 Column Layout */}
-            <div className="max-w-[1200px] mx-auto pt-6">
-                <div className="flex gap-4 bg-white items-start">
-                    {/* Left Section - Images and Product Info */}
-                    <div className="flex-1 bg-white rounded-md p-6 pr-0 pl-0">
-                        <div className="flex items-start">
-                            {/* Images Column - Fixed */}
-                            <div className="w-[400px] ml-ui-pdp-gallery flex-shrink-0">
-                                <ImageGallery images={updatedProduct.images} title={updatedProduct.title} />
-                            </div>
-
-                            {/* Product Info Column - Scrollable */}
-                            <div className="flex-1 product-info-scroll" style={{ maxHeight: 'calc(100vh - 100px)', overflowY: 'auto' }}>
-                                <div>
-                                    <div className="mb-1">
-                                        <p className="text-sm ml-link">Ver más productos marca Samsung</p>
-                                    </div>
-
-                                    {/* Status and Actions */}
-                                    <div className="flex items-center justify-between mb-3">
-                                        <div className="flex items-center gap-2 text-sm ml-text-secondary">
-                                            <span>Nuevo</span>
-                                            <span>|</span>
-                                            <span>+{formatNumber(product.seller.sales)} vendidos</span>
-                                        </div>
-                                        <button className="ml-heart-button">
-                                            <Heart className="w-6 h-6" />
-                                        </button>
-                                    </div>
-
-                                    {/* Best Seller Tag */}
-                                    <div className="flex items-center gap-2 mb-2">
-                                        <span className="ml-tag-mas-vendido">MÁS VENDIDO</span>
-                                        <span className="ml-link text-xs">5° en Celulares y Smartphones Samsung</span>
-                                    </div>
-
-                                    {/* Title */}
-                                    <h1 className="text-xl font-normal ml-text-primary leading-snug mb-3">{product.title}</h1>
-
-                                    {/* Rating */}
-                                    <div className="flex items-center gap-2 mb-4">
-                                        <span className="text-sm ml-text-primary">{product.rating.average}</span>
-                                        <div className="flex items-center">
-                                            <span className="ml-rating text-sm">{generateStars(product.rating.average)}</span>
-                                        </div>
-                                        <span className="text-sm ml-text-secondary">({formatNumber(product.rating.totalReviews)})</span>
-                                    </div>
-
-                                    {/* Price */}
-                                    <ProductPrice product={updatedProduct} />
-
-                                    {/* Variant Selector */}
-                                    <VariantSelector
-                                        product={product}
-                                        selectedColor={selectedVariants.color}
-                                        selectedStorage={selectedVariants.storage}
-                                        onColorSelect={selectColor}
-                                        onStorageSelect={selectStorage}
-                                    />
-
-                                    {/* Trade In Plan */}
-                                    <TradeInPlan className="mb-4" />
-
-                                    {/* Key Features */}
-                                    {product.keyFeatures && product.keyFeatures.length > 0 && <KeyFeatures features={product.keyFeatures} />}
-                                </div>
-                            </div>
-                        </div>
-                        <div className="max-w-[1200px] mx-auto mt-4">
-                            <div className="bg-white rounded-md p-6">
-                                {/* Product Characteristics */}
-                                <ProductCharacteristics />
-                                {/* Detailed Specifications */}
-                                <DetailedSpecifications className="mt-6 pb-10" />
-
-                                <div className="mt-8 pt-8 border-t border-gray-200">
-                                    <h2 className="text-xl font-semibold ml-text-primary mb-4">Descripción</h2>
-                                    <div className="space-y-4">
-                                        <p className="text-sm ml-text-secondary leading-relaxed">
-                                            Dale a tu estilo una ventaja con el Galaxy A26 5G. El cuerpo delgado se adapta cómodamente a la mano, mientras que la parte posterior de cristal brillante y el diseño limpio de la cámara llaman la atención.
-                                        </p>
-                                        <p className="text-sm ml-text-secondary leading-relaxed">
-                                            La pantalla Super AMOLED de 6,7&quot; con un bisel delgado y minimizado lo atrae a su entretenimiento con una claridad vívida, desde el último video de su creador favorito hasta las fotos de sus seres queridos.
-                                        </p>
-                                        <p className="text-sm ml-text-secondary leading-relaxed">
-                                            Disfruta de tus actividades favoritas al aire libre con tranquilidad. Con clasificación IP67 para resistencia al polvo y al agua, el Galaxy A26 5G está listo para capturar los momentos más destacados de los conciertos o grabar momentos épicos del entretiempo, incluso bajo la lluvia.
-                                        </p>
-                                        <p className="text-sm ml-text-secondary leading-relaxed">
-                                            Ahora, con OIS para estabilizar tus tomas, puedes capturar las escenas más dinámicas con una claridad impresionante, ya sea que estés en una fiesta, un concierto o un juego deportivo.
-                                        </p>
-                                        <p className="text-sm ml-text-secondary leading-relaxed">
-                                            Aumenta la diversión de navegar y jugar a vídeos en streaming, la CPU actualizada mantiene todo funcionando rápido y sin problemas.
-                                        </p>
-                                        <p className="text-sm ml-text-secondary leading-relaxed">
-                                            Con una batería de larga duración de 5.000 mAh (típica), puede disfrutar de maratones de películas hasta 17 horas sin tener que cargar su Galaxy A26 5G.
-                                        </p>
-                                    </div>
-                                </div>
-
-                                {/* Compare Products */}
-                                {/* {compareProducts.length > 0 && (
-                                    <CompareProducts
-                                        products={compareProducts}
-                                        onRemove={removeFromCompare}
-                                        onClear={clearCompare}
-                                        className="mt-6"
-                                    />
-                                )} */}
-
-                                {/* Related Products */}
-                                {!isLoadingRelated && relatedProducts.length > 0 && (
-                                    <RelatedProducts products={relatedProducts} className="mt-6" />
-                                )}
-                            </div>
+        <div className="min-h-screen bg-white relative" style={{ backgroundColor: "#F5F5F5" }}>
+            {/* Main Content - 3 Column Layout */}
+            <div className="max-w-[1200px] mx-auto pt-6 bg-white relative">
+                <div className="flex items-start bg-white">
+                    {/* Left Column - Images (Sticky) */}
+                    <div className="w-[478px] flex-shrink-0 sticky top-4 self-start">
+                        <div className="bg-white rounded-md p-6">
+                            <ImageGallery images={updatedProduct.images} title={updatedProduct.title} />
                         </div>
                     </div>
 
-                    {/* Right Column - Purchase Info (Fixed width, Sticky) */}
-                    <div className="w-[309px] flex-shrink-0 space-y-4 sticky top-4 self-start mr-6 mt-6">
+                    {/* Middle Column - Product Info */}
+                    <div className="flex-1 bg-white rounded-md max-w-[360px]">
+                        <div className="mb-1">
+                            <p className="text-sm ml-link">Ver más productos marca Samsung</p>
+                        </div>
+
+                        {/* Status and Actions */}
+                        <div className="flex items-center justify-between mb-3">
+                            <div className="flex items-center gap-2 text-sm ml-text-secondary">
+                                <span>Nuevo</span>
+                                <span>|</span>
+                                <span>+{formatNumber(product.seller.sales)} vendidos</span>
+                            </div>
+                            <button className="ml-heart-button">
+                                <Heart className="w-6 h-6" />
+                            </button>
+                        </div>
+
+                        {/* Best Seller Tag */}
+                        <div className="flex items-center gap-2 mb-2">
+                            <span className="ml-tag-mas-vendido">MÁS VENDIDO</span>
+                            <span className="ml-link text-xs">5° en Celulares y Smartphones Samsung</span>
+                        </div>
+
+                        {/* Title */}
+                        <h1 className="text-xl font-normal ml-text-primary leading-snug mb-3">{product.title}</h1>
+
+                        {/* Rating */}
+                        <div className="flex items-center gap-2 mb-4">
+                            <span className="text-sm ml-text-primary">{product.rating.average}</span>
+                            <div className="flex items-center">
+                                <span className="ml-rating text-sm">{generateStars(product.rating.average)}</span>
+                            </div>
+                            <span className="text-sm ml-text-secondary">({formatNumber(product.rating.totalReviews)})</span>
+                        </div>
+
+                        {/* Price */}
+                        <ProductPrice product={updatedProduct} />
+
+                        {/* Variant Selector */}
+                        <VariantSelector
+                            product={product}
+                            selectedColor={selectedVariants.color}
+                            selectedStorage={selectedVariants.storage}
+                            onColorSelect={selectColor}
+                            onStorageSelect={selectStorage}
+                        />
+
+                        {/* Trade In Plan */}
+                        <TradeInPlan className="mb-4" />
+
+                        {/* Key Features */}
+                        {product.keyFeatures && product.keyFeatures.length > 0 && <KeyFeatures features={product.keyFeatures} />}
+                    </div>
+
+                    {/* Right Column - Purchase Info (Fixed width, Scrolls with page) */}
+                    <div className="w-[309px] flex-shrink-0 absolute right-6">
                         <SellerInfoCard
                             seller={product.seller}
                             shipping={product.shipping}
@@ -325,9 +276,67 @@ export default function ProductDetail({ product }: ProductDetailProps): JSX.Elem
                         </div>
                     </div>
                 </div>
-            </div>
 
-            {/* Product Description */}
+                {/* Full-width sections below main layout */}
+                <div className="mt-4">
+                    <div className="flex gap-4">
+                        {/* Left side - Product sections */}
+                        <div className="flex-1 space-y-4">
+                            {/* Product Characteristics */}
+                            <div className="bg-white rounded-md p-6">
+                                <ProductCharacteristics />
+                            </div>
+
+                            {/* Detailed Specifications */}
+                            <div className="bg-white rounded-md p-6">
+                                <DetailedSpecifications className="pb-10" />
+                            </div>
+
+                            {/* Description */}
+                            <div className="bg-white rounded-md p-6">
+                                <div className="mt-8 pt-8 border-t border-gray-200">
+                                    <h2 className="text-xl font-semibold ml-text-primary mb-4">Descripción</h2>
+                                    <div className="space-y-4">
+                                        <p className="text-sm ml-text-secondary leading-relaxed">
+                                            Dale a tu estilo una ventaja con el Galaxy A26 5G. El cuerpo delgado se adapta cómodamente a la mano, mientras que la parte posterior de cristal brillante y el diseño limpio de la cámara llaman la atención.
+                                        </p>
+                                        <p className="text-sm ml-text-secondary leading-relaxed">
+                                            La pantalla Super AMOLED de 6,7&quot; con un bisel delgado y minimizado lo atrae a su entretenimiento con una claridad vívida, desde el último video de su creador favorito hasta las fotos de sus seres queridos.
+                                        </p>
+                                        <p className="text-sm ml-text-secondary leading-relaxed">
+                                            Disfruta de tus actividades favoritas al aire libre con tranquilidad. Con clasificación IP67 para resistencia al polvo y al agua, el Galaxy A26 5G está listo para capturar los momentos más destacados de los conciertos o grabar momentos épicos del entretiempo, incluso bajo la lluvia.
+                                        </p>
+                                        <p className="text-sm ml-text-secondary leading-relaxed">
+                                            Ahora, con OIS para estabilizar tus tomas, puedes capturar las escenas más dinámicas con una claridad impresionante, ya sea que estés en una fiesta, un concierto o un juego deportivo.
+                                        </p>
+                                        <p className="text-sm ml-text-secondary leading-relaxed">
+                                            Aumenta la diversión de navegar y jugar a vídeos en streaming, la CPU actualizada mantiene todo funcionando rápido y sin problemas.
+                                        </p>
+                                        <p className="text-sm ml-text-secondary leading-relaxed">
+                                            Con una batería de larga duración de 5.000 mAh (típica), puede disfrutar de maratones de películas hasta 17 horas sin tener que cargar su Galaxy A26 5G.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Questions and Answers */}
+                            <QuestionsAndAnswers />
+
+                            {/* Related Products */}
+                            {!isLoadingRelated && relatedProducts.length > 0 && (
+                                <div className="bg-white rounded-md p-6">
+                                    <RelatedProducts products={relatedProducts} />
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Right side - Empty space where third column was */}
+                        <div className="w-[309px] flex-shrink-0">
+                            {/* Empty space - no content here */}
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </div>
     );

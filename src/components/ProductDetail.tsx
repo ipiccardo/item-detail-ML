@@ -2,7 +2,13 @@
 
 import { JSX } from "react";
 import { Product } from "@/types/product";
-import { useQuantity, useVariants, useRelatedProductsService, useProductActions, useProductWithVariants } from "@/hooks";
+import {
+    useQuantity,
+    useVariants,
+    useRelatedProductsService,
+    useProductActions,
+    useProductWithVariants,
+} from "@/hooks";
 import ImageGallery from "./ui/ImageGallery";
 import ProductPrice from "./ui/ProductPrice";
 import { VariantSelector } from "./ui/VariantSelector";
@@ -13,6 +19,8 @@ import { ProductMobileActions } from "./ui/ProductMobileActions";
 import { ProductSidebar } from "./ui/ProductSidebar";
 import { ProductMobileSections } from "./ui/ProductMobileSections";
 import { ProductMainContent } from "./ui/ProductMainContent";
+import { ProductChat } from "./ui/ProductChat";
+import { ChatWidget } from "./ui/ChatWidget";
 
 interface ProductDetailProps {
     product: Product;
@@ -94,13 +102,16 @@ export default function ProductDetail({ product }: ProductDetailProps): JSX.Elem
                             />
                         </div>
 
-                        {/* Right side - Empty space (desktop only) */}
+                        {/* Right side - Chat (desktop only) */}
                         <div className="hidden lg:block lg:w-[309px] lg:flex-shrink-0">
-                            {/* Empty space - no content here */}
+                            <ProductChat product={product} className="sticky top-4" />
                         </div>
                     </div>
                 </div>
             </div>
+
+            {/* Mobile Chat Widget */}
+            <ChatWidget productId={product.id} productTitle={product.title} />
         </div>
     );
 }

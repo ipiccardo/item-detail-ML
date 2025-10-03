@@ -1,0 +1,203 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { ChatWidget } from "@/components/ui/ChatWidget";
+
+// Mock fetch
+global.fetch = jest.fn();
+
+const mockFetch = fetch as jest.MockedFunction<typeof fetch>;
+
+describe("ChatWidget", () => {
+    beforeEach(() => {
+        mockFetch.mockClear();
+    });
+
+    it("should render chat button initially", () => {
+        render(<ChatWidget productId="123" productTitle="Test Product" />);
+
+        const chatButton = screen.getByLabelText("Abrir chat");
+        expect(chatButton).toBeInTheDocument();
+        expect(chatButton).toHaveClass("fixed", "bottom-6", "right-6");
+    });
+
+    it("should open chat window when button is clicked", () => {
+        render(<ChatWidget productId="123" productTitle="Test Product" />);
+
+        const chatButton = screen.getByLabelText("Abrir chat");
+        fireEvent.click(chatButton);
+
+        expect(screen.getByText("Asistente Virtual")).toBeInTheDocument();
+        expect(screen.getByText("Te ayudo con tus dudas")).toBeInTheDocument();
+    });
+
+    it("should close chat window when X button is clicked", () => {
+        render(<ChatWidget productId="123" productTitle="Test Product" />);
+
+        const chatButton = screen.getByLabelText("Abrir chat");
+        fireEvent.click(chatButton);
+
+        expect(screen.getByText("Asistente Virtual")).toBeInTheDocument();
+
+        const closeButton = screen.getByRole("button", { name: "Cerrar chat" });
+        fireEvent.click(closeButton);
+
+        expect(screen.queryByText("Asistente Virtual")).not.toBeInTheDocument();
+    });
+
+    it("should close chat window when backdrop is clicked", () => {
+        render(<ChatWidget productId="123" productTitle="Test Product" />);
+
+        const chatButton = screen.getByLabelText("Abrir chat");
+        fireEvent.click(chatButton);
+
+        expect(screen.getByText("Asistente Virtual")).toBeInTheDocument();
+
+        const backdrop = screen.getByRole("generic");
+        fireEvent.click(backdrop);
+
+        expect(screen.queryByText("Asistente Virtual")).not.toBeInTheDocument();
+    });
+
+    it("should display initial bot message", () => {
+        render(<ChatWidget productId="123" productTitle="Test Product" />);
+
+        const chatButton = screen.getByLabelText("Abrir chat");
+        fireEvent.click(chatButton);
+
+        expect(screen.getByText(/¡Hola! 👋 Soy tu asistente virtual/)).toBeInTheDocument();
+    });
+
+    it("should send message when send button is clicked", async () => {
+        mockFetch.mockResolvedValueOnce({
+            ok: true,
+            json: async () => ({ response: "Respuesta del bot" }),
+        } as Response);
+
+        render(<ChatWidget productId="123" productTitle="Test Product" />);
+
+        const chatButton = screen.getByLabelText("Abrir chat");
+        fireEvent.click(chatButton);
+
+        const input = screen.getByPlaceholderText("Escribe tu mensaje...");
+        fireEvent.change(input, { target: { value: "Hola" } });
+
+        const sendButton = screen.getByRole("button", { name: "Enviar mensaje" });
+        fireEvent.click(sendButton);
+
+        expect(screen.getByText("Hola")).toBeInTheDocument();
+
+        await waitFor(() => {
+            expect(screen.getByText("Respuesta del bot")).toBeInTheDocument();
+        });
+    });
+
+    it("should send message when Enter key is pressed", async () => {
+        mockFetch.mockResolvedValueOnce({
+            ok: true,
+            json: async () => ({ response: "Respuesta del bot" }),
+        } as Response);
+
+        render(<ChatWidget productId="123" productTitle="Test Product" />);
+
+        const chatButton = screen.getByLabelText("Abrir chat");
+        fireEvent.click(chatButton);
+
+        const input = screen.getByPlaceholderText("Escribe tu mensaje...");
+        fireEvent.change(input, { target: { value: "Hola" } });
+        fireEvent.keyPress(input, { key: "Enter", code: "Enter" });
+
+        expect(screen.getByText("Hola")).toBeInTheDocument();
+
+        await waitFor(() => {
+            expect(screen.getByText("Respuesta del bot")).toBeInTheDocument();
+        });
+    });
+
+    it("should show loading state when sending message", async () => {
+        mockFetch.mockImplementationOnce(() => new Promise(resolve => setTimeout(resolve, 100)));
+
+        render(<ChatWidget productId="123" productTitle="Test Product" />);
+
+        const chatButton = screen.getByLabelText("Abrir chat");
+        fireEvent.click(chatButton);
+
+        const input = screen.getByPlaceholderText("Escribe tu mensaje...");
+        fireEvent.change(input, { target: { value: "Hola" } });
+
+        const sendButton = screen.getByRole("button", { name: "Enviar mensaje" });
+        fireEvent.click(sendButton);
+
+        expect(screen.getByText("Hola")).toBeInTheDocument();
+        expect(screen.getByRole("button", { name: "" })).toBeDisabled();
+    });
+
+    it("should handle API error gracefully", async () => {
+        mockFetch.mockRejectedValueOnce(new Error("Network error"));
+
+        render(<ChatWidget productId="123" productTitle="Test Product" />);
+
+        const chatButton = screen.getByLabelText("Abrir chat");
+        fireEvent.click(chatButton);
+
+        const input = screen.getByPlaceholderText("Escribe tu mensaje...");
+        fireEvent.change(input, { target: { value: "Hola" } });
+
+        const sendButton = screen.getByRole("button", { name: "Enviar mensaje" });
+        fireEvent.click(sendButton);
+
+        await waitFor(() => {
+            expect(screen.getByText(/Lo siento, hubo un problema con la conexión/)).toBeInTheDocument();
+        });
+    });
+
+    it("should not send empty messages", () => {
+        render(<ChatWidget productId="123" productTitle="Test Product" />);
+
+        const chatButton = screen.getByLabelText("Abrir chat");
+        fireEvent.click(chatButton);
+
+        const sendButton = screen.getByRole("button", { name: "Enviar mensaje" });
+        expect(sendButton).toBeDisabled();
+
+        const input = screen.getByPlaceholderText("Escribe tu mensaje...");
+        fireEvent.change(input, { target: { value: "   " } });
+
+        expect(sendButton).toBeDisabled();
+    });
+
+    it("should call API with correct payload", async () => {
+        mockFetch.mockResolvedValueOnce({
+            ok: true,
+            json: async () => ({ response: "Respuesta del bot" }),
+        } as Response);
+
+        render(<ChatWidget productId="123" productTitle="Test Product" />);
+
+        const chatButton = screen.getByLabelText("Abrir chat");
+        fireEvent.click(chatButton);
+
+        const input = screen.getByPlaceholderText("Escribe tu mensaje...");
+        fireEvent.change(input, { target: { value: "Hola" } });
+
+        const sendButton = screen.getByRole("button", { name: "Enviar mensaje" });
+        fireEvent.click(sendButton);
+
+        await waitFor(() => {
+            expect(mockFetch).toHaveBeenCalledWith(
+                "https://develop-n8n.n8jgoh.easypanel.host/webhook/d6e4bab8-60ed-4537-b9d1-79cf7c778962/chat",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        message: "Hola",
+                        productId: "123",
+                        productTitle: "Test Product",
+                        timestamp: expect.any(String),
+                    }),
+                },
+            );
+        });
+    });
+});

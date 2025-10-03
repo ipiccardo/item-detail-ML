@@ -260,7 +260,7 @@ describe("RelatedProducts", () => {
     describe("Styling", () => {
         it("should apply custom className", () => {
             const { container } = render(
-                <RelatedProducts products={mockProducts} className="custom-class" />
+                <RelatedProducts products={mockProducts} className="custom-class" />,
             );
             const mainContainer = container.firstChild as HTMLElement;
             expect(mainContainer).toHaveClass("custom-class");

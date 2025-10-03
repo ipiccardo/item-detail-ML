@@ -7,3 +7,4 @@ export { useFavorites } from "./useFavorites";
 export { useCompare } from "./useCompare";
 export { useProductActions } from "./useProductActions";
 export { useProductWithVariants } from "./useProductWithVariants";
+export { useChat } from "./useChat";

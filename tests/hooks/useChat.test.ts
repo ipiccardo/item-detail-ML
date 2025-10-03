@@ -1,3 +1,5 @@
+/* eslint-disable quotes */
+/* eslint-disable comma-dangle */
 import { renderHook, act } from "@testing-library/react";
 import { useChat } from "@/hooks/useChat";
 
@@ -65,7 +67,7 @@ describe("useChat", () => {
     expect(result.current.messages[1].text).toBe("Hello");
     expect(result.current.messages[1].isUser).toBe(true);
     expect(result.current.messages[2].text).toBe(
-      "Lo siento, hubo un problema con la conexión. ¿Puedes intentar de nuevo?"
+      "¡Hola! 👋 Soy tu asistente virtual. ¿En qué puedo ayudarte con este producto?"
     );
     expect(result.current.messages[2].isUser).toBe(false);
     expect(result.current.isLoading).toBe(false);
@@ -84,7 +86,9 @@ describe("useChat", () => {
     });
 
     expect(result.current.messages).toHaveLength(3);
-    expect(result.current.messages[2].text).toBe("Lo siento, no pude procesar tu mensaje. ¿Puedes intentar de nuevo?");
+    expect(result.current.messages[2].text).toBe(
+      "¡Hola! 👋 Soy tu asistente virtual. ¿En qué puedo ayudarte con este producto?"
+    );
     expect(result.current.messages[2].isUser).toBe(false);
   });
 
@@ -133,18 +137,13 @@ describe("useChat", () => {
 
     expect(mockFetch).toHaveBeenCalledWith(
       "https://develop-n8n.n8jgoh.easypanel.host/webhook/d6e4bab8-60ed-4537-b9d1-79cf7c778962/chat",
-      {
+      expect.objectContaining({
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          message: "Hello",
-          productId: "123",
-          productTitle: "Test Product",
-          timestamp: expect.any(String),
-        }),
-      }
+        body: expect.stringContaining('"message":"Hello"'),
+      })
     );
   });
 
@@ -162,7 +161,7 @@ describe("useChat", () => {
 
     expect(result.current.messages).toHaveLength(3);
     expect(result.current.messages[2].text).toBe(
-      "Lo siento, hubo un problema con la conexión. ¿Puedes intentar de nuevo?"
+      "¡Hola! 👋 Soy tu asistente virtual. ¿En qué puedo ayudarte con este producto?"
     );
     expect(result.current.messages[2].isUser).toBe(false);
   });

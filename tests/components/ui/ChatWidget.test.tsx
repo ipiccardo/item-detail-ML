@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { ChatWidget } from "@/components/ui/ChatWidget";
@@ -6,6 +7,12 @@ import { ChatWidget } from "@/components/ui/ChatWidget";
 global.fetch = jest.fn();
 
 const mockFetch = fetch as jest.MockedFunction<typeof fetch>;
+
+// Mock scrollIntoView
+Object.defineProperty(Element.prototype, 'scrollIntoView', {
+    value: jest.fn(),
+    writable: true,
+});
 
 describe("ChatWidget", () => {
     beforeEach(() => {
@@ -52,7 +59,7 @@ describe("ChatWidget", () => {
 
         expect(screen.getByText("Asistente Virtual")).toBeInTheDocument();
 
-        const backdrop = screen.getByRole("generic");
+        const backdrop = screen.getByRole("generic", { hidden: true });
         fireEvent.click(backdrop);
 
         expect(screen.queryByText("Asistente Virtual")).not.toBeInTheDocument();
@@ -103,10 +110,10 @@ describe("ChatWidget", () => {
         fireEvent.click(chatButton);
 
         const input = screen.getByPlaceholderText("Escribe tu mensaje...");
-        fireEvent.change(input, { target: { value: "Hola" } });
+        fireEvent.change(input, { target: { value: "Test message" } });
         fireEvent.keyPress(input, { key: "Enter", code: "Enter" });
 
-        expect(screen.getByText("Hola")).toBeInTheDocument();
+        expect(screen.getByText("Test message")).toBeInTheDocument();
 
         await waitFor(() => {
             expect(screen.getByText("Respuesta del bot")).toBeInTheDocument();

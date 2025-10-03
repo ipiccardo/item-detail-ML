@@ -10,22 +10,18 @@ const mockNavigator = {
   },
 };
 
+// Mock navigator
 Object.defineProperty(global, "navigator", {
   value: mockNavigator,
   writable: true,
   configurable: true,
 });
 
-// Mock window
-Object.defineProperty(global, "window", {
-  value: {
-    location: {
-      href: "https://example.com/product/1",
-    },
-  },
-  writable: true,
-  configurable: true,
-});
+// Mock window.location.href
+delete (window as { location?: unknown }).location;
+(window as { location: { href: string } }).location = {
+  href: "https://example.com/product/1",
+};
 
 // Mock alert
 global.alert = jest.fn();

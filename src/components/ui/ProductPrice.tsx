@@ -23,8 +23,8 @@ export default function ProductPrice({ product }: ProductPriceProps): JSX.Elemen
                         </span>
                     </div>
                 )}
-                <div className="flex items-center gap-2 mb-2">
-                    <span className="text-[32px] font-light ml-text-primary leading-none">
+                <div className="flex items-center gap-2 mb-2 flex-wrap">
+                    <span className="text-xl lg:text-[32px] font-light ml-text-primary leading-none">
                         {formatPrice(price.amount)}
                     </span>
 
@@ -37,8 +37,9 @@ export default function ProductPrice({ product }: ProductPriceProps): JSX.Elemen
 
                 {/* Installments */}
                 <div className="space-y-0.5">
-                    <p className="text-base ml-ui-pdp-color--GREEN font-normal">
-                        Mismo precio en 12 cuotas de {formatPrice(installmentAmount)}<sup className="text-[10px]">25</sup>
+                    <p className="text-sm lg:text-base ml-ui-pdp-color--GREEN font-normal">
+                        Mismo precio en 12 cuotas de {formatPrice(installmentAmount)}
+                        <sup className="text-[10px]">25</sup>
                     </p>
                     <p className="text-xs ml-text-secondary">
                         Precio sin impuestos nacionales: {formatPrice(price.amount)}

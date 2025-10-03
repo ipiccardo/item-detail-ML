@@ -20,10 +20,10 @@ export const RelatedSearchesBar = (): JSX.Element => {
     ];
 
     return (
-        <div className="bg-gray-100 py-3">
-            <div className="max-w-[1200px] mx-auto">
-                {/* Related Searches */}
-                <div className="flex items-center gap-4 text-sm mb-2">
+        <div className="bg-gray-100 lg:py-3">
+            <div className="max-w-[1200px] mx-auto px-4 lg:px-0">
+                {/* Related Searches - Desktop only */}
+                <div className="hidden lg:flex items-center gap-4 text-sm mb-2">
                     <span className="text-gray-800 font-semibold">También puede interesarte:</span>
                     <div className="flex items-center gap-3">
                         {relatedSearches.map((search, index) => (
@@ -38,8 +38,8 @@ export const RelatedSearchesBar = (): JSX.Element => {
                     </div>
                 </div>
 
-                {/* Breadcrumbs and Actions */}
-                <div className="flex items-center justify-between text-sm">
+                {/* Breadcrumbs and Actions - Desktop only */}
+                <div className="hidden lg:flex items-center justify-between text-sm">
                     {/* Breadcrumbs */}
                     <div className="flex items-center gap-2">
                         {breadcrumbs.map((item, index) => (

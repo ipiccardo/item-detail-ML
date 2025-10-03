@@ -83,10 +83,10 @@ export default function ProductReviews({ className = "" }: ProductReviewsProps):
     };
 
     return (
-        <div className={`bg-white rounded-md p-6 ${className}`}>
-            <div className="flex gap-8">
+        <div className={`bg-white rounded-md p-4 lg:p-6 ${className}`}>
+            <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
                 {/* Left Column - Rating Summary */}
-                <div className="w-72 flex-shrink-0">
+                <div className="w-full lg:w-72 lg:flex-shrink-0">
                     <h2 className="text-xl font-semibold text-gray-900 mb-4">Opiniones del producto</h2>
                     {/* Overall Rating */}
                     <div className="flex items-center gap-3 mb-4">
@@ -133,7 +133,7 @@ export default function ProductReviews({ className = "" }: ProductReviewsProps):
                     {/* Reviews with Photos */}
                     <div className="mb-6">
                         <h3 className="text-base font-semibold text-gray-900 mb-3">Opiniones con fotos</h3>
-                        <div className="flex items-center gap-4 mb-4">
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-4">
                             <div className="relative">
                                 {/* eslint-disable-next-line @next/next/no-img-element */}
                                 <img
@@ -148,7 +148,7 @@ export default function ProductReviews({ className = "" }: ProductReviewsProps):
                                     </div>
                                 </div>
                             </div>
-                            <div className="flex gap-2">
+                            <div className="flex flex-wrap gap-2">
                                 <button className="flex items-center gap-1 px-3 py-1.5 border border-gray-300 rounded text-sm text-gray-700 hover:bg-gray-50">
                                     Ordenar
                                     <ChevronDown className="w-4 h-4" />

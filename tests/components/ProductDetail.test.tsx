@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { render, screen } from "@testing-library/react";
 import ProductDetail from "../../src/components/ProductDetail";
 import { Product } from "../../src/types/product";
@@ -6,7 +7,6 @@ const mockProduct: Product = {
     id: "1",
     title: "Samsung Galaxy S24 Ultra 256GB",
     condition: "new",
-    sales: 1000,
     rating: {
         average: 4.5,
         totalReviews: 150,
@@ -14,39 +14,36 @@ const mockProduct: Product = {
     price: {
         amount: 1200000,
         currency: "ARS",
-        decimals: 2,
     },
-    freeShipping: true,
-    fullShipping: true,
     seller: {
+        id: "seller1",
         name: "TechStore",
-        link: "#",
-        rating: 4.8,
+        reputation: 4.8,
         sales: 1000,
+        location: "Buenos Aires",
     },
-    returns: "Devolución gratis",
-    guarantees: [],
     images: ["/images/test1.jpg", "/images/test2.jpg"],
     description: "Test description",
     keyFeatures: ["Feature 1", "Feature 2"],
-    specifications: [],
-    variants: [
-        {
-            type: "color",
-            name: "Color",
-            options: [
-                { label: "Negro", value: "black", hex: "#000000" },
-            ],
-        },
-    ],
+    specifications: {},
+    variants: {
+        color: [
+            {
+                name: "Negro", value: "black",
+                available: false,
+            },
+        ],
+    },
     breadcrumbs: [],
     paymentMethods: [],
-    relatedProducts: [],
     stock: 10,
     shipping: {
-        method: "Envío gratis",
-        time: "Llega mañana",
+        free: true,
+        estimatedDays: "1",
     },
+    brand: "Samsung",
+    category: "Electronics",
+    model: "Galaxy S24 Ultra",
 };
 
 // Mock child components
@@ -104,8 +101,6 @@ jest.mock("../../src/hooks", () => ({
         selectedVariants: { color: "black", storage: "256gb" },
         selectColor: jest.fn(),
         selectStorage: jest.fn(),
-        getCurrentPrice: () => 1200000,
-        getCurrentImage: () => "/images/test.jpg",
     }),
     useRelatedProductsService: () => ({
         relatedProducts: [],
@@ -114,6 +109,31 @@ jest.mock("../../src/hooks", () => ({
     useProductActions: () => ({
         handleBuyNow: jest.fn(),
         handleAddToCart: jest.fn(),
+    }),
+    useProductWithVariants: () => ({
+        updatedProduct: {
+            id: "1",
+            title: "Samsung Galaxy S24 Ultra 256GB",
+            condition: "new",
+            sales: 1000,
+            rating: { average: 4.5, totalReviews: 150 },
+            price: { amount: 1200000, currency: "ARS", decimals: 2 },
+            freeShipping: true,
+            fullShipping: true,
+            seller: { name: "TechStore", link: "#", rating: 4.8, sales: 1000 },
+            returns: "Devolución gratis",
+            guarantees: [],
+            images: ["/images/test.jpg", "/images/test1.jpg", "/images/test2.jpg"],
+            description: "Test description",
+            keyFeatures: ["Feature 1", "Feature 2"],
+            specifications: {},
+            variants: [{ type: "color", name: "Color", options: [{ label: "Negro", value: "black", hex: "#000000" }] }],
+            breadcrumbs: [],
+            paymentMethods: [],
+            relatedProducts: [],
+            stock: 10,
+            shipping: { method: "Envío gratis", time: "Llega mañana" },
+        },
     }),
 }));
 
@@ -157,7 +177,7 @@ describe("ProductDetail", () => {
     });
 
     it("should handle product without variants", () => {
-        const productWithoutVariants = { ...mockProduct, variants: [] };
+        const productWithoutVariants = { ...mockProduct, variants: {} };
         render(<ProductDetail product={productWithoutVariants} />);
 
         expect(screen.getByTestId("variant-selector")).toBeInTheDocument();
@@ -165,7 +185,7 @@ describe("ProductDetail", () => {
     });
 
     it("should handle product without specifications", () => {
-        const productWithoutSpecs = { ...mockProduct, specifications: [] };
+        const productWithoutSpecs = { ...mockProduct, specifications: {} };
         render(<ProductDetail product={productWithoutSpecs} />);
 
         expect(screen.getByTestId("product-main-content")).toBeInTheDocument();
@@ -198,25 +218,20 @@ describe("ProductDetail", () => {
         const minimalProduct = {
             id: "1",
             title: "Test Product",
-            condition: "new" as const,
-            sales: 0,
-            rating: { average: 0, totalReviews: 0 },
-            price: { amount: 0, currency: "ARS", decimals: 2 },
-            freeShipping: false,
-            fullShipping: false,
-            seller: { name: "Test", link: "#", rating: 0, sales: 0 },
-            returns: "",
-            guarantees: [],
-            images: [],
             description: "",
-            keyFeatures: [],
-            specifications: [],
-            variants: [],
-            breadcrumbs: [],
-            paymentMethods: [],
-            relatedProducts: [],
+            condition: "new" as const,
+            price: { amount: 0, currency: "ARS" },
+            images: [],
+            rating: { average: 0, totalReviews: 0 },
             stock: 0,
-            shipping: { method: "Test", time: "Test" },
+            seller: { id: "seller1", name: "Test", reputation: 0, sales: 0, location: "Buenos Aires" },
+            shipping: { free: false, estimatedDays: "1" },
+            paymentMethods: [],
+            brand: "Test Brand",
+            category: "Electronics",
+            model: "Test Model",
+            specifications: {},
+            variants: {},
         };
 
         render(<ProductDetail product={minimalProduct} />);

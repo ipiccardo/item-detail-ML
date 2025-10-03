@@ -1,8 +1,8 @@
 "use client";
 
-import { JSX, useMemo } from "react";
+import { JSX } from "react";
 import { Product } from "@/types/product";
-import { useQuantity, useVariants, useRelatedProductsService, useProductActions } from "@/hooks";
+import { useQuantity, useVariants, useRelatedProductsService, useProductActions, useProductWithVariants } from "@/hooks";
 import ImageGallery from "./ui/ImageGallery";
 import ProductPrice from "./ui/ProductPrice";
 import { VariantSelector } from "./ui/VariantSelector";
@@ -21,22 +21,10 @@ interface ProductDetailProps {
 export default function ProductDetail({ product }: ProductDetailProps): JSX.Element {
     // Hooks for state management
     const { quantity, increment, decrement } = useQuantity(product.stock);
-    const { selectedVariants, selectColor, selectStorage, getCurrentPrice, getCurrentImage } = useVariants(product);
+    const { selectedVariants, selectColor, selectStorage } = useVariants(product);
     const { relatedProducts, isLoading: isLoadingRelated } = useRelatedProductsService(product.id);
     const { handleBuyNow, handleAddToCart } = useProductActions({ productId: product.id, quantity });
-
-    // Update product with selected variants
-    const updatedProduct = useMemo(() => {
-        const currentPrice = getCurrentPrice();
-        const currentImage = getCurrentImage();
-        return {
-            ...product,
-            price: { ...product.price, amount: currentPrice },
-            images: currentImage
-                ? [currentImage, ...product.images.filter((img) => img !== currentImage)]
-                : product.images,
-        };
-    }, [product, getCurrentPrice, getCurrentImage]);
+    const { updatedProduct } = useProductWithVariants({ product });
 
     return (
         <div className="min-h-screen bg-white relative" style={{ backgroundColor: "#F5F5F5" }}>

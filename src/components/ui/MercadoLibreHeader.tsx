@@ -1,12 +1,15 @@
+/* eslint-disable quotes */
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { JSX, useState } from "react";
-import { Search, MapPin, ShoppingCart, Menu, ChevronDown } from "lucide-react";
+import { Search, MapPin, ShoppingCart, Menu, ChevronDown, X } from "lucide-react";
 import { CategoriesDropdown } from "./CategoriesDropdown";
+import { MobileMenu } from "./MobileMenu";
 
 export const MercadoLibreHeader = (): JSX.Element => {
     const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     return (
         <div className="bg-yellow-400">
@@ -15,14 +18,21 @@ export const MercadoLibreHeader = (): JSX.Element => {
                 ENVÍO GRATIS EN TU PRIMERA COMPRA EXCLUSIVO EN APP
             </div>
 
-            {/* Main Header */}
-            <div className="max-w-[1200px] mx-auto px-4 lg:px-0 py-2 lg:py-3">
+            {/* Main Header - Hide when mobile menu is open */}
+            <div className={`max-w-[1200px] mx-auto px-4 lg:px-0 py-2 lg:py-3 ${isMobileMenuOpen ? 'hidden' : ''}`}>
                 {/* Top Row */}
                 <div className="flex items-center justify-between mb-2 lg:mb-3">
                     {/* Mobile: Menu + Logo */}
                     <div className="flex items-center gap-3 lg:hidden">
-                        <button className="text-gray-600">
-                            <Menu className="w-6 h-6" />
+                        <button
+                            className="text-gray-600"
+                            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                        >
+                            {isMobileMenuOpen ? (
+                                <X className="w-6 h-6" />
+                            ) : (
+                                <Menu className="w-6 h-6" />
+                            )}
                         </button>
                         <img
                             src="https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/6.6.150/mercadolibre/logo_large_plus@2x.webp"
@@ -111,6 +121,12 @@ export const MercadoLibreHeader = (): JSX.Element => {
                     <a href="#" className="text-gray-600 hover:text-blue-600">Ayuda</a>
                 </div>
             </div>
+
+            {/* Mobile Menu */}
+            <MobileMenu
+                isOpen={isMobileMenuOpen}
+                onClose={() => setIsMobileMenuOpen(false)}
+            />
         </div>
     );
 };

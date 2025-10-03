@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { MercadoLibreHeader } from "../../../src/components/ui/MercadoLibreHeader";
 import { JSX } from "react";
 
@@ -10,6 +10,32 @@ jest.mock("lucide-react", () => ({
     ShoppingCart: (props: React.SVGProps<SVGSVGElement>): JSX.Element => <svg {...props} data-testid="shopping-cart-icon" />,
     Menu: (props: React.SVGProps<SVGSVGElement>): JSX.Element => <svg {...props} data-testid="menu-icon" />,
     ChevronDown: (props: React.SVGProps<SVGSVGElement>): JSX.Element => <svg {...props} data-testid="chevron-down-icon" />,
+    X: (props: React.SVGProps<SVGSVGElement>): JSX.Element => <svg {...props} data-testid="x-icon" />,
+    Home: (props: React.SVGProps<SVGSVGElement>): JSX.Element => <svg {...props} data-testid="home-icon" />,
+    Tag: (props: React.SVGProps<SVGSVGElement>): JSX.Element => <svg {...props} data-testid="tag-icon" />,
+    Play: (props: React.SVGProps<SVGSVGElement>): JSX.Element => <svg {...props} data-testid="play-icon" />,
+    Clock: (props: React.SVGProps<SVGSVGElement>): JSX.Element => <svg {...props} data-testid="clock-icon" />,
+    Headphones: (props: React.SVGProps<SVGSVGElement>): JSX.Element => <svg {...props} data-testid="headphones-icon" />,
+    ShoppingBag: (props: React.SVGProps<SVGSVGElement>): JSX.Element => <svg {...props} data-testid="shopping-bag-icon" />,
+    Shirt: (props: React.SVGProps<SVGSVGElement>): JSX.Element => <svg {...props} data-testid="shirt-icon" />,
+    Star: (props: React.SVGProps<SVGSVGElement>): JSX.Element => <svg {...props} data-testid="star-icon" />,
+    Store: (props: React.SVGProps<SVGSVGElement>): JSX.Element => <svg {...props} data-testid="store-icon" />,
+    FileText: (props: React.SVGProps<SVGSVGElement>): JSX.Element => <svg {...props} data-testid="file-text-icon" />,
+    DollarSign: (props: React.SVGProps<SVGSVGElement>): JSX.Element => <svg {...props} data-testid="dollar-sign-icon" />,
+    ChevronRight: (props: React.SVGProps<SVGSVGElement>): JSX.Element => <svg {...props} data-testid="chevron-right-icon" />,
+}));
+
+// Mock the child components
+jest.mock("../../../src/components/ui/CategoriesDropdown", () => ({
+    CategoriesDropdown: ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }): JSX.Element => (
+        isOpen ? <div data-testid="categories-dropdown" onClick={onClose}>Categories Dropdown</div> : <></>
+    ),
+}));
+
+jest.mock("../../../src/components/ui/MobileMenu", () => ({
+    MobileMenu: ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }): JSX.Element => (
+        isOpen ? <div data-testid="mobile-menu" onClick={onClose}>Mobile Menu</div> : <></>
+    ),
 }));
 
 describe("MercadoLibreHeader", () => {
@@ -17,7 +43,7 @@ describe("MercadoLibreHeader", () => {
         render(<MercadoLibreHeader />);
 
         expect(screen.getByText("ENVÍO GRATIS EN TU PRIMERA COMPRA EXCLUSIVO EN APP")).toBeInTheDocument();
-        expect(screen.getByPlaceholderText("Buscar productos, marcas...")).toBeInTheDocument();
+        expect(screen.getByPlaceholderText("Buscar productos, marcas y más...")).toBeInTheDocument();
         expect(screen.getAllByText("Enviar a Capital Federal")).toHaveLength(2); // Mobile and desktop versions
     });
 
@@ -32,7 +58,7 @@ describe("MercadoLibreHeader", () => {
     it("should render search bar with search icon", () => {
         render(<MercadoLibreHeader />);
 
-        const searchInput = screen.getByPlaceholderText("Buscar productos, marcas...");
+        const searchInput = screen.getByPlaceholderText("Buscar productos, marcas y más...");
         expect(searchInput).toBeInTheDocument();
         expect(searchInput).toHaveClass("w-full", "h-9", "lg:h-10");
 
@@ -119,14 +145,14 @@ describe("MercadoLibreHeader", () => {
     it("should render proper header structure", () => {
         render(<MercadoLibreHeader />);
 
-        const header = screen.getByText("ENVÍO GRATIS EN TU PRIMERA COMPRA EXCLUSIVO EN APP").closest(".ml-header");
+        const header = screen.getByText("ENVÍO GRATIS EN TU PRIMERA COMPRA EXCLUSIVO EN APP").closest(".bg-yellow-400");
         expect(header).toBeInTheDocument();
     });
 
     it("should render search bar with proper styling", () => {
         render(<MercadoLibreHeader />);
 
-        const searchInput = screen.getByPlaceholderText("Buscar productos, marcas...");
+        const searchInput = screen.getByPlaceholderText("Buscar productos, marcas y más...");
         expect(searchInput).toHaveClass(
             "w-full",
             "h-9",
@@ -166,5 +192,125 @@ describe("MercadoLibreHeader", () => {
             "text-gray-600",
             "hover:text-blue-600",
         );
+    });
+
+    describe("Mobile Menu", () => {
+        it("should not render mobile menu by default", () => {
+            render(<MercadoLibreHeader />);
+            expect(screen.queryByTestId("mobile-menu")).not.toBeInTheDocument();
+        });
+
+        it("should render mobile menu when hamburger is clicked", () => {
+            render(<MercadoLibreHeader />);
+
+            const menuButtons = screen.getAllByRole("button");
+            const hamburgerButton = menuButtons.find(
+                (button) => button.querySelector("[data-testid=\"menu-icon\"]"),
+            );
+
+            if (hamburgerButton) {
+                fireEvent.click(hamburgerButton);
+            }
+            expect(screen.getByTestId("mobile-menu")).toBeInTheDocument();
+        });
+
+        it("should toggle menu icon to X when mobile menu is open", () => {
+            render(<MercadoLibreHeader />);
+
+            const menuButtons = screen.getAllByRole("button");
+            const hamburgerButton = menuButtons.find(
+                (button) => button.querySelector("[data-testid=\"menu-icon\"]"),
+            );
+
+            // Initially should show menu icon
+            expect(screen.getAllByTestId("menu-icon")).toHaveLength(2);
+
+            // Click to open
+            if (hamburgerButton) {
+                fireEvent.click(hamburgerButton);
+            }
+
+            // Should show X icon (from mobile menu mock)
+            expect(screen.getByTestId("mobile-menu")).toBeInTheDocument();
+        });
+
+        it("should close mobile menu when clicking on it", () => {
+            render(<MercadoLibreHeader />);
+
+            const menuButtons = screen.getAllByRole("button");
+            const hamburgerButton = menuButtons.find(
+                (button) => button.querySelector("[data-testid=\"menu-icon\"]"),
+            );
+
+            // Open menu
+            if (hamburgerButton) {
+                fireEvent.click(hamburgerButton);
+            }
+            expect(screen.getByTestId("mobile-menu")).toBeInTheDocument();
+
+            // Close menu
+            const mobileMenu = screen.getByTestId("mobile-menu");
+            fireEvent.click(mobileMenu);
+
+            expect(screen.queryByTestId("mobile-menu")).not.toBeInTheDocument();
+        });
+
+        it("should hide main header content when mobile menu is open", () => {
+            const { container } = render(<MercadoLibreHeader />);
+
+            const menuButtons = screen.getAllByRole("button");
+            const hamburgerButton = menuButtons.find(
+                (button) => button.querySelector("[data-testid=\"menu-icon\"]"),
+            );
+
+            const headerContent = container.querySelector(".max-w-\\[1200px\\]");
+
+            // Initially visible
+            expect(headerContent).not.toHaveClass("hidden");
+
+            // Click to open menu
+            if (hamburgerButton) {
+                fireEvent.click(hamburgerButton);
+            }
+
+            // Should be hidden
+            expect(headerContent).toHaveClass("hidden");
+        });
+    });
+
+    describe("Categories Dropdown", () => {
+        it("should not render categories dropdown by default", () => {
+            render(<MercadoLibreHeader />);
+            expect(screen.queryByTestId("categories-dropdown")).not.toBeInTheDocument();
+        });
+
+        it("should render categories dropdown when button is clicked", () => {
+            render(<MercadoLibreHeader />);
+
+            const categoriesButton = screen.getByText("Categorías").closest("button");
+            if (categoriesButton) {
+                fireEvent.click(categoriesButton);
+            }
+
+            expect(screen.getByTestId("categories-dropdown")).toBeInTheDocument();
+        });
+
+        it("should close categories dropdown when clicking on it", () => {
+            render(<MercadoLibreHeader />);
+
+            const categoriesButton = screen.getByText("Categorías").closest("button");
+
+            // Open dropdown
+            if (categoriesButton) {
+                fireEvent.click(categoriesButton);
+            }
+            expect(screen.getByTestId("categories-dropdown")).toBeInTheDocument();
+
+            // Close dropdown
+            const dropdown = screen.getByTestId("categories-dropdown");
+            fireEvent.click(dropdown);
+
+            expect(screen.queryByTestId("categories-dropdown")).not.toBeInTheDocument();
+        });
     });
 });

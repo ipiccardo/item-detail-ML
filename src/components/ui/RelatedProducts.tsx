@@ -31,7 +31,7 @@ export const RelatedProducts: React.FC<RelatedProductsProps> = ({
                     >
                         <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden mb-3">
                             <Image
-                                src={product.images[0] || "/placeholder.png"}
+                                src={product.images && product.images.length > 0 ? product.images[0] : "/placeholder.png"}
                                 alt={product.title}
                                 width={200}
                                 height={200}

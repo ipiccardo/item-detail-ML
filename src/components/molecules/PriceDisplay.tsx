@@ -38,7 +38,7 @@ export default function PriceDisplay({
                 <span className={`${sizeClasses[size]} font-light ml-text-primary leading-none`}>
                     {formatPrice(amount)}
                 </span>
-                {showDiscount && discount && (
+                {showDiscount && discount && discount > 0 && (
                     <span className="text-[13px] font-semibold ml-ui-pdp-color--GREEN">
                         {discount}% OFF
                     </span>

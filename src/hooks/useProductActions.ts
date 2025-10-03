@@ -1,58 +1,30 @@
 import { useCallback } from "react";
 
-interface ProductActionData {
+interface ProductActionsParams {
   productId: string;
   quantity: number;
-  variantColor?: string;
-  variantStorage?: string;
 }
 
-interface UseProductActionsReturn {
+interface ProductActions {
   handleBuyNow: () => void;
   handleAddToCart: () => void;
-  handleAddToFavorites: () => void;
-  handleShare: () => void;
 }
 
-export function useProductActions(data: ProductActionData): UseProductActionsReturn {
+export const useProductActions = ({ productId, quantity }: ProductActionsParams): ProductActions => {
   const handleBuyNow = useCallback((): void => {
     // eslint-disable-next-line no-console
-    console.log("Comprar ahora:", data);
-    // Aquí iría la lógica de compra real
-  }, [data]);
+    console.log("Comprar ahora:", { productId, quantity });
+    // Aquí iría la lógica de compra
+  }, [productId, quantity]);
 
   const handleAddToCart = useCallback((): void => {
     // eslint-disable-next-line no-console
-    console.log("Agregar al carrito:", data);
-    // Aquí iría la lógica de agregar al carrito real
-  }, [data]);
-
-  const handleAddToFavorites = useCallback((): void => {
-    // eslint-disable-next-line no-console
-    console.log("Agregar a favoritos:", data.productId);
-    // Aquí iría la lógica de favoritos
-  }, [data.productId]);
-
-  const handleShare = useCallback((): void => {
-    if (navigator.share) {
-      void navigator
-        .share({
-          title: "Producto en MercadoLibre",
-          url: window.location.href,
-        })
-        .catch(() => {
-          // Fallback: copiar URL
-          void navigator.clipboard.writeText(window.location.href);
-        });
-    } else {
-      void navigator.clipboard.writeText(window.location.href);
-    }
-  }, []);
+    console.log("Agregar al carrito:", { productId, quantity });
+    // Aquí iría la lógica de agregar al carrito
+  }, [productId, quantity]);
 
   return {
     handleBuyNow,
     handleAddToCart,
-    handleAddToFavorites,
-    handleShare,
   };
-}
+};

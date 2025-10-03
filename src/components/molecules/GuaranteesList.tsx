@@ -14,8 +14,12 @@ export default function GuaranteesList({
     guarantees,
     className = "",
 }: GuaranteesListProps): React.JSX.Element {
+    if (!guarantees || guarantees.length === 0) {
+        return null;
+    }
+
     return (
-        <div className={`space-y-2 ${className}`}>
+        <div className={`space-y-2 ${className}`} data-testid="guarantees-container">
             {guarantees.map((guarantee, index) => (
                 <div key={index} className="flex items-center gap-2 text-xs text-gray-600">
                     {guarantee.icon}

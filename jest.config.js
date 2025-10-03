@@ -8,6 +8,7 @@ const customJestConfig = {
   setupFilesAfterEnv: ["<rootDir>/src/setupTests.ts"],
   testEnvironment: "jsdom",
   testPathIgnorePatterns: ["<rootDir>/.next/", "<rootDir>/node_modules/"],
+  testMatch: ["<rootDir>/tests/**/*.{js,jsx,ts,tsx}", "<rootDir>/src/**/*.{test,spec}.{js,jsx,ts,tsx}"],
   collectCoverageFrom: [
     "src/**/*.{js,jsx,ts,tsx}",
     "!src/**/*.d.ts",

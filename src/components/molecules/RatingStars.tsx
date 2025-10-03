@@ -65,7 +65,7 @@ export default function RatingStars({
                 </span>
             )}
             {renderStars()}
-            {totalReviews && (
+            {totalReviews !== undefined && totalReviews !== null && (
                 <span className={`text-gray-600 ${textSizeClasses[size]}`}>
                     ({totalReviews})
                 </span>

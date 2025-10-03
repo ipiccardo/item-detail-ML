@@ -1,6 +1,6 @@
+/* eslint-disable max-len */
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { Product } from "@/types/product";
 import { formatPrice } from "@/lib/utils";
 
@@ -9,6 +9,9 @@ interface RelatedProductsProps {
     title?: string;
     className?: string;
 }
+
+// Imágenes disponibles en public/
+const availableImages = ["/1.png", "/2.png", "/3.png", "/4.png"];
 
 export const RelatedProducts: React.FC<RelatedProductsProps> = ({
     products,
@@ -19,54 +22,64 @@ export const RelatedProducts: React.FC<RelatedProductsProps> = ({
         return null;
     }
 
+    const handleClick = (e: React.MouseEvent): void => {
+        e.preventDefault();
+        // No hacer nada al hacer click
+    };
+
     return (
         <div className={`ml-card p-6 ${className}`}>
             <h3 className="text-lg font-semibold ml-text-primary mb-4">{title}</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {products.map((product) => (
-                    <Link
-                        key={product.id}
-                        href={`/product/${product.id}`}
-                        className="group block bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow"
-                    >
-                        <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden mb-3">
-                            <Image
-                                src={product.images && product.images.length > 0 ? product.images[0] : "/placeholder.png"}
-                                alt={product.title}
-                                width={200}
-                                height={200}
-                                className="w-full h-full object-cover group-hover:scale-105 transition-transform"
-                            />
-                        </div>
+                {products.map((product, index) => {
+                    // Usar las imágenes del public/ de forma cíclica
+                    const imageUrl = availableImages[index % availableImages.length];
 
-                        <h4 className="text-sm font-medium ml-text-primary line-clamp-2 mb-2">
-                            {product.title}
-                        </h4>
+                    return (
+                        <div
+                            key={product.id}
+                            onClick={handleClick}
+                            className="group ml-card rounded-lg p-4 hover:shadow-lg transition-all cursor-pointer"
+                        >
+                            <div className="aspect-square bg-gray-50 rounded-lg overflow-hidden mb-3">
+                                <Image
+                                    src={imageUrl}
+                                    alt={product.title}
+                                    width={200}
+                                    height={200}
+                                    className="w-full h-full object-contain group-hover:scale-105 transition-transform"
+                                />
+                            </div>
 
-                        <div className="space-y-1">
-                            <div className="flex items-center space-x-2">
-                                <span className="text-lg font-bold ml-price">
-                                    {formatPrice(product.price.amount)}
-                                </span>
-                                {product.price.discount && product.price.discount > 0 && (
-                                    <span className="text-xs ml-tag-mas-vendido">
-                                        {product.price.discount}% OFF
+                            <h4 className="text-sm ml-text-primary line-clamp-2 mb-3 group-hover:text-blue-600 transition-colors">
+                                {product.title}
+                            </h4>
+
+                            <div className="space-y-2">
+                                <div className="flex items-center gap-2 flex-wrap">
+                                    <span className="text-xl lg:text-[32px] font-light ml-text-primary leading-none">
+                                        {formatPrice(product.price.amount)}
                                     </span>
+                                    {product.price.discount && product.price.discount > 0 && (
+                                        <span className="text-[13px] font-semibold ml-ui-pdp-color--GREEN">
+                                            {product.price.discount}% OFF
+                                        </span>
+                                    )}
+                                </div>
+
+                                {product.price.originalPrice && (
+                                    <div className="text-base ml-text-secondary line-through">
+                                        {formatPrice(product.price.originalPrice)}
+                                    </div>
                                 )}
-                            </div>
 
-                            {product.price.originalPrice && (
-                                <span className="text-sm ml-text-secondary line-through">
-                                    {formatPrice(product.price.originalPrice)}
-                                </span>
-                            )}
-
-                            <div className="text-xs ml-shipping-free">
-                                Envío gratis
+                                <div className="text-sm ml-shipping-free">
+                                    Envío gratis
+                                </div>
                             </div>
                         </div>
-                    </Link>
-                ))}
+                    );
+                })}
             </div>
         </div>
     );

@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { JSX } from "react";
 import { ProductCharacteristics } from "./ProductCharacteristics";
 import { DetailedSpecifications } from "./DetailedSpecifications";

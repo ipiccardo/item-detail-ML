@@ -64,8 +64,8 @@ describe("VariantSelector", () => {
     render(<VariantSelector {...mockProps} />);
 
     const buttons = screen.getAllByRole("button");
-    const colorButtons = buttons.filter(button => 
-      button.getAttribute("class")?.includes("w-8 h-8 rounded-full")
+    const colorButtons = buttons.filter(button =>
+      button.getAttribute("class")?.includes("w-8 h-8 rounded-full"),
     );
 
     expect(colorButtons).toHaveLength(2);
@@ -75,8 +75,8 @@ describe("VariantSelector", () => {
     render(<VariantSelector {...mockProps} />);
 
     const buttons = screen.getAllByRole("button");
-    const storageButtons = buttons.filter(button => 
-      button.getAttribute("class")?.includes("px-3 py-2 text-sm border rounded")
+    const storageButtons = buttons.filter(button =>
+      button.getAttribute("class")?.includes("px-3 py-2 text-sm border rounded"),
     );
 
     expect(storageButtons).toHaveLength(2);
@@ -86,10 +86,10 @@ describe("VariantSelector", () => {
     render(<VariantSelector {...mockProps} />);
 
     const buttons = screen.getAllByRole("button");
-    const colorButtons = buttons.filter(button => 
-      button.getAttribute("class")?.includes("w-8 h-8 rounded-full")
+    const colorButtons = buttons.filter(button =>
+      button.getAttribute("class")?.includes("w-8 h-8 rounded-full"),
     );
-    
+
     fireEvent.click(colorButtons[1]); // Click the second color button (blue)
 
     expect(mockProps.onColorSelect).toHaveBeenCalledWith("blue");
@@ -99,10 +99,10 @@ describe("VariantSelector", () => {
     render(<VariantSelector {...mockProps} />);
 
     const buttons = screen.getAllByRole("button");
-    const storageButtons = buttons.filter(button => 
-      button.getAttribute("class")?.includes("px-3 py-2 text-sm border rounded")
+    const storageButtons = buttons.filter(button =>
+      button.getAttribute("class")?.includes("px-3 py-2 text-sm border rounded"),
     );
-    
+
     fireEvent.click(storageButtons[1]); // Click the second storage button (256gb)
 
     expect(mockProps.onStorageSelect).toHaveBeenCalledWith("256gb");
@@ -112,10 +112,10 @@ describe("VariantSelector", () => {
     render(<VariantSelector {...mockProps} />);
 
     const buttons = screen.getAllByRole("button");
-    const colorButtons = buttons.filter(button => 
-      button.getAttribute("class")?.includes("w-8 h-8 rounded-full")
+    const colorButtons = buttons.filter(button =>
+      button.getAttribute("class")?.includes("w-8 h-8 rounded-full"),
     );
-    
+
     expect(colorButtons[0]).toHaveClass("border-blue-500", "ring-2", "ring-blue-200");
   });
 
@@ -123,10 +123,10 @@ describe("VariantSelector", () => {
     render(<VariantSelector {...mockProps} />);
 
     const buttons = screen.getAllByRole("button");
-    const storageButtons = buttons.filter(button => 
-      button.getAttribute("class")?.includes("px-3 py-2 text-sm border rounded")
+    const storageButtons = buttons.filter(button =>
+      button.getAttribute("class")?.includes("px-3 py-2 text-sm border rounded"),
     );
-    
+
     expect(storageButtons[0]).toHaveClass("border-blue-500", "bg-blue-50", "text-blue-700");
   });
 

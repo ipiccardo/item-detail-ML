@@ -1,9 +1,10 @@
 import { render, screen } from "@testing-library/react";
 import RatingStars from "../../../src/components/molecules/RatingStars";
+import { JSX } from "react";
 
 // Mock lucide-react icons
 jest.mock("lucide-react", () => ({
-    Star: (props: any) => <svg {...props} data-testid="star-icon" />,
+    Star: (props: React.SVGProps<SVGSVGElement>): JSX.Element => <svg {...props} data-testid="star-icon" />,
 }));
 
 describe("RatingStars", () => {
@@ -50,7 +51,7 @@ describe("RatingStars", () => {
     it("should apply custom className", () => {
         render(<RatingStars rating={4.3} className="custom-class" />);
 
-        const container = screen.getAllByTestId("star-icon")[0].closest("div").parentElement.parentElement;
+        const container = screen.getAllByTestId("star-icon")[0].closest("div")?.parentElement?.parentElement;
         expect(container).toHaveClass("flex", "items-center", "gap-2", "custom-class");
     });
 

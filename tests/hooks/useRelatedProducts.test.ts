@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { renderHook } from "@testing-library/react";
 import { useRelatedProducts } from "../../src/hooks/useRelatedProducts";
 import { Product } from "../../src/types/product";
@@ -6,23 +7,29 @@ describe("useRelatedProducts", () => {
   const mockCurrentProduct: Product = {
     id: "1",
     title: "iPhone 15",
+    description: "Latest iPhone model",
     price: { amount: 1000, currency: "ARS" },
     images: ["iphone15.jpg"],
-    rating: 4.8,
+    rating: { average: 4.8, totalReviews: 150 },
     stock: 5,
     seller: {
       id: "seller1",
       name: "Apple Store",
       sales: 1000,
-      reputation: "high",
+      reputation: 4.9,
+      location: "Buenos Aires",
     },
+    condition: "new",
     shipping: {
       free: true,
-      estimatedDays: 2,
+      estimatedDays: "2",
     },
+    paymentMethods: ["credit", "debit"],
     brand: "Apple",
     category: "Electronics",
     subcategory: "Phones",
+    model: "iPhone 15",
+    specifications: {},
   };
 
   const mockAllProducts: Product[] = [
@@ -30,107 +37,137 @@ describe("useRelatedProducts", () => {
     {
       id: "2",
       title: "iPhone 14",
+      description: "Previous iPhone model",
       price: { amount: 800, currency: "ARS" },
       images: ["iphone14.jpg"],
-      rating: 4.6,
+      rating: { average: 4.6, totalReviews: 120 },
       stock: 10,
       seller: {
         id: "seller1",
         name: "Apple Store",
         sales: 1000,
-        reputation: "high",
+        reputation: 4.9,
+        location: "Buenos Aires",
       },
+      condition: "new",
       shipping: {
         free: true,
-        estimatedDays: 2,
+        estimatedDays: "2",
       },
+      paymentMethods: ["credit", "debit"],
       brand: "Apple",
       category: "Electronics",
       subcategory: "Phones",
+      model: "iPhone 14",
+      specifications: {},
     },
     {
       id: "3",
       title: "Samsung Galaxy S24",
+      description: "Latest Samsung Galaxy model",
       price: { amount: 900, currency: "ARS" },
       images: ["galaxy.jpg"],
-      rating: 4.7,
+      rating: { average: 4.7, totalReviews: 100 },
       stock: 8,
       seller: {
         id: "seller2",
         name: "Samsung Store",
         sales: 800,
-        reputation: "high",
+        reputation: 4.8,
+        location: "Buenos Aires",
       },
+      condition: "new",
       shipping: {
         free: true,
-        estimatedDays: 3,
+        estimatedDays: "3",
       },
+      paymentMethods: ["credit", "debit"],
       brand: "Samsung",
       category: "Electronics",
       subcategory: "Phones",
+      model: "Galaxy S24",
+      specifications: {},
     },
     {
       id: "4",
       title: "MacBook Pro",
+      description: "Latest MacBook Pro model",
       price: { amount: 2000, currency: "ARS" },
       images: ["macbook.jpg"],
-      rating: 4.9,
+      rating: { average: 4.9, totalReviews: 80 },
       stock: 3,
       seller: {
         id: "seller1",
         name: "Apple Store",
         sales: 1000,
-        reputation: "high",
+        reputation: 4.9,
+        location: "Buenos Aires",
       },
+      condition: "new",
       shipping: {
         free: true,
-        estimatedDays: 2,
+        estimatedDays: "2",
       },
+      paymentMethods: ["credit", "debit"],
       brand: "Apple",
       category: "Electronics",
       subcategory: "Laptops",
+      model: "MacBook Pro",
+      specifications: {},
     },
     {
       id: "5",
       title: "AirPods Pro",
+      description: "Latest AirPods Pro model",
       price: { amount: 300, currency: "ARS" },
       images: ["airpods.jpg"],
-      rating: 4.5,
+      rating: { average: 4.5, totalReviews: 200 },
       stock: 15,
       seller: {
         id: "seller1",
         name: "Apple Store",
         sales: 1000,
-        reputation: "high",
+        reputation: 4.9,
+        location: "Buenos Aires",
       },
+      condition: "new",
       shipping: {
         free: true,
-        estimatedDays: 2,
+        estimatedDays: "2",
       },
+      paymentMethods: ["credit", "debit"],
       brand: "Apple",
       category: "Electronics",
       subcategory: "Audio",
+      model: "AirPods Pro",
+      specifications: {},
     },
     {
       id: "6",
       title: "Nike Shoes",
+      description: "Latest Nike shoes model",
       price: { amount: 150, currency: "ARS" },
       images: ["shoes.jpg"],
-      rating: 4.2,
+      rating: { average: 4.2, totalReviews: 50 },
       stock: 20,
       seller: {
         id: "seller3",
         name: "Nike Store",
         sales: 500,
-        reputation: "medium",
+        reputation: 4.3,
+        location: "Buenos Aires",
       },
+      condition: "new",
       shipping: {
         free: false,
-        estimatedDays: 5,
+        estimatedDays: "5",
       },
+      paymentMethods: ["credit", "debit"],
       brand: "Nike",
       category: "Sports",
       subcategory: "Footwear",
+      model: "Nike Shoes",
+      specifications: {},
     },
   ];
 
@@ -140,7 +177,7 @@ describe("useRelatedProducts", () => {
         currentProduct: mockCurrentProduct,
         allProducts: mockAllProducts,
         limit: 10,
-      })
+      }),
     );
 
     expect(result.current).toHaveLength(4);
@@ -153,7 +190,7 @@ describe("useRelatedProducts", () => {
         currentProduct: mockCurrentProduct,
         allProducts: mockAllProducts,
         limit: 3,
-      })
+      }),
     );
 
     expect(result.current).toHaveLength(3);
@@ -171,7 +208,7 @@ describe("useRelatedProducts", () => {
         currentProduct: samsungProduct,
         allProducts: mockAllProducts,
         limit: 5,
-      })
+      }),
     );
 
     // Should include other Electronics products
@@ -185,7 +222,7 @@ describe("useRelatedProducts", () => {
         currentProduct: mockCurrentProduct,
         allProducts: mockAllProducts,
         limit: 2,
-      })
+      }),
     );
 
     expect(result.current).toHaveLength(2);
@@ -196,7 +233,7 @@ describe("useRelatedProducts", () => {
       useRelatedProducts({
         currentProduct: mockCurrentProduct,
         allProducts: mockAllProducts,
-      })
+      }),
     );
 
     expect(result.current).toHaveLength(4);
@@ -208,7 +245,7 @@ describe("useRelatedProducts", () => {
         currentProduct: mockCurrentProduct,
         allProducts: mockAllProducts,
         limit: 4,
-      })
+      }),
     );
 
     // First should be same brand, same category (iPhone 14)
@@ -238,7 +275,7 @@ describe("useRelatedProducts", () => {
         currentProduct: mockCurrentProduct,
         allProducts: [mockCurrentProduct], // Only current product
         limit: 4,
-      })
+      }),
     );
 
     expect(result.current).toEqual([]);
@@ -250,7 +287,7 @@ describe("useRelatedProducts", () => {
         currentProduct: mockCurrentProduct,
         allProducts: [],
         limit: 4,
-      })
+      }),
     );
 
     expect(result.current).toEqual([]);
@@ -262,7 +299,7 @@ describe("useRelatedProducts", () => {
         currentProduct: mockCurrentProduct,
         allProducts: mockAllProducts,
         limit: 100,
-      })
+      }),
     );
 
     expect(result.current).toHaveLength(4); // All available related products
@@ -277,7 +314,7 @@ describe("useRelatedProducts", () => {
           allProducts: mockAllProducts,
           limit: 4,
         },
-      }
+      },
     );
 
     const firstResult = result.current;

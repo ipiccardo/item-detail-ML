@@ -123,7 +123,7 @@ describe("PaymentMethodsCard", () => {
         const errorEvent = new Event("error");
         Object.defineProperty(errorEvent, "currentTarget", {
             value: mercadoPagoImg,
-            writable: false
+            writable: false,
         });
 
         mercadoPagoImg.dispatchEvent(errorEvent);

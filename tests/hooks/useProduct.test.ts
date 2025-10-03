@@ -19,15 +19,15 @@ describe("useProduct", () => {
             id: "seller1",
             name: "Test Seller",
             sales: 100,
-            reputation: "high"
+            reputation: "high",
         },
         shipping: {
             free: true,
-            estimatedDays: 3
+            estimatedDays: 3,
         },
         brand: "Test Brand",
         category: "Electronics",
-        subcategory: "Phones"
+        subcategory: "Phones",
     };
 
     beforeEach(() => {
@@ -37,7 +37,7 @@ describe("useProduct", () => {
     it("should initialize with loading state", () => {
         mockProductService.getProduct.mockResolvedValue({
             success: true,
-            data: mockProduct
+            data: mockProduct,
         });
 
         const { result } = renderHook(() => useProduct("1"));
@@ -50,7 +50,7 @@ describe("useProduct", () => {
     it("should fetch product successfully", async () => {
         mockProductService.getProduct.mockResolvedValue({
             success: true,
-            data: mockProduct
+            data: mockProduct,
         });
 
         const { result } = renderHook(() => useProduct("1"));
@@ -67,7 +67,7 @@ describe("useProduct", () => {
     it("should handle API error response", async () => {
         mockProductService.getProduct.mockResolvedValue({
             success: false,
-            error: "Product not found"
+            error: "Product not found",
         });
 
         const { result } = renderHook(() => useProduct("999"));
@@ -83,7 +83,7 @@ describe("useProduct", () => {
     it("should handle API response without data", async () => {
         mockProductService.getProduct.mockResolvedValue({
             success: true,
-            data: null
+            data: null,
         });
 
         const { result } = renderHook(() => useProduct("1"));
@@ -98,7 +98,7 @@ describe("useProduct", () => {
 
     it("should handle API response with success but no error message", async () => {
         mockProductService.getProduct.mockResolvedValue({
-            success: false
+            success: false,
         });
 
         const { result } = renderHook(() => useProduct("1"));
@@ -128,16 +128,16 @@ describe("useProduct", () => {
         mockProductService.getProduct
             .mockResolvedValueOnce({
                 success: true,
-                data: mockProduct
+                data: mockProduct,
             })
             .mockResolvedValueOnce({
                 success: true,
-                data: { ...mockProduct, id: "2", title: "Product 2" }
+                data: { ...mockProduct, id: "2", title: "Product 2" },
             });
 
         const { result, rerender } = renderHook(
             ({ productId }) => useProduct(productId),
-            { initialProps: { productId: "1" } }
+            { initialProps: { productId: "1" } },
         );
 
         await waitFor(() => {
@@ -164,12 +164,12 @@ describe("useProduct", () => {
     it("should reset loading state on new fetch", async () => {
         mockProductService.getProduct.mockResolvedValue({
             success: true,
-            data: mockProduct
+            data: mockProduct,
         });
 
         const { result, rerender } = renderHook(
             ({ productId }) => useProduct(productId),
-            { initialProps: { productId: "1" } }
+            { initialProps: { productId: "1" } },
         );
 
         // First fetch
@@ -188,12 +188,12 @@ describe("useProduct", () => {
     it("should handle multiple rapid productId changes", async () => {
         mockProductService.getProduct.mockResolvedValue({
             success: true,
-            data: mockProduct
+            data: mockProduct,
         });
 
         const { result, rerender } = renderHook(
             ({ productId }) => useProduct(productId),
-            { initialProps: { productId: "1" } }
+            { initialProps: { productId: "1" } },
         );
 
         // Rapid changes

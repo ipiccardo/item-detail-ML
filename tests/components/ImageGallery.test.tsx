@@ -88,7 +88,7 @@ describe("ImageGallery", () => {
 
         // Get only the thumbnail buttons (not the action buttons or dot indicators)
         const thumbnails = screen.getAllByRole("button").filter(button =>
-            button.getAttribute("class")?.includes("aspect-square")
+            button.getAttribute("class")?.includes("aspect-square"),
         );
 
         thumbnails.forEach((thumbnail) => {
@@ -123,7 +123,7 @@ describe("ImageGallery", () => {
 
         const dots = screen.getAllByRole("button");
         const dotButtons = dots.filter(button =>
-            button.getAttribute("aria-label")?.includes("Ver imagen")
+            button.getAttribute("aria-label")?.includes("Ver imagen"),
         );
         expect(dotButtons).toHaveLength(4);
     });
@@ -133,7 +133,7 @@ describe("ImageGallery", () => {
 
         const dots = screen.getAllByRole("button");
         const dotButtons = dots.filter(button =>
-            button.getAttribute("aria-label")?.includes("Ver imagen")
+            button.getAttribute("aria-label")?.includes("Ver imagen"),
         );
         expect(dotButtons[0]).toHaveClass("bg-blue-500");
         expect(dotButtons[1]).toHaveClass("bg-gray-400");
@@ -152,7 +152,7 @@ describe("ImageGallery", () => {
 
         // The action buttons are hardcoded SVGs in the component
         const actionButtons = screen.getAllByRole("button").filter(button =>
-            button.getAttribute("class")?.includes("w-9 h-9 bg-white rounded-full")
+            button.getAttribute("class")?.includes("w-9 h-9 bg-white rounded-full"),
         );
 
         expect(actionButtons).toHaveLength(2);

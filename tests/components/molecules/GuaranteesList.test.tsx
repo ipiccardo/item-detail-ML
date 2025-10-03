@@ -43,13 +43,13 @@ describe("GuaranteesList", () => {
     });
 
     it("should not render when guarantees is null", () => {
-        const { container } = render(<GuaranteesList guarantees={null as any} />);
+        const { container } = render(<GuaranteesList guarantees={null as unknown as GuaranteeItem[]} />);
 
         expect(container.firstChild).toBeNull();
     });
 
     it("should not render when guarantees is undefined", () => {
-        const { container } = render(<GuaranteesList guarantees={undefined as any} />);
+        const { container } = render(<GuaranteesList guarantees={undefined as unknown as GuaranteeItem[]} />);
 
         expect(container.firstChild).toBeNull();
     });

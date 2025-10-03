@@ -53,7 +53,7 @@ describe("MercadoLibreStoreCard", () => {
             "px-3",
             "py-1",
             "rounded-md",
-            "hover:bg-blue-50"
+            "hover:bg-blue-50",
         );
     });
 
@@ -101,7 +101,7 @@ describe("MercadoLibreStoreCard", () => {
             "text-sm",
             "text-blue-600",
             "hover:underline",
-            "mb-3"
+            "mb-3",
         );
     });
 

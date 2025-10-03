@@ -14,7 +14,7 @@ export default function ErrorBoundary({ error, reset }: ErrorBoundaryProps): JSX
     }, [error]);
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen p-4" style={{ backgroundColor: '#F5F5F5' }}>
+        <div className="flex flex-col items-center justify-center min-h-screen p-4" style={{ backgroundColor: "#F5F5F5" }}>
             <div className="text-center ml-card p-8">
                 <h2 className="text-2xl font-bold ml-text-primary mb-4">
                     ¡Oops! Algo salió mal

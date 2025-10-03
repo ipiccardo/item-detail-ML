@@ -15,7 +15,7 @@ describe("createFavoritesHandlers", () => {
       mockToggleFavorite,
       mockIsFavorite,
       mockAddToFavorites,
-      mockRemoveFromFavorites
+      mockRemoveFromFavorites,
     );
 
     expect(handlers).toHaveProperty("toggleFavorite");
@@ -29,7 +29,7 @@ describe("createFavoritesHandlers", () => {
       mockToggleFavorite,
       mockIsFavorite,
       mockAddToFavorites,
-      mockRemoveFromFavorites
+      mockRemoveFromFavorites,
     );
 
     handlers.toggleFavorite("1");
@@ -42,7 +42,7 @@ describe("createFavoritesHandlers", () => {
       mockToggleFavorite,
       mockIsFavorite,
       mockAddToFavorites,
-      mockRemoveFromFavorites
+      mockRemoveFromFavorites,
     );
 
     const result = handlers.isFavorite("1");
@@ -55,7 +55,7 @@ describe("createFavoritesHandlers", () => {
       mockToggleFavorite,
       mockIsFavorite,
       mockAddToFavorites,
-      mockRemoveFromFavorites
+      mockRemoveFromFavorites,
     );
 
     handlers.addToFavorites("1");
@@ -67,7 +67,7 @@ describe("createFavoritesHandlers", () => {
       mockToggleFavorite,
       mockIsFavorite,
       mockAddToFavorites,
-      mockRemoveFromFavorites
+      mockRemoveFromFavorites,
     );
 
     handlers.removeFromFavorites("1");
@@ -79,7 +79,7 @@ describe("createFavoritesHandlers", () => {
       mockToggleFavorite,
       mockIsFavorite,
       mockAddToFavorites,
-      mockRemoveFromFavorites
+      mockRemoveFromFavorites,
     );
 
     // Test multiple calls
@@ -108,7 +108,7 @@ describe("createFavoritesHandlers", () => {
       mockToggleFavorite,
       mockIsFavorite,
       mockAddToFavorites,
-      mockRemoveFromFavorites
+      mockRemoveFromFavorites,
     );
 
     const result = handlers.isFavorite("1");
@@ -120,7 +120,7 @@ describe("createFavoritesHandlers", () => {
       mockToggleFavorite,
       mockIsFavorite,
       mockAddToFavorites,
-      mockRemoveFromFavorites
+      mockRemoveFromFavorites,
     );
 
     handlers.toggleFavorite("product-123");
@@ -139,7 +139,7 @@ describe("createFavoritesHandlers", () => {
       mockToggleFavorite,
       mockIsFavorite,
       mockAddToFavorites,
-      mockRemoveFromFavorites
+      mockRemoveFromFavorites,
     );
 
     // Functions should be the same references passed in

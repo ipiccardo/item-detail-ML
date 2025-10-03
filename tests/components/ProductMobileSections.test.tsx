@@ -21,7 +21,7 @@ describe("ProductMobileSections", () => {
 
         // Check that payment methods section is rendered
         expect(screen.getByTestId("payment-methods-card")).toBeInTheDocument();
-        
+
         // Check that questions section is rendered
         expect(screen.getByText("Preguntas y respuestas")).toBeInTheDocument();
         expect(screen.getByPlaceholderText("Escribí una pregunta o palabra clave...")).toBeInTheDocument();
@@ -35,7 +35,7 @@ describe("ProductMobileSections", () => {
         // The payment section wrapper div has lg:hidden class
         const paymentWrapper = screen.getByTestId("payment-methods-card").closest("div.lg\\:hidden");
         expect(paymentWrapper).toBeInTheDocument();
-        
+
         const questionsSection = screen.getByText("Preguntas y respuestas").closest("div");
         expect(questionsSection).toHaveClass("lg:hidden", "bg-white", "rounded-md", "p-4", "border", "border-gray-200");
     });

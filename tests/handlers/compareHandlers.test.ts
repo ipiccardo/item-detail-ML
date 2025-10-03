@@ -46,7 +46,7 @@ describe("createCompareHandlers", () => {
       mockIsInCompare,
       true,
       [mockProduct],
-      mockClearCompare
+      mockClearCompare,
     );
 
     expect(handlers).toHaveProperty("addToCompare");
@@ -64,7 +64,7 @@ describe("createCompareHandlers", () => {
       mockIsInCompare,
       true,
       [mockProduct],
-      mockClearCompare
+      mockClearCompare,
     );
 
     expect(handlers.canAddMore).toBe(true);
@@ -78,7 +78,7 @@ describe("createCompareHandlers", () => {
       mockIsInCompare,
       true,
       products,
-      mockClearCompare
+      mockClearCompare,
     );
 
     expect(handlers.compareProducts).toEqual(products);
@@ -92,7 +92,7 @@ describe("createCompareHandlers", () => {
       mockIsInCompare,
       true,
       [mockProduct],
-      mockClearCompare
+      mockClearCompare,
     );
 
     const result = handlers.isInCompare("1");
@@ -107,7 +107,7 @@ describe("createCompareHandlers", () => {
       mockIsInCompare,
       true,
       [mockProduct],
-      mockClearCompare
+      mockClearCompare,
     );
 
     handlers.clearCompare();
@@ -122,7 +122,7 @@ describe("createCompareHandlers", () => {
       mockIsInCompare,
       true,
       [mockProduct],
-      mockClearCompare
+      mockClearCompare,
     );
 
     handlers.addToCompare(mockProduct);
@@ -140,7 +140,7 @@ describe("createCompareHandlers", () => {
       mockIsInCompare,
       true,
       [mockProduct],
-      mockClearCompare
+      mockClearCompare,
     );
 
     handlers.addToCompare(mockProduct);
@@ -157,7 +157,7 @@ describe("createCompareHandlers", () => {
       mockIsInCompare,
       true,
       [mockProduct],
-      mockClearCompare
+      mockClearCompare,
     );
 
     handlers.removeFromCompare("1");
@@ -179,7 +179,7 @@ describe("createCompareHandlers", () => {
       mockIsInCompare,
       true,
       products,
-      mockClearCompare
+      mockClearCompare,
     );
 
     expect(handlers.compareProducts).toHaveLength(2);
@@ -194,7 +194,7 @@ describe("createCompareHandlers", () => {
       mockIsInCompare,
       true,
       [],
-      mockClearCompare
+      mockClearCompare,
     );
 
     expect(handlers.compareProducts).toEqual([]);
@@ -207,7 +207,7 @@ describe("createCompareHandlers", () => {
       mockIsInCompare,
       false,
       [mockProduct],
-      mockClearCompare
+      mockClearCompare,
     );
 
     expect(handlers.canAddMore).toBe(false);

@@ -20,15 +20,15 @@ describe("useRelatedProductsService", () => {
                 id: "seller1",
                 name: "Apple Store",
                 sales: 1000,
-                reputation: "high"
+                reputation: "high",
             },
             shipping: {
                 free: true,
-                estimatedDays: 2
+                estimatedDays: 2,
             },
             brand: "Apple",
             category: "Electronics",
-            subcategory: "Phones"
+            subcategory: "Phones",
         },
         {
             id: "3",
@@ -41,16 +41,16 @@ describe("useRelatedProductsService", () => {
                 id: "seller1",
                 name: "Apple Store",
                 sales: 1000,
-                reputation: "high"
+                reputation: "high",
             },
             shipping: {
                 free: true,
-                estimatedDays: 2
+                estimatedDays: 2,
             },
             brand: "Apple",
             category: "Electronics",
-            subcategory: "Laptops"
-        }
+            subcategory: "Laptops",
+        },
     ];
 
     beforeEach(() => {
@@ -107,7 +107,7 @@ describe("useRelatedProductsService", () => {
         expect(result.current.error).toBe("Error al cargar productos relacionados");
         expect(consoleSpy).toHaveBeenCalledWith(
             "Error fetching related products:",
-            expect.any(Error)
+            expect.any(Error),
         );
 
         consoleSpy.mockRestore();
@@ -120,7 +120,7 @@ describe("useRelatedProductsService", () => {
 
         const { result, rerender } = renderHook(
             ({ productId }) => useRelatedProductsService(productId),
-            { initialProps: { productId: "1" } }
+            { initialProps: { productId: "1" } },
         );
 
         await waitFor(() => {
@@ -150,7 +150,7 @@ describe("useRelatedProductsService", () => {
 
         const { result, rerender } = renderHook(
             ({ productId, limit }) => useRelatedProductsService(productId, limit),
-            { initialProps: { productId: "1", limit: 4 } }
+            { initialProps: { productId: "1", limit: 4 } },
         );
 
         await waitFor(() => {
@@ -194,7 +194,7 @@ describe("useRelatedProductsService", () => {
 
     it("should reset error state on new fetch", async () => {
         const consoleSpy = jest.spyOn(console, "error").mockImplementation();
-        
+
         // First call fails
         mockRelatedProductsService.getRelatedProducts
             .mockRejectedValueOnce(new Error("First error"))
@@ -202,7 +202,7 @@ describe("useRelatedProductsService", () => {
 
         const { result, rerender } = renderHook(
             ({ productId }) => useRelatedProductsService(productId),
-            { initialProps: { productId: "1" } }
+            { initialProps: { productId: "1" } },
         );
 
         await waitFor(() => {
@@ -231,7 +231,7 @@ describe("useRelatedProductsService", () => {
 
         const { result, rerender } = renderHook(
             ({ productId }) => useRelatedProductsService(productId),
-            { initialProps: { productId: "1" } }
+            { initialProps: { productId: "1" } },
         );
 
         // Rapid changes

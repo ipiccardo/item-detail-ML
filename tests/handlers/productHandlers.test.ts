@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/await-thenable */
 import { createProductActions } from "../../src/handlers/productHandlers";
 import { Product } from "../../src/types/product";
 
@@ -9,16 +10,22 @@ const mockNavigator = {
   },
 };
 
-delete (global as any).navigator;
-(global as any).navigator = mockNavigator;
+Object.defineProperty(global, "navigator", {
+  value: mockNavigator,
+  writable: true,
+  configurable: true,
+});
 
 // Mock window
-delete (global as any).window;
-(global as any).window = {
-  location: {
-    href: "https://example.com/product/1",
+Object.defineProperty(global, "window", {
+  value: {
+    location: {
+      href: "https://example.com/product/1",
+    },
   },
-};
+  writable: true,
+  configurable: true,
+});
 
 // Mock alert
 global.alert = jest.fn();

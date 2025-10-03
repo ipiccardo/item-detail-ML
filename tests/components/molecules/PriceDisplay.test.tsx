@@ -3,7 +3,7 @@ import PriceDisplay from "../../../src/components/molecules/PriceDisplay";
 
 // Mock the formatPrice utility
 jest.mock("../../../src/lib/utils", () => ({
-    formatPrice: (amount: number) => `$${amount.toLocaleString('es-AR')}`,
+    formatPrice: (amount: number) => `$${amount.toLocaleString("es-AR")}`,
 }));
 
 describe("PriceDisplay", () => {

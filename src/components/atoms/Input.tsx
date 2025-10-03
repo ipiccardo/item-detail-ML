@@ -4,7 +4,7 @@ import React from "react";
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     label?: string;
     error?: string;
-    icon?: React.ReactNode | React.ComponentType<any>;
+    icon?: React.ReactNode | React.ComponentType<React.SVGProps<SVGSVGElement>>;
     iconPosition?: "left" | "right";
 }
 
@@ -17,14 +17,14 @@ export default function Input({
     id,
     ...props
 }: InputProps): React.JSX.Element {
-    const inputId = id || `input-${Math.random().toString(36).substr(2, 9)}`;
+    const inputId = id ?? `input-${Math.random().toString(36).substr(2, 9)}`;
 
-    const renderIcon = (iconProp: React.ReactNode | React.ComponentType<any>): React.ReactNode => {
+    const renderIcon = (iconProp: React.ReactNode | React.ComponentType<React.SVGProps<SVGSVGElement>>): React.ReactNode => {
         if (React.isValidElement(iconProp)) {
             return iconProp;
         }
         if (typeof iconProp === "function") {
-            const IconComponent = iconProp as React.ComponentType<any>;
+            const IconComponent = iconProp as React.ComponentType<React.SVGProps<SVGSVGElement>>;
             return <IconComponent />;
         }
         return iconProp;

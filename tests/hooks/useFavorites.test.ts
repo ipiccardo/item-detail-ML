@@ -205,7 +205,7 @@ describe("useFavorites", () => {
       result.current.addToFavorites("1");
     });
 
-    expect(localStorageMock.setItem).toHaveBeenCalledWith("meli_favorites", expect.stringContaining('"id":"1"'));
+    expect(localStorageMock.setItem).toHaveBeenCalledWith("meli_favorites", expect.stringContaining("\"id\":\"1\""));
   });
 
   it("should handle localStorage save error", async () => {

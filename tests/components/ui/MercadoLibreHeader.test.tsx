@@ -141,7 +141,7 @@ describe("MercadoLibreHeader", () => {
             "text-sm",
             "focus:outline-none",
             "focus:ring-2",
-            "focus:ring-blue-500"
+            "focus:ring-blue-500",
         );
     });
 
@@ -164,7 +164,7 @@ describe("MercadoLibreHeader", () => {
             "items-center",
             "gap-1",
             "text-gray-600",
-            "hover:text-blue-600"
+            "hover:text-blue-600",
         );
     });
 });

@@ -29,45 +29,57 @@ describe("useCompare", () => {
   const mockProduct1: Product = {
     id: "1",
     title: "Product 1",
+    description: "Test product 1",
     price: { amount: 100, currency: "ARS" },
     images: ["image1.jpg"],
-    rating: 4.5,
+    rating: { average: 4.5, totalReviews: 50 },
     stock: 10,
     seller: {
       id: "seller1",
       name: "Test Seller",
       sales: 100,
-      reputation: "high",
+      reputation: 4.8,
+      location: "Buenos Aires",
     },
+    condition: "new",
     shipping: {
       free: true,
-      estimatedDays: 3,
+      estimatedDays: "3",
     },
+    paymentMethods: ["credit", "debit"],
     brand: "Test Brand",
     category: "Electronics",
     subcategory: "Phones",
+    model: "Test Model 1",
+    specifications: {},
   };
 
   const mockProduct2: Product = {
     id: "2",
     title: "Product 2",
+    description: "Test product 2",
     price: { amount: 200, currency: "ARS" },
     images: ["image2.jpg"],
-    rating: 4.0,
+    rating: { average: 4.0, totalReviews: 30 },
     stock: 5,
     seller: {
       id: "seller2",
       name: "Test Seller 2",
       sales: 50,
-      reputation: "medium",
+      reputation: 4.5,
+      location: "Buenos Aires",
     },
+    condition: "new",
     shipping: {
       free: false,
-      estimatedDays: 5,
+      estimatedDays: "5",
     },
+    paymentMethods: ["credit", "debit"],
     brand: "Test Brand 2",
     category: "Electronics",
     subcategory: "Laptops",
+    model: "Test Model 2",
+    specifications: {},
   };
 
   beforeEach(() => {

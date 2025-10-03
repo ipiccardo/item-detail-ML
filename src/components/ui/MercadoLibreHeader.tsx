@@ -1,12 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { JSX } from "react";
+import { JSX, useState } from "react";
 import { Search, MapPin, ShoppingCart, Menu, ChevronDown } from "lucide-react";
+import { CategoriesDropdown } from "./CategoriesDropdown";
 
 export const MercadoLibreHeader = (): JSX.Element => {
+    const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
+
     return (
-        <div className="ml-header">
+        <div className="bg-yellow-400">
             {/* Top Banner - Desktop only */}
             <div className="hidden lg:block bg-blue-600 text-white text-center py-1 text-xs">
                 ENVÍO GRATIS EN TU PRIMERA COMPRA EXCLUSIVO EN APP
@@ -42,7 +45,7 @@ export const MercadoLibreHeader = (): JSX.Element => {
                         <div className="relative">
                             <input
                                 type="text"
-                                placeholder="Buscar productos, marcas..."
+                                placeholder="Buscar productos, marcas y más..."
                                 className="w-full h-9 lg:h-10 px-3 lg:px-4 pr-10 lg:pr-12 border border-gray-300
                                     rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                             />
@@ -81,12 +84,21 @@ export const MercadoLibreHeader = (): JSX.Element => {
                 </div>
 
                 {/* Navigation - Desktop only */}
-                <div className="hidden lg:flex items-center gap-6 text-sm">
-                    <button className="flex items-center gap-1 text-gray-600 hover:text-blue-600">
+                <div className="hidden lg:flex items-center gap-6 text-sm relative">
+                    <button
+                        className="flex items-center gap-1 text-gray-600 hover:text-blue-600"
+                        onClick={() => setIsCategoriesOpen(!isCategoriesOpen)}
+                    >
                         <Menu className="w-4 h-4" />
                         <span>Categorías</span>
                         <ChevronDown className="w-3 h-3" />
                     </button>
+
+                    {/* Categories Dropdown */}
+                    <CategoriesDropdown
+                        isOpen={isCategoriesOpen}
+                        onClose={() => setIsCategoriesOpen(false)}
+                    />
                     <a href="#" className="text-gray-600 hover:text-blue-600">Ofertas</a>
                     <a href="#" className="text-gray-600 hover:text-blue-600">Cupones</a>
                     <a href="#" className="text-gray-600 hover:text-blue-600">Supermercado</a>

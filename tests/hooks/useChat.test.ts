@@ -35,7 +35,7 @@ describe("useChat", () => {
   it("should send message successfully", async () => {
     mockFetch.mockResolvedValueOnce({
       ok: true,
-      json: async () => ({ response: "Bot response" }),
+      json: async () => ({ output: "Bot response" }),
     } as Response);
 
     const { result } = renderHook(() => useChat({ productId: "123", productTitle: "Test Product" }));
@@ -71,7 +71,7 @@ describe("useChat", () => {
     expect(result.current.isLoading).toBe(false);
   });
 
-  it("should handle API response without response field", async () => {
+  it("should handle API response without output field", async () => {
     mockFetch.mockResolvedValueOnce({
       ok: true,
       json: async () => ({ message: "Bot response" }),
@@ -122,7 +122,7 @@ describe("useChat", () => {
   it("should call API with correct payload", async () => {
     mockFetch.mockResolvedValueOnce({
       ok: true,
-      json: async () => ({ response: "Bot response" }),
+      json: async () => ({ output: "Bot response" }),
     } as Response);
 
     const { result } = renderHook(() => useChat({ productId: "123", productTitle: "Test Product" }));

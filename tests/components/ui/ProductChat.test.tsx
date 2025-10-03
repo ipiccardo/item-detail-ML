@@ -92,7 +92,7 @@ describe("ProductChat", () => {
     it("should send message when send button is clicked", async () => {
         mockFetch.mockResolvedValueOnce({
             ok: true,
-            json: async () => ({ response: "Respuesta del bot" }),
+            json: async () => ({ output: "Respuesta del bot" }),
         } as Response);
 
         render(<ProductChat product={mockProduct} />);
@@ -116,7 +116,7 @@ describe("ProductChat", () => {
     it("should send message when Enter key is pressed", async () => {
         mockFetch.mockResolvedValueOnce({
             ok: true,
-            json: async () => ({ response: "Respuesta del bot" }),
+            json: async () => ({ output: "Respuesta del bot" }),
         } as Response);
 
         render(<ProductChat product={mockProduct} />);
@@ -190,7 +190,7 @@ describe("ProductChat", () => {
     it("should call API with correct payload including product details", async () => {
         mockFetch.mockResolvedValueOnce({
             ok: true,
-            json: async () => ({ response: "Respuesta del bot" }),
+            json: async () => ({ output: "Respuesta del bot" }),
         } as Response);
 
         render(<ProductChat product={mockProduct} />);

@@ -120,7 +120,7 @@ export const ProductChat = ({ product, className = "" }: ProductChatProps): JSX.
 
             const botMessage: Message = {
                 id: (Date.now() + 1).toString(),
-                text: data.response ?? getFallbackResponse(inputMessage),
+                text: data.output ?? getFallbackResponse(inputMessage),
                 isUser: false,
                 timestamp: new Date(),
             };

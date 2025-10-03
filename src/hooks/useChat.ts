@@ -1,3 +1,4 @@
+/* eslint-disable comma-dangle */
 /* eslint-disable max-len */
 import { useState, useCallback } from "react";
 
@@ -119,7 +120,8 @@ export const useChat = ({ productId, productTitle }: UseChatProps): UseChatRetur
         }
 
         const data = await response.json();
-        const botResponse = data.response ?? getFallbackResponse(message);
+
+        const botResponse = data.output ?? getFallbackResponse(message);
 
         addMessage(botResponse, false);
       } catch (error) {

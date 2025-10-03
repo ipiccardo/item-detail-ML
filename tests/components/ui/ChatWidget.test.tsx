@@ -70,7 +70,7 @@ describe("ChatWidget", () => {
     it("should send message when send button is clicked", async () => {
         mockFetch.mockResolvedValueOnce({
             ok: true,
-            json: async () => ({ response: "Respuesta del bot" }),
+            json: async () => ({ output: "Respuesta del bot" }),
         } as Response);
 
         render(<ChatWidget productId="123" productTitle="Test Product" />);
@@ -94,7 +94,7 @@ describe("ChatWidget", () => {
     it("should send message when Enter key is pressed", async () => {
         mockFetch.mockResolvedValueOnce({
             ok: true,
-            json: async () => ({ response: "Respuesta del bot" }),
+            json: async () => ({ output: "Respuesta del bot" }),
         } as Response);
 
         render(<ChatWidget productId="123" productTitle="Test Product" />);
@@ -168,7 +168,7 @@ describe("ChatWidget", () => {
     it("should call API with correct payload", async () => {
         mockFetch.mockResolvedValueOnce({
             ok: true,
-            json: async () => ({ response: "Respuesta del bot" }),
+            json: async () => ({ output: "Respuesta del bot" }),
         } as Response);
 
         render(<ChatWidget productId="123" productTitle="Test Product" />);

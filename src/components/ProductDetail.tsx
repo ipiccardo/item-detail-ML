@@ -21,6 +21,17 @@ import { RelatedProducts } from "./ui/RelatedProducts";
 import { SellerInfoCard } from "./ui/SellerInfoCard";
 import TradeInPlan from "./ui/TradeInPlan";
 import QuestionsAndAnswers from "./ui/QuestionsAndAnswers";
+import ProductReviews from "./ui/ProductReviews";
+import Visa from "./ui/icons/Visa";
+import Amex from "./ui/icons/Amex";
+import Master from "./ui/icons/Master";
+import Naranja from "./ui/icons/Naranja";
+import VisaDebito from "./ui/icons/VisaDebito";
+import Maestro from "./ui/icons/Maestro";
+import Cabal from "./ui/icons/Cabal";
+import MasterCardDebito from "./ui/icons/MasterCardDebito";
+import PagoFacil from "./ui/icons/PagoFacil";
+import Rapipago from "./ui/icons/Rapipago";
 
 interface ProductDetailProps {
     product: Product;
@@ -227,46 +238,28 @@ export default function ProductDetail({ product }: ProductDetailProps): JSX.Elem
                             <div className="mb-3">
                                 <p className="text-xs font-semibold ml-text-primary mb-2">Tarjetas de crédito</p>
                                 <div className="flex gap-2">
-                                    <div className="border border-gray-200 rounded p-1">
-                                        <span className="text-[10px] font-bold text-blue-800">VISA</span>
-                                    </div>
-                                    <div className="border border-gray-200 rounded p-1">
-                                        <span className="text-[10px] font-bold text-blue-600">AMEX</span>
-                                    </div>
-                                    <div className="border border-gray-200 rounded p-1">
-                                        <span className="text-[10px] font-bold text-red-600">MC</span>
-                                    </div>
+                                    <Visa />
+                                    <Amex />
+                                    <Master />
                                 </div>
-                                <p className="text-[10px] text-orange-600 font-semibold mt-1">NaranjaX</p>
+                                <Naranja />
                             </div>
 
                             <div className="mb-3">
                                 <p className="text-xs font-semibold ml-text-primary mb-2">Tarjetas de débito</p>
                                 <div className="flex gap-2">
-                                    <div className="border border-gray-200 rounded p-1">
-                                        <span className="text-[10px] text-gray-600">VISA débito</span>
-                                    </div>
-                                    <div className="border border-gray-200 rounded p-1">
-                                        <span className="text-[10px] text-blue-600">Maestro</span>
-                                    </div>
-                                    <div className="border border-gray-200 rounded p-1">
-                                        <span className="text-[10px] text-blue-800">CABAL</span>
-                                    </div>
+                                    <VisaDebito />
+                                    <Maestro />
+                                    <Cabal />
                                 </div>
-                                <div className="mt-1">
-                                    <span className="text-[10px] text-red-600">Mastercard DÉBITO</span>
-                                </div>
+                                <MasterCardDebito />
                             </div>
 
                             <div className="mb-3">
                                 <p className="text-xs font-semibold ml-text-primary mb-2">Efectivo</p>
                                 <div className="flex gap-2">
-                                    <div className="border border-gray-200 rounded p-1">
-                                        <span className="text-[10px] text-pink-600 font-bold">Pago Fácil</span>
-                                    </div>
-                                    <div className="border border-gray-200 rounded p-1">
-                                        <span className="text-[10px] text-blue-800 font-bold">Rapipago</span>
-                                    </div>
+                                    <PagoFacil />
+                                    <Rapipago />
                                 </div>
                             </div>
 
@@ -288,8 +281,8 @@ export default function ProductDetail({ product }: ProductDetailProps): JSX.Elem
                             </div>
 
                             {/* Detailed Specifications */}
-                            <div className="bg-white rounded-md p-6">
-                                <DetailedSpecifications className="pb-10" />
+                            <div className="bg-white rounded-md p-6 mb-0 mt-0 py-0">
+                                <DetailedSpecifications />
                             </div>
 
                             {/* Description */}
@@ -322,6 +315,9 @@ export default function ProductDetail({ product }: ProductDetailProps): JSX.Elem
                             {/* Questions and Answers */}
                             <QuestionsAndAnswers />
 
+                            {/* Product Reviews */}
+                            <ProductReviews />
+
                             {/* Related Products */}
                             {!isLoadingRelated && relatedProducts.length > 0 && (
                                 <div className="bg-white rounded-md p-6">
@@ -338,6 +334,6 @@ export default function ProductDetail({ product }: ProductDetailProps): JSX.Elem
                 </div>
             </div>
 
-        </div>
+        </div >
     );
 }

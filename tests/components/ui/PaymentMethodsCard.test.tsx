@@ -153,7 +153,7 @@ describe("PaymentMethodsCard", () => {
         const creditCardsContainer = creditCardsSection?.querySelector(".flex");
 
         expect(creditCardsContainer).toBeInTheDocument();
-        expect(creditCardsContainer).toHaveClass("gap-2");
+        expect(creditCardsContainer).toHaveClass("gap-4");
     });
 
     it("should render debit cards section with proper layout", () => {
@@ -163,7 +163,7 @@ describe("PaymentMethodsCard", () => {
         const debitCardsContainer = debitCardsSection?.querySelector(".flex");
 
         expect(debitCardsContainer).toBeInTheDocument();
-        expect(debitCardsContainer).toHaveClass("gap-2");
+        expect(debitCardsContainer).toHaveClass("gap-4");
     });
 
     it("should render cash section with proper layout", () => {
@@ -173,7 +173,7 @@ describe("PaymentMethodsCard", () => {
         const cashContainer = cashSection?.querySelector(".flex");
 
         expect(cashContainer).toBeInTheDocument();
-        expect(cashContainer).toHaveClass("gap-2");
+        expect(cashContainer).toHaveClass("gap-4");
     });
 
     it("should render mobile-specific button with arrow", () => {

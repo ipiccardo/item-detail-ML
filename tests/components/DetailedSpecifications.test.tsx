@@ -98,7 +98,7 @@ describe("DetailedSpecifications", () => {
     it("should have proper container styling", () => {
         render(<DetailedSpecifications />);
 
-        const container = screen.getByText("Especificaciones del producto").closest("div");
+        const container = screen.getByRole("button").closest("div");
         expect(container).toHaveAttribute("id", "detailed-specifications");
     });
 
@@ -125,8 +125,7 @@ describe("DetailedSpecifications", () => {
     it("should handle empty specifications gracefully", () => {
         render(<DetailedSpecifications />);
 
-        // Should still render the title and button
-        expect(screen.getByText("Especificaciones del producto")).toBeInTheDocument();
+        // Should still render the button
         expect(screen.getByText("Ver todas las características")).toBeInTheDocument();
     });
 
@@ -134,7 +133,7 @@ describe("DetailedSpecifications", () => {
         const customClass = "custom-class";
         render(<DetailedSpecifications className={customClass} />);
 
-        const container = screen.getByText("Especificaciones del producto").closest("div");
+        const container = screen.getByRole("button").closest("div");
         expect(container).toHaveClass(customClass);
     });
 

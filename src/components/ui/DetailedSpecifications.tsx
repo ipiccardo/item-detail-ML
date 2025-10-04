@@ -97,7 +97,6 @@ export const DetailedSpecifications = ({ className = "" }: DetailedSpecification
 
     return (
         <div id="detailed-specifications" className={`${className}`}>
-            <h2 className="text-xl font-semibold ml-text-primary mb-4">Especificaciones del producto</h2>
 
             {isExpanded && (
                 <>

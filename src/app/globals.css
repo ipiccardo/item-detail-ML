@@ -112,10 +112,16 @@ body {
 
 .ml-text-secondary {
   color: var(--ml-description);
-  font-size: 20px;
+  font-family: Proxima Nova, -apple-system, Roboto, Arial, sans-serif;
+  font-size: 16px;
   font-weight: 400;
-  line-height: 27px;
-  font-family: "Proxima Nova", -apple-system, Roboto, Arial, sans-serif;
+  line-height: 20px;
+  word-break: break-word;
+
+  @media (min-width: 768px) {
+    font-size: 20px;
+    line-height: 27px;
+  }
 }
 
 .ml-card {

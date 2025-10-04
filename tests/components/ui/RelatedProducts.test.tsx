@@ -175,7 +175,7 @@ describe("RelatedProducts", () => {
 
             // Verificar que se usan las imágenes de public/
             expect(images[0]).toHaveAttribute("src", "/m55.webp");
-            expect(images[1]).toHaveAttribute("src", "/a35.webp");
+            expect(images[1]).toHaveAttribute("src", "/A35.webp");
             expect(images[2]).toHaveAttribute("src", "/Edge50.webp");
             expect(images[3]).toHaveAttribute("src", "/MG85.webp");
         });

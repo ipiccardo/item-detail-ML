@@ -13,7 +13,7 @@ interface RelatedProductsProps {
 // Imágenes disponibles en public/
 const availableImages = [
     "/m55.webp",
-    "/a35.webp",
+    "/A35.webp",
     "/Edge50.webp",
     "/MG85.webp",
     "/m55.png",

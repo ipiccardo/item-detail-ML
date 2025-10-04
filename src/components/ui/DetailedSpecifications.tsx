@@ -1,13 +1,15 @@
 "use client";
 
-import { JSX, useState } from "react";
+import { JSX } from "react";
+import { useSpecificationsExpansionStore } from "@/stores/specificationsExpansionStore";
 
 interface DetailedSpecificationsProps {
     className?: string;
 }
 
 export const DetailedSpecifications = ({ className = "" }: DetailedSpecificationsProps): JSX.Element => {
-    const [isExpanded, setIsExpanded] = useState(false);
+    const isExpanded = useSpecificationsExpansionStore((state) => state.isExpanded);
+    const toggleExpansion = useSpecificationsExpansionStore((state) => state.toggleExpansion);
 
     const generalSpecs = [
         { label: "Marca", value: "Samsung" },
@@ -94,7 +96,9 @@ export const DetailedSpecifications = ({ className = "" }: DetailedSpecification
     );
 
     return (
-        <div className={`${className}`}>
+        <div id="detailed-specifications" className={`${className}`}>
+            <h2 className="text-xl font-semibold ml-text-primary mb-4">Especificaciones del producto</h2>
+
             {isExpanded && (
                 <>
 
@@ -136,7 +140,7 @@ export const DetailedSpecifications = ({ className = "" }: DetailedSpecification
 
             {/* Toggle Button */}
             <button
-                onClick={() => setIsExpanded(!isExpanded)}
+                onClick={toggleExpansion}
                 className="flex items-center gap-1 text-sm text-blue-600 hover:underline mt-4"
             >
                 {isExpanded ? "Ver menos características" : "Ver todas las características"}

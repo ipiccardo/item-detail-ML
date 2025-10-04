@@ -1,13 +1,14 @@
 import { useMemo } from "react";
 import { Product } from "@/types/product";
-import { useVariants } from "./useVariants";
+import { UseVariantsReturn } from "./useVariants";
 
 interface UseProductWithVariantsProps {
   product: Product;
+  variants: UseVariantsReturn;
 }
 
-export function useProductWithVariants({ product }: UseProductWithVariantsProps) {
-  const { getCurrentPrice, getCurrentImage } = useVariants(product);
+export function useProductWithVariants({ product, variants }: UseProductWithVariantsProps) {
+  const { getCurrentPrice, getCurrentImage } = variants;
 
   // Update product with selected variants
   const updatedProduct = useMemo(() => {

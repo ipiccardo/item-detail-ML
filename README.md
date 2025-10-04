@@ -15,6 +15,7 @@ Una página de detalle de producto inspirada en MercadoLibre, desarrollada con N
 
 - **Frontend**: Next.js 15, React 19, TypeScript, Tailwind CSS
 - **Backend**: Next.js API Routes (utilizamos la API de Next.js como backend)
+- **State Management**: Zustand (estado global ligero y eficiente)
 - **Testing**: Jest, React Testing Library
 - **Iconos**: Lucide React
 - **Datos**: JSON local
@@ -62,6 +63,7 @@ src/
 │   ├── molecules/        # Componentes compuestos
 │   └── ui/              # Componentes de interfaz
 ├── hooks/               # Custom hooks
+├── stores/              # Zustand stores (estado global)
 ├── services/            # Servicios de API
 ├── types/               # Definiciones TypeScript
 ├── lib/                 # Utilidades

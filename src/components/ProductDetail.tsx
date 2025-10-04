@@ -1,4 +1,3 @@
-/* eslint-disable quotes */
 /* eslint-disable max-len */
 "use client";
 
@@ -31,10 +30,11 @@ interface ProductDetailProps {
 export default function ProductDetail({ product }: ProductDetailProps): JSX.Element {
     // Hooks for state management
     const { quantity, increment, decrement } = useQuantity(product.stock);
-    const { selectedVariants, selectColor, selectStorage } = useVariants(product);
+    const variants = useVariants(product);
+    const { selectedVariants, selectColor, selectStorage } = variants;
     const { relatedProducts, isLoading: isLoadingRelated } = useRelatedProductsService(product.id);
     const { handleBuyNow, handleAddToCart } = useProductActions({ productId: product.id, quantity });
-    const { updatedProduct } = useProductWithVariants({ product });
+    const { updatedProduct } = useProductWithVariants({ product, variants });
 
     return (
         <>

@@ -21,17 +21,17 @@ const mockReviews: Review[] = [
         id: "1",
         rating: 5,
         date: "25 jun. 2025",
-        text: "La verdad deberían agregar el cargador, viene solo el cable.",
-        helpful: 15,
+        text: "Excelente teléfono, la pantalla se ve increíble y la batería dura todo el día. La cámara toma fotos muy buenas. Lo recomiendo 100%.",
+        helpful: 23,
         verified: true,
     },
     {
         id: "2",
         rating: 5,
         date: "26 jul. 2025",
-        text: "Me estafaron en el envoltorio vino un pedazo de madera.",
-        helpful: 0,
-        verified: false,
+        text: "Perfecto para el precio. La velocidad del procesador es excelente y el diseño es muy elegante. Llegó rápido y en perfectas condiciones.",
+        helpful: 18,
+        verified: true,
     },
 ];
 

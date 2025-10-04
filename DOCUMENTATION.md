@@ -10,11 +10,12 @@ Este proyecto implementa una página de detalle de producto que se asemeja al di
 
 **Stack Tecnológico:**
 
-- **Next.js 14** con App Router para SSR/SSG y optimización de rendimiento
+- **Next.js 15** con App Router para SSR/SSG y optimización de rendimiento
 - **Next.js API Routes** como backend para endpoints RESTful
-- **React 18** con hooks modernos y componentes funcionales
+- **React 19** con hooks modernos y componentes funcionales
 - **TypeScript** para type safety y mejor developer experience
 - **Tailwind CSS** para styling responsive y consistente
+- **Zustand** para gestión de estado global ligero y eficiente
 - **Jest + React Testing Library** para testing comprehensivo
 
 **Justificación:**
@@ -45,9 +46,17 @@ Este proyecto implementa una página de detalle de producto que se asemeja al di
 **Estrategia Híbrida:**
 
 - **useState** para estado local de componentes
+- **Zustand** para estado global compartido entre componentes
 - **Custom hooks** para lógica compleja y reutilizable
 - **Local Storage** para persistencia de preferencias del usuario
 - **Server State** manejado a través de servicios y hooks
+
+**Zustand Implementation:**
+
+- **Store ligero**: Sin boilerplate, fácil de configurar
+- **Selectores específicos**: Solo re-renderiza componentes que usan el estado
+- **TypeScript nativo**: Type safety completo
+- **Sin Providers**: Accesible desde cualquier componente
 
 ### 4. Experiencia de Usuario
 
@@ -136,6 +145,47 @@ Este proyecto implementa una página de detalle de producto que se asemeja al di
 - Cleanup de efectos para prevenir memory leaks
 - Abort controllers para cancelar requests cuando sea necesario
 
+### 7. Implementación de Zustand para Estado Global
+
+**Desafío:** Coordinar estado entre componentes que no están directamente relacionados en el árbol de componentes (ej: expansión de especificaciones desde diferentes secciones).
+
+**Solución:**
+
+- **Zustand Store**: `specificationsExpansionStore.ts` para manejar estado de expansión
+- **Selectores específicos**: Componentes solo se suscriben al estado que necesitan
+- **Sin Providers**: Estado accesible desde cualquier componente sin wrappers
+- **TypeScript nativo**: Type safety completo para el estado global
+
+**Implementación:**
+
+```typescript
+// Store de Zustand
+export const useSpecificationsExpansionStore = create<SpecificationsExpansionState>((set) => ({
+  isExpanded: false,
+  toggleExpansion: () => set((state) => ({ isExpanded: !state.isExpanded })),
+  expandAndScroll: () => {
+    set({ isExpanded: true });
+    setTimeout(() => {
+      document.getElementById("detailed-specifications")?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }, 100);
+  },
+}));
+
+// Uso en componentes
+const expandAndScroll = useSpecificationsExpansionStore((state) => state.expandAndScroll);
+const isExpanded = useSpecificationsExpansionStore((state) => state.isExpanded);
+```
+
+**Ventajas sobre Context API:**
+
+- **Menos boilerplate**: No requiere Providers ni Context
+- **Mejor rendimiento**: Solo re-renderiza componentes que usan el estado
+- **Más simple**: API más directa y fácil de usar
+- **Selectores**: Permite suscribirse solo a partes específicas del estado
+
 ## Características Técnicas Destacadas
 
 ### 1. Type Safety Completo
@@ -175,6 +225,7 @@ src/
 │   ├── molecules/        # Componentes compuestos
 │   └── ui/              # Componentes de interfaz
 ├── hooks/               # Custom hooks
+├── stores/              # Zustand stores (estado global)
 ├── services/            # Servicios de API
 ├── types/               # Definiciones TypeScript
 ├── lib/                 # Utilidades y helpers

@@ -1,4 +1,5 @@
 import React from "react";
+import { useSpecificationsExpansionStore } from "@/stores/specificationsExpansionStore";
 
 interface KeyFeaturesProps {
     features: string[];
@@ -6,6 +7,8 @@ interface KeyFeaturesProps {
 }
 
 export const KeyFeatures: React.FC<KeyFeaturesProps> = ({ features, className = "" }) => {
+    const expandAndScroll = useSpecificationsExpansionStore((state) => state.expandAndScroll);
+
     if (!features || features.length === 0) {
         return null;
     }
@@ -23,7 +26,10 @@ export const KeyFeatures: React.FC<KeyFeaturesProps> = ({ features, className = 
                     </li>
                 ))}
             </ul>
-            <button className="text-[14px] ml-link hover:underline">
+            <button
+                className="text-[14px] ml-link hover:underline"
+                onClick={expandAndScroll}
+            >
                 Ver características
             </button>
         </div>

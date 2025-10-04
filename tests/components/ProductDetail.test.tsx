@@ -101,6 +101,10 @@ jest.mock("../../src/hooks", () => ({
         selectedVariants: { color: "black", storage: "256gb" },
         selectColor: jest.fn(),
         selectStorage: jest.fn(),
+        getSelectedColor: jest.fn(),
+        getSelectedStorage: jest.fn(),
+        getCurrentPrice: jest.fn().mockReturnValue(1200000),
+        getCurrentImage: jest.fn().mockReturnValue("/images/test.jpg"),
     }),
     useRelatedProductsService: () => ({
         relatedProducts: [],
@@ -110,7 +114,7 @@ jest.mock("../../src/hooks", () => ({
         handleBuyNow: jest.fn(),
         handleAddToCart: jest.fn(),
     }),
-    useProductWithVariants: () => ({
+    useProductWithVariants: jest.fn(() => ({
         updatedProduct: {
             id: "1",
             title: "Samsung Galaxy S24 Ultra 256GB",
@@ -134,7 +138,7 @@ jest.mock("../../src/hooks", () => ({
             stock: 10,
             shipping: { method: "Envío gratis", time: "Llega mañana" },
         },
-    }),
+    })),
 }));
 
 describe("ProductDetail", () => {

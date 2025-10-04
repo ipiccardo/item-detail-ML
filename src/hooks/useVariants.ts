@@ -6,7 +6,7 @@ interface SelectedVariants {
   storage?: string;
 }
 
-interface UseVariantsReturn {
+export interface UseVariantsReturn {
   selectedVariants: SelectedVariants;
   selectColor: (colorValue: string) => void;
   selectStorage: (storageValue: string) => void;

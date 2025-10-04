@@ -1,15 +1,7 @@
 import { renderHook } from "@testing-library/react";
 import { useProductWithVariants } from "../../src/hooks/useProductWithVariants";
 import { Product } from "../../src/types/product";
-
-// Mock useVariants hook
-jest.mock("../../src/hooks/useVariants", () => ({
-  useVariants: jest.fn(),
-}));
-
-import { useVariants } from "../../src/hooks/useVariants";
-
-const mockUseVariants = useVariants as jest.MockedFunction<typeof useVariants>;
+import { UseVariantsReturn } from "../../src/hooks/useVariants";
 
 describe("useProductWithVariants", () => {
   const mockProduct: Product = {
@@ -40,25 +32,27 @@ describe("useProductWithVariants", () => {
     specifications: {},
   };
 
-  beforeEach(() => {
-    jest.clearAllMocks();
+  const createMockVariants = (overrides: Partial<UseVariantsReturn> = {}): UseVariantsReturn => ({
+    selectedVariants: { color: "red", storage: "256gb" },
+    selectColor: jest.fn(),
+    selectStorage: jest.fn(),
+    getSelectedColor: jest.fn(),
+    getSelectedStorage: jest.fn(),
+    getCurrentPrice: jest.fn().mockReturnValue(1200),
+    getCurrentImage: jest.fn().mockReturnValue("variant-image.jpg"),
+    ...overrides,
   });
 
   it("should return updated product with current price and images", () => {
     const mockGetCurrentPrice = jest.fn().mockReturnValue(1200);
     const mockGetCurrentImage = jest.fn().mockReturnValue("variant-image.jpg");
 
-    mockUseVariants.mockReturnValue({
-      selectedVariants: { color: "red", storage: "256gb" },
-      selectColor: jest.fn(),
-      selectStorage: jest.fn(),
-      getSelectedColor: jest.fn(),
-      getSelectedStorage: jest.fn(),
+    const mockVariants = createMockVariants({
       getCurrentPrice: mockGetCurrentPrice,
       getCurrentImage: mockGetCurrentImage,
     });
 
-    const { result } = renderHook(() => useProductWithVariants({ product: mockProduct }));
+    const { result } = renderHook(() => useProductWithVariants({ product: mockProduct, variants: mockVariants }));
 
     expect(result.current.updatedProduct).toEqual({
       ...mockProduct,
@@ -74,17 +68,12 @@ describe("useProductWithVariants", () => {
     const mockGetCurrentPrice = jest.fn().mockReturnValue(1000);
     const mockGetCurrentImage = jest.fn().mockReturnValue(null);
 
-    mockUseVariants.mockReturnValue({
-      selectedVariants: { color: "red", storage: "256gb" },
-      selectColor: jest.fn(),
-      selectStorage: jest.fn(),
-      getSelectedColor: jest.fn(),
-      getSelectedStorage: jest.fn(),
+    const mockVariants = createMockVariants({
       getCurrentPrice: mockGetCurrentPrice,
       getCurrentImage: mockGetCurrentImage,
     });
 
-    const { result } = renderHook(() => useProductWithVariants({ product: mockProduct }));
+    const { result } = renderHook(() => useProductWithVariants({ product: mockProduct, variants: mockVariants }));
 
     expect(result.current.updatedProduct).toEqual({
       ...mockProduct,
@@ -97,17 +86,12 @@ describe("useProductWithVariants", () => {
     const mockGetCurrentPrice = jest.fn().mockReturnValue(1000);
     const mockGetCurrentImage = jest.fn().mockReturnValue("image1.jpg");
 
-    mockUseVariants.mockReturnValue({
-      selectedVariants: { color: "red", storage: "256gb" },
-      selectColor: jest.fn(),
-      selectStorage: jest.fn(),
-      getSelectedColor: jest.fn(),
-      getSelectedStorage: jest.fn(),
+    const mockVariants = createMockVariants({
       getCurrentPrice: mockGetCurrentPrice,
       getCurrentImage: mockGetCurrentImage,
     });
 
-    const { result } = renderHook(() => useProductWithVariants({ product: mockProduct }));
+    const { result } = renderHook(() => useProductWithVariants({ product: mockProduct, variants: mockVariants }));
 
     expect(result.current.updatedProduct.images).toEqual(["image1.jpg", "image2.jpg"]);
   });
@@ -116,21 +100,18 @@ describe("useProductWithVariants", () => {
     const mockGetCurrentPrice = jest.fn().mockReturnValue(1000);
     const mockGetCurrentImage = jest.fn().mockReturnValue(null);
 
-    mockUseVariants.mockReturnValue({
-      selectedVariants: { color: "red", storage: "256gb" },
-      selectColor: jest.fn(),
-      selectStorage: jest.fn(),
-      getSelectedColor: jest.fn(),
-      getSelectedStorage: jest.fn(),
+    const mockVariants = createMockVariants({
       getCurrentPrice: mockGetCurrentPrice,
       getCurrentImage: mockGetCurrentImage,
     });
 
-    const { result, rerender } = renderHook(() => useProductWithVariants({ product: mockProduct }));
+    const { result, rerender } = renderHook(() =>
+      useProductWithVariants({ product: mockProduct, variants: mockVariants })
+    );
 
     const firstResult = result.current.updatedProduct;
 
-    // Rerender with same product
+    // Rerender with same product and variants
     rerender();
 
     expect(result.current.updatedProduct).toBe(firstResult);
@@ -140,19 +121,17 @@ describe("useProductWithVariants", () => {
     const mockGetCurrentPrice = jest.fn().mockReturnValue(1000);
     const mockGetCurrentImage = jest.fn().mockReturnValue(null);
 
-    mockUseVariants.mockReturnValue({
-      selectedVariants: { color: "red", storage: "256gb" },
-      selectColor: jest.fn(),
-      selectStorage: jest.fn(),
-      getSelectedColor: jest.fn(),
-      getSelectedStorage: jest.fn(),
+    const mockVariants = createMockVariants({
       getCurrentPrice: mockGetCurrentPrice,
       getCurrentImage: mockGetCurrentImage,
     });
 
-    const { result, rerender } = renderHook(({ product }) => useProductWithVariants({ product }), {
-      initialProps: { product: mockProduct },
-    });
+    const { result, rerender } = renderHook(
+      ({ product }) => useProductWithVariants({ product, variants: mockVariants }),
+      {
+        initialProps: { product: mockProduct },
+      }
+    );
 
     const firstResult = result.current.updatedProduct;
 

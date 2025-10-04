@@ -1,5 +1,13 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { KeyFeatures } from "../../src/components/ui/KeyFeatures";
+import { useSpecificationsExpansionStore } from "../../src/stores/specificationsExpansionStore";
+
+// Mock the Zustand store
+jest.mock("../../src/stores/specificationsExpansionStore", () => ({
+    useSpecificationsExpansionStore: jest.fn(),
+}));
+
+const mockUseSpecificationsExpansionStore = useSpecificationsExpansionStore as jest.MockedFunction<typeof useSpecificationsExpansionStore>;
 
 const mockFeatures = [
     "Pantalla Super AMOLED de 6.8 pulgadas",
@@ -10,6 +18,18 @@ const mockFeatures = [
 ];
 
 describe("KeyFeatures", () => {
+    beforeEach(() => {
+        // Default mock implementation
+        mockUseSpecificationsExpansionStore.mockImplementation((selector) => {
+            const state = {
+                isExpanded: false,
+                toggleExpansion: jest.fn(),
+                expandAndScroll: jest.fn(),
+            };
+            return selector ? selector(state) : state.expandAndScroll;
+        });
+    });
+
     it("should render key features title", () => {
         render(<KeyFeatures features={mockFeatures} />);
 
@@ -109,6 +129,34 @@ describe("KeyFeatures", () => {
         render(<KeyFeatures features={mockFeatures} />);
 
         expect(screen.getByText("Ver características")).toBeInTheDocument();
+    });
+
+    it("should call expandAndScroll when clicking ver características button", () => {
+        const mockExpandAndScroll = jest.fn();
+
+        // Override the mock for this specific test
+        mockUseSpecificationsExpansionStore.mockImplementation((selector) => {
+            const state = {
+                isExpanded: false,
+                toggleExpansion: jest.fn(),
+                expandAndScroll: mockExpandAndScroll,
+            };
+            return selector ? selector(state) : state.expandAndScroll;
+        });
+
+        render(<KeyFeatures features={mockFeatures} />);
+
+        const button = screen.getByText("Ver características");
+        fireEvent.click(button);
+
+        expect(mockExpandAndScroll).toHaveBeenCalled();
+    });
+
+    it("should have proper button styling", () => {
+        render(<KeyFeatures features={mockFeatures} />);
+
+        const button = screen.getByText("Ver características");
+        expect(button).toHaveClass("text-[14px]", "ml-link", "hover:underline");
     });
 
     it("should render all features in correct order", () => {

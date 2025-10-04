@@ -65,7 +65,7 @@
           "name": "Negro",
           "value": "black",
           "available": false,
-          "image": "/3.png"
+          "image": "/3.webp"
         }
       ],
       "storage": [
@@ -115,7 +115,7 @@
       "originalPrice": 479000,
       "discount": 12
     },
-    "images": ["/m55.png", "/5.jpeg", "/1.webp"],
+    "images": ["/1.webp", "/2.webp", "/3.webp"],
     "seller": {
       "id": "123456790",
       "name": "Tienda oficial Samsung",
@@ -152,13 +152,13 @@
           "name": "Azul",
           "value": "blue",
           "available": true,
-          "image": "/m55.png"
+          "image": "/1.webp"
         },
         {
           "name": "Verde",
           "value": "green",
           "available": true,
-          "image": "/5.jpeg"
+          "image": "/2.webp"
         }
       ]
     },

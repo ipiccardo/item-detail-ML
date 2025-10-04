@@ -11,7 +11,16 @@ interface RelatedProductsProps {
 }
 
 // Imágenes disponibles en public/
-const availableImages = ["/1.png", "/2.png", "/3.png", "/4.png"];
+const availableImages = [
+    "/1.webp",
+    "/2.webp",
+    "/3.png",
+    "/5.jpeg",
+    "/m55.png",
+    "/Edge50.webp",
+    "/A35.webp",
+    "/Motorola.webp",
+];
 
 export const RelatedProducts: React.FC<RelatedProductsProps> = ({
     products,

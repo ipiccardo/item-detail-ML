@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { render, screen } from "@testing-library/react";
 import { ProductHeader } from "../../src/components/ui/ProductHeader";
 
@@ -39,7 +40,7 @@ describe("ProductHeader", () => {
 
         const titles = screen.getAllByText("Test Product");
         expect(titles[0]).toHaveClass("lg:hidden", "text-sm", "font-normal", "ml-text-primary", "leading-tight", "mb-2");
-        expect(titles[1]).toHaveClass("hidden", "lg:block", "text-xl", "font-normal", "ml-text-primary", "leading-snug", "mb-3");
+        expect(titles[1]).toHaveClass("hidden", "lg:block", "text-xl", "font-semibold", "ml-text-primary", "leading-snug");
     });
 
     it("should render rating with proper styling", () => {

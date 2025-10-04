@@ -196,4 +196,45 @@ describe("ChatWidget", () => {
             );
         });
     });
+
+    it("should handle Shift+Enter key press (should not send message)", () => {
+        render(<ChatWidget productId="123" productTitle="Test Product" />);
+
+        const chatButton = screen.getByLabelText("Abrir chat");
+        fireEvent.click(chatButton);
+
+        const input = screen.getByPlaceholderText("Escribe tu mensaje...");
+        fireEvent.change(input, { target: { value: "Test message" } });
+        fireEvent.keyPress(input, { key: "Enter", shiftKey: true });
+
+        // Should not send message with Shift+Enter
+        expect(mockFetch).not.toHaveBeenCalled();
+    });
+
+    it("should handle Enter key press without message (should not send)", () => {
+        render(<ChatWidget productId="123" productTitle="Test Product" />);
+
+        const chatButton = screen.getByLabelText("Abrir chat");
+        fireEvent.click(chatButton);
+
+        const input = screen.getByPlaceholderText("Escribe tu mensaje...");
+        fireEvent.keyPress(input, { key: "Enter" });
+
+        // Should not send empty message
+        expect(mockFetch).not.toHaveBeenCalled();
+    });
+
+    it("should handle other key presses (should not send message)", () => {
+        render(<ChatWidget productId="123" productTitle="Test Product" />);
+
+        const chatButton = screen.getByLabelText("Abrir chat");
+        fireEvent.click(chatButton);
+
+        const input = screen.getByPlaceholderText("Escribe tu mensaje...");
+        fireEvent.change(input, { target: { value: "Test message" } });
+        fireEvent.keyPress(input, { key: "Space" });
+
+        // Should not send message with other keys
+        expect(mockFetch).not.toHaveBeenCalled();
+    });
 });

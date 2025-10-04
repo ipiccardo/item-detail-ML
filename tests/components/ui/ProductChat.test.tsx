@@ -233,4 +233,48 @@ describe("ProductChat", () => {
         const container = header?.closest(".bg-white");
         expect(container).toHaveClass("bg-white", "rounded-lg", "border", "border-gray-200");
     });
+
+    it("should handle Shift+Enter key press (should not send message)", () => {
+        render(<ProductChat product={mockProduct} />);
+
+        // First expand the chat
+        const expandButton = screen.getByLabelText("Expandir chat");
+        fireEvent.click(expandButton);
+
+        const input = screen.getByPlaceholderText("Escribe tu pregunta...");
+        fireEvent.change(input, { target: { value: "Test message" } });
+        fireEvent.keyPress(input, { key: "Enter", shiftKey: true });
+
+        // Should not send message with Shift+Enter
+        expect(mockFetch).not.toHaveBeenCalled();
+    });
+
+    it("should handle Enter key press without message (should not send)", () => {
+        render(<ProductChat product={mockProduct} />);
+
+        // First expand the chat
+        const expandButton = screen.getByLabelText("Expandir chat");
+        fireEvent.click(expandButton);
+
+        const input = screen.getByPlaceholderText("Escribe tu pregunta...");
+        fireEvent.keyPress(input, { key: "Enter" });
+
+        // Should not send empty message
+        expect(mockFetch).not.toHaveBeenCalled();
+    });
+
+    it("should handle other key presses (should not send message)", () => {
+        render(<ProductChat product={mockProduct} />);
+
+        // First expand the chat
+        const expandButton = screen.getByLabelText("Expandir chat");
+        fireEvent.click(expandButton);
+
+        const input = screen.getByPlaceholderText("Escribe tu pregunta...");
+        fireEvent.change(input, { target: { value: "Test message" } });
+        fireEvent.keyPress(input, { key: "Space" });
+
+        // Should not send message with other keys
+        expect(mockFetch).not.toHaveBeenCalled();
+    });
 });

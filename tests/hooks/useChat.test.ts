@@ -165,4 +165,83 @@ describe("useChat", () => {
     );
     expect(result.current.messages[2].isUser).toBe(false);
   });
+
+  it("should provide price-related fallback response", async () => {
+    mockFetch.mockRejectedValueOnce(new Error("Network error"));
+
+    const { result } = renderHook(() => useChat({ productId: "123", productTitle: "Test Product" }));
+
+    await act(async () => {
+      await result.current.sendMessage("¿Cuánto cuesta este producto?");
+    });
+
+    expect(result.current.messages).toHaveLength(3);
+    expect(result.current.messages[2].text).toContain("precio del producto");
+  });
+
+  it("should provide shipping-related fallback response", async () => {
+    mockFetch.mockRejectedValueOnce(new Error("Network error"));
+
+    const { result } = renderHook(() => useChat({ productId: "123", productTitle: "Test Product" }));
+
+    await act(async () => {
+      await result.current.sendMessage("¿Cuándo llega el envío?");
+    });
+
+    expect(result.current.messages).toHaveLength(3);
+    expect(result.current.messages[2].text).toContain("envío gratis");
+  });
+
+  it("should provide warranty-related fallback response", async () => {
+    mockFetch.mockRejectedValueOnce(new Error("Network error"));
+
+    const { result } = renderHook(() => useChat({ productId: "123", productTitle: "Test Product" }));
+
+    await act(async () => {
+      await result.current.sendMessage("¿Tiene garantía?");
+    });
+
+    expect(result.current.messages).toHaveLength(3);
+    expect(result.current.messages[2].text).toContain("garantía");
+  });
+
+  it("should provide specifications-related fallback response", async () => {
+    mockFetch.mockRejectedValueOnce(new Error("Network error"));
+
+    const { result } = renderHook(() => useChat({ productId: "123", productTitle: "Test Product" }));
+
+    await act(async () => {
+      await result.current.sendMessage("¿Cuáles son las características?");
+    });
+
+    expect(result.current.messages).toHaveLength(3);
+    expect(result.current.messages[2].text).toContain("características");
+  });
+
+  it("should provide stock-related fallback response", async () => {
+    mockFetch.mockRejectedValueOnce(new Error("Network error"));
+
+    const { result } = renderHook(() => useChat({ productId: "123", productTitle: "Test Product" }));
+
+    await act(async () => {
+      await result.current.sendMessage("¿Hay stock disponible?");
+    });
+
+    expect(result.current.messages).toHaveLength(3);
+    expect(result.current.messages[2].text).toContain("stock disponible");
+  });
+
+  it("should provide general fallback response for unknown queries", async () => {
+    mockFetch.mockRejectedValueOnce(new Error("Network error"));
+
+    const { result } = renderHook(() => useChat({ productId: "123", productTitle: "Test Product" }));
+
+    await act(async () => {
+      await result.current.sendMessage("Información random");
+    });
+
+    expect(result.current.messages).toHaveLength(3);
+    // The response is random, so we just check it's a general response
+    expect(result.current.messages[2].text.length).toBeGreaterThan(10);
+  });
 });

@@ -1,3 +1,4 @@
+/* eslint-disable comma-dangle */
 import { NextRequest, NextResponse } from "next/server";
 import { Product } from "@/types/product";
 import { ApiResponse } from "@/types/api";
@@ -5,27 +6,19 @@ import productsData from "@/data/products.json";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> }
 ): Promise<NextResponse<ApiResponse<Product>>> {
   try {
-    const { id } = params;
+    const { id } = await params;
 
     if (!id) {
-      return NextResponse.json(
-        { success: false, error: "Product ID is required" },
-        { status: 400 },
-      );
+      return NextResponse.json({ success: false, error: "Product ID is required" }, { status: 400 });
     }
 
-    const product = (productsData as Product[]).find(
-      (p: Product) => p.id === id,
-    );
+    const product = (productsData as Product[]).find((p: Product) => p.id === id);
 
     if (!product) {
-      return NextResponse.json(
-        { success: false, error: "Product not found" },
-        { status: 404 },
-      );
+      return NextResponse.json({ success: false, error: "Product not found" }, { status: 404 });
     }
 
     return NextResponse.json({
@@ -40,7 +33,7 @@ export async function GET(
         success: false,
         error: "Internal server error",
       },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }

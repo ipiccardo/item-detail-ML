@@ -13,7 +13,7 @@ interface GuaranteesListProps {
 export default function GuaranteesList({
     guarantees,
     className = "",
-}: GuaranteesListProps): React.JSX.Element {
+}: GuaranteesListProps): React.JSX.Element | null {
     if (!guarantees || guarantees.length === 0) {
         return null;
     }

@@ -168,7 +168,7 @@ export default function ImageGallery({ images, title, onHoverChange }: ImageGall
 
             {/* Desktop: Image Magnifier on Hover - Replaces columns */}
             {isHovering && imageContainerRef.current && (
-                (() => {
+                ((): JSX.Element => {
                     const scaleFactor = 2; // Nivel de zoom
                     const rect = imageContainerRef.current!.getBoundingClientRect();
 

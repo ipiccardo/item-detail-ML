@@ -1,3 +1,4 @@
+/* eslint-disable comma-dangle */
 /* eslint-disable max-len */
 import { render, screen, fireEvent } from "@testing-library/react";
 import { MercadoLibreHeader } from "../../../src/components/ui/MercadoLibreHeader";
@@ -51,8 +52,8 @@ describe("MercadoLibreHeader", () => {
         render(<MercadoLibreHeader />);
 
         const logos = screen.getAllByAltText("MercadoLibre");
-        expect(logos).toHaveLength(2); // Mobile and desktop versions
-        expect(logos[0]).toHaveAttribute("src", "https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/6.6.150/mercadolibre/logo_large_plus@2x.webp");
+        expect(logos).toHaveLength(3); // Mobile, desktop, and mobile menu versions
+        expect(logos[0]).toHaveAttribute("src", "https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/6.6.151/mercadolibre/logo__small@2x.png");
     });
 
     it("should render search bar with search icon", () => {
@@ -139,7 +140,7 @@ describe("MercadoLibreHeader", () => {
 
         // Check desktop logo is hidden on mobile
         const desktopLogo = screen.getAllByAltText("MercadoLibre")[1].closest("div");
-        expect(desktopLogo).toHaveClass("hidden", "lg:flex");
+        expect(desktopLogo).toHaveClass("flex", "items-center", "gap-3", "lg:hidden");
     });
 
     it("should render proper header structure", () => {

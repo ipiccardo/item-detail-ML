@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -15,7 +16,29 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "MercadoLibre - Detalle del Producto",
-  description: "Página de detalle de producto inspirada en MercadoLibre",
+  description: "Página de detalle de producto inspirada en MercadoLibre con funcionalidades avanzadas como chat con IA, magnificador de imágenes y diseño responsive",
+  keywords: "MercadoLibre, e-commerce, productos, compras online, chat IA, magnificador imágenes",
+  authors: [{ name: "MercadoLibre Clone" }],
+  creator: "MercadoLibre Clone",
+  publisher: "MercadoLibre Clone",
+  robots: "index, follow",
+  openGraph: {
+    title: "MercadoLibre - Detalle del Producto",
+    description: "Página de detalle de producto inspirada en MercadoLibre con funcionalidades avanzadas",
+    type: "website",
+    locale: "es_AR",
+    siteName: "MercadoLibre Clone",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "MercadoLibre - Detalle del Producto",
+    description: "Página de detalle de producto inspirada en MercadoLibre con funcionalidades avanzadas",
+  },
+  icons: {
+    icon: "/logo__small@2x.png",
+    shortcut: "/logo__small@2x.png",
+    apple: "/logo__small@2x.png",
+  },
 };
 
 export default function RootLayout({

@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { render, screen, fireEvent } from "@testing-library/react";
@@ -279,8 +280,9 @@ describe("ImageGallery", () => {
             // Simulate mouse enter
             fireEvent.mouseEnter(imageContainer!);
 
-            // Should show the image viewer
-            expect(screen.getByAltText(`${mockTitle} - Vista ampliada`)).toBeInTheDocument();
+            // Should show the image viewer (now using background image)
+            const magnifier = document.querySelector('.fixed.bg-white.border.border-gray-200');
+            expect(magnifier).toBeInTheDocument();
         });
 
         it("should hide image viewer on mouse leave", () => {
@@ -293,7 +295,8 @@ describe("ImageGallery", () => {
             fireEvent.mouseLeave(imageContainer!);
 
             // Should not show the image viewer
-            expect(screen.queryByAltText(`${mockTitle} - Vista ampliada`)).not.toBeInTheDocument();
+            const magnifier = document.querySelector('.fixed.bg-white.border.border-gray-200');
+            expect(magnifier).not.toBeInTheDocument();
         });
 
         it("should update image viewer position on mouse move", () => {
@@ -306,7 +309,8 @@ describe("ImageGallery", () => {
             fireEvent.mouseMove(imageContainer!, { clientX: 100, clientY: 200 });
 
             // Should show the image viewer with updated position
-            expect(screen.getByAltText(`${mockTitle} - Vista ampliada`)).toBeInTheDocument();
+            const magnifier = document.querySelector('.fixed.bg-white.border.border-gray-200');
+            expect(magnifier).toBeInTheDocument();
         });
 
         it("should only show image viewer on desktop", () => {
@@ -318,8 +322,8 @@ describe("ImageGallery", () => {
             fireEvent.mouseEnter(imageContainer!);
 
             // Should show the image viewer with desktop-only classes
-            const imageViewer = screen.getByAltText(`${mockTitle} - Vista ampliada`).closest("div");
-            expect(imageViewer).toHaveClass("hidden", "lg:block");
+            const magnifier = document.querySelector('.fixed.bg-white.border.border-gray-200');
+            expect(magnifier).toHaveClass("hidden", "lg:block");
         });
     });
 });

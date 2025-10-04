@@ -35,9 +35,14 @@ export const MercadoLibreHeader = (): JSX.Element => {
                             )}
                         </button>
                         <img
+                            src="https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/6.6.151/mercadolibre/logo__small@2x.png"
+                            alt="MercadoLibre"
+                            className="h-7 w-auto block lg:hidden"
+                        />
+                        <img
                             src="https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/6.6.150/mercadolibre/logo_large_plus@2x.webp"
                             alt="MercadoLibre"
-                            className="h-7 w-auto"
+                            className="h-7 w-auto hidden lg:block"
                         />
                     </div>
 
@@ -51,7 +56,7 @@ export const MercadoLibreHeader = (): JSX.Element => {
                     </div>
 
                     {/* Search Bar */}
-                    <div className="flex-1 lg:max-w-2xl lg:mx-8">
+                    <div className="flex-1 lg:max-w-2xl  px-4 lg:mx-8">
                         <div className="relative">
                             <input
                                 type="text"

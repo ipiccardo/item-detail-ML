@@ -1,19 +1,20 @@
+/* eslint-disable comma-dangle */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable quotes */
 /* eslint-disable max-len */
 "use client";
 
 import { JSX, useRef, useEffect, useState, useCallback } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import { useImageGallery } from "@/hooks/useImageGallery";
 
 interface ImageGalleryProps {
     images: string[];
     title: string;
-    onHoverChange?: (isHovering: boolean) => void;
 }
 
-export default function ImageGallery({ images, title, onHoverChange }: ImageGalleryProps): JSX.Element {
+export default function ImageGallery({ images, title }: ImageGalleryProps): JSX.Element {
     const { selectedImage, selectImage } = useImageGallery(images);
     const imageContainerRef = useRef<HTMLDivElement>(null);
     const touchStartX = useRef<number>(0);
@@ -38,6 +39,7 @@ export default function ImageGallery({ images, title, onHoverChange }: ImageGall
     // Handle mouse movement for image viewer
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>): void => {
         const rect = e.currentTarget.getBoundingClientRect();
+        // Calcular posición relativa al contenedor de la imagen
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
         setMousePosition({ x, y });
@@ -46,12 +48,10 @@ export default function ImageGallery({ images, title, onHoverChange }: ImageGall
     // Handle mouse enter/leave for image viewer
     const handleMouseEnter = (): void => {
         setIsHovering(true);
-        onHoverChange?.(true);
     };
 
     const handleMouseLeave = (): void => {
         setIsHovering(false);
-        onHoverChange?.(false);
     };
 
     // Handle touch events for mobile
@@ -113,6 +113,19 @@ export default function ImageGallery({ images, title, onHoverChange }: ImageGall
                     priority
                 />
 
+                {/* Dark overlay on hover - shows where mouse is */}
+                {isHovering && (
+                    <div
+                        className="hidden lg:block absolute bg-black bg-opacity-30 rounded-full pointer-events-none"
+                        style={{
+                            left: `${mousePosition.x - 50}px`,
+                            top: `${mousePosition.y - 50}px`,
+                            width: '100px',
+                            height: '100px',
+                        }}
+                    />
+                )}
+
                 {/* Mobile: Image counter - Top Left */}
                 <div className="lg:hidden absolute top-2 left-2 bg-black bg-opacity-60 px-2 py-0.5 rounded text-xs font-normal text-white">
                     {selectedImage + 1} / {images.length}
@@ -167,43 +180,46 @@ export default function ImageGallery({ images, title, onHoverChange }: ImageGall
             </div>
 
             {/* Desktop: Image Magnifier on Hover - Replaces columns */}
-            {isHovering && imageContainerRef.current && (
+            {isHovering && imageContainerRef.current && typeof window !== 'undefined' && createPortal(
                 ((): JSX.Element => {
                     const scaleFactor = 2; // Nivel de zoom
                     const rect = imageContainerRef.current!.getBoundingClientRect();
 
-                    // Ocupa todo el espacio desde el borde derecho de la imagen hasta el final del contenedor
-                    const containerWidth = 1200; // max-w-[1200px] del contenedor principal
-                    const magnifierWidth = containerWidth - rect.right - 10; // Aún más ancho
-                    const magnifierHeight = rect.height; // Misma altura que la imagen principal
+                    // Ocupa todo el espacio desde la imagen hasta el final de la ventana para cubrir todas las columnas
+                    const magnifierWidth = window.innerWidth - rect.right; // Cubre todas las columnas incluyendo el sidebar
+                    const magnifierHeight = rect.height * 1.5; // Más alto que la imagen principal
 
                     // Calcula la traslación para la imagen magnificada
-                    const translateX = -mousePosition.x * scaleFactor + magnifierWidth / 2;
-                    const translateY = -mousePosition.y * scaleFactor + magnifierHeight / 2;
+                    // Cálculo completamente nuevo y más preciso
+                    const backgroundX = -mousePosition.x * scaleFactor + magnifierWidth / 6;
+                    const backgroundY = -mousePosition.y * scaleFactor + magnifierHeight / 6;
 
                     return (
                         <div
-                            className="hidden lg:block absolute bg-white border border-gray-200 rounded-lg shadow-xl z-50 overflow-hidden pointer-events-none"
+                            className="hidden lg:block fixed bg-white border border-gray-200 rounded-lg shadow-xl z-[999999] overflow-hidden pointer-events-none"
                             style={{
-                                left: `${rect.right - 100}px`, // Completamente pegado a la imagen
-                                top: `${rect.top - 200}px`, // Mucho más arriba
+                                left: `${rect.right}px`,
+                                right: `${rect.left}px`,
+                                top: `${rect.top}px`,
                                 width: `${magnifierWidth}px`,
                                 height: `${magnifierHeight}px`,
+                                maxWidth: `${700}px`,
+                                maxHeight: `${700}px`,
                             }}
                         >
-                            <Image
-                                src={images[selectedImage]}
-                                alt={`${title} - Vista ampliada`}
-                                fill
-                                className="object-cover"
+                            <div
+                                className="w-full h-full"
                                 style={{
-                                    transformOrigin: '0% 0%',
-                                    transform: `scale(${scaleFactor}) translate(${translateX}px, ${translateY}px)`,
+                                    backgroundImage: `url(${images[selectedImage]})`,
+                                    backgroundSize: `${scaleFactor * 100}% ${scaleFactor * 100}%`,
+                                    backgroundPosition: `${backgroundX}px ${backgroundY}px`,
+                                    backgroundRepeat: 'no-repeat',
                                 }}
                             />
                         </div>
                     );
-                })()
+                })(),
+                document.body
             )}
         </div>
     );

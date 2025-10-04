@@ -42,7 +42,7 @@ export const PaymentMethodsCard = ({ isMobile = false }: PaymentMethodsCardProps
 
             <div className="mb-3">
                 <p className="text-xs font-semibold ml-text-primary mb-2">Tarjetas de crédito</p>
-                <div className={`flex ${isMobile ? "flex-wrap" : ""} gap-2`}>
+                <div className={`flex ${isMobile ? "flex-wrap" : ""} gap-4`}>
                     <Visa />
                     <Amex />
                     <Master />
@@ -53,7 +53,7 @@ export const PaymentMethodsCard = ({ isMobile = false }: PaymentMethodsCardProps
 
             <div className="mb-3">
                 <p className="text-xs font-semibold ml-text-primary mb-2">Tarjetas de débito</p>
-                <div className={`flex ${isMobile ? "flex-wrap" : ""} gap-2`}>
+                <div className={`flex ${isMobile ? "flex-wrap" : ""}  gap-4`}>
                     <VisaDebito />
                     <Maestro />
                     <Cabal />
@@ -64,7 +64,7 @@ export const PaymentMethodsCard = ({ isMobile = false }: PaymentMethodsCardProps
 
             <div className="mb-3">
                 <p className="text-xs font-semibold ml-text-primary mb-2">Efectivo</p>
-                <div className={`flex ${isMobile ? "flex-wrap" : ""} gap-2`}>
+                <div className={`flex ${isMobile ? "flex-wrap" : ""} gap-4`}>
                     <PagoFacil />
                     <Rapipago />
                 </div>

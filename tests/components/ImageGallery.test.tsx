@@ -164,34 +164,8 @@ describe("ImageGallery", () => {
         expect(actionButtons).toHaveLength(2);
     });
 
-    describe("Scroll and Swipe functionality", () => {
-        it("should handle wheel scroll for next image", () => {
-            render(<ImageGallery images={mockImages} title={mockTitle} />);
-
-            const imageContainer = screen.getByAltText(mockTitle).closest("div");
-
-            // Simulate wheel scroll down (next image)
-            fireEvent.wheel(imageContainer!, { deltaY: 100 });
-
-            // Should show second image
-            expect(screen.getByText("2 / 4")).toBeInTheDocument();
-        });
-
-        it("should handle wheel scroll for previous image", () => {
-            render(<ImageGallery images={mockImages} title={mockTitle} />);
-
-            const imageContainer = screen.getByAltText(mockTitle).closest("div");
-
-            // First go to second image
-            fireEvent.wheel(imageContainer!, { deltaY: 100 });
-            expect(screen.getByText("2 / 4")).toBeInTheDocument();
-
-            // Then scroll up (previous image)
-            fireEvent.wheel(imageContainer!, { deltaY: -100 });
-
-            // Should show first image
-            expect(screen.getByText("1 / 4")).toBeInTheDocument();
-        });
+    describe("Touch Swipe functionality", () => {
+        // Note: Wheel scroll functionality has been disabled as requested
 
         it("should handle touch swipe for next image", () => {
             render(<ImageGallery images={mockImages} title={mockTitle} />);
@@ -239,34 +213,21 @@ describe("ImageGallery", () => {
             expect(screen.getByText("1 / 4")).toBeInTheDocument();
         });
 
-        it("should cycle to last image when going back from first", () => {
+        it("should cycle through images using dot navigation", () => {
             render(<ImageGallery images={mockImages} title={mockTitle} />);
 
-            const imageContainer = screen.getByAltText(mockTitle).closest("div");
-
-            // Scroll up from first image
-            fireEvent.wheel(imageContainer!, { deltaY: -100 });
-
-            // Should show last image (4th)
-            expect(screen.getByText("4 / 4")).toBeInTheDocument();
-        });
-
-        it("should cycle to first image when going forward from last", () => {
-            render(<ImageGallery images={mockImages} title={mockTitle} />);
-
-            const imageContainer = screen.getByAltText(mockTitle).closest("div");
-
-            // Go to last image first
+            // Go to last image using dots
             const dots = screen.getAllByRole("button").filter(button =>
                 button.getAttribute("aria-label")?.includes("Ver imagen 4"),
             );
             fireEvent.click(dots[0]);
             expect(screen.getByText("4 / 4")).toBeInTheDocument();
 
-            // Then scroll down (next image)
-            fireEvent.wheel(imageContainer!, { deltaY: 100 });
-
-            // Should cycle back to first image
+            // Go back to first image using dots
+            const firstDot = screen.getAllByRole("button").filter(button =>
+                button.getAttribute("aria-label")?.includes("Ver imagen 1"),
+            );
+            fireEvent.click(firstDot[0]);
             expect(screen.getByText("1 / 4")).toBeInTheDocument();
         });
     });

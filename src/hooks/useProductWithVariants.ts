@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { useMemo } from "react";
 import { Product } from "@/types/product";
 import { UseVariantsReturn } from "./useVariants";

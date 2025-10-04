@@ -4,7 +4,7 @@
 /* eslint-disable max-len */
 "use client";
 
-import { JSX, useRef, useEffect, useState, useCallback } from "react";
+import { JSX, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
 import { useImageGallery } from "@/hooks/useImageGallery";
@@ -22,19 +22,19 @@ export default function ImageGallery({ images, title }: ImageGalleryProps): JSX.
     const [isHovering, setIsHovering] = useState(false);
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
-    // Handle wheel scroll for desktop
-    const handleWheel = useCallback((e: WheelEvent): void => {
-        e.preventDefault();
-        if (e.deltaY > 0) {
-            // Scroll down - next image
-            const nextIndex = (selectedImage + 1) % images.length;
-            selectImage(nextIndex);
-        } else {
-            // Scroll up - previous image
-            const prevIndex = selectedImage === 0 ? images.length - 1 : selectedImage - 1;
-            selectImage(prevIndex);
-        }
-    }, [selectedImage, images.length, selectImage]);
+    // Handle wheel scroll for desktop - DISABLED
+    // const handleWheel = useCallback((e: WheelEvent): void => {
+    //     e.preventDefault();
+    //     if (e.deltaY > 0) {
+    //         // Scroll down - next image
+    //         const nextIndex = (selectedImage + 1) % images.length;
+    //         selectImage(nextIndex);
+    //     } else {
+    //         // Scroll up - previous image
+    //         const prevIndex = selectedImage === 0 ? images.length - 1 : selectedImage - 1;
+    //         selectImage(prevIndex);
+    //     }
+    // }, [selectedImage, images.length, selectImage]);
 
     // Handle mouse movement for image viewer
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>): void => {
@@ -81,16 +81,16 @@ export default function ImageGallery({ images, title }: ImageGalleryProps): JSX.
         }
     };
 
-    // Add wheel event listener for desktop
-    useEffect(() => {
-        const container = imageContainerRef.current;
-        if (container) {
-            container.addEventListener('wheel', handleWheel, { passive: false });
-            return (): void => {
-                container.removeEventListener('wheel', handleWheel);
-            };
-        }
-    }, [selectedImage, images.length, selectImage, handleWheel]);
+    // Add wheel event listener for desktop - DISABLED
+    // useEffect(() => {
+    //     const container = imageContainerRef.current;
+    //     if (container) {
+    //         container.addEventListener('wheel', handleWheel, { passive: false });
+    //         return (): void => {
+    //             container.removeEventListener('wheel', handleWheel);
+    //         };
+    //     }
+    // }, [selectedImage, images.length, selectImage, handleWheel]);
 
     return (
         <div className="flex flex-col lg:flex-row">

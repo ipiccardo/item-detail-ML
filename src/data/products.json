@@ -9,7 +9,7 @@
       "originalPrice": 499000,
       "discount": 12
     },
-    "images": ["/1.png", "/2.png", "/3.png", "/4.png"],
+    "images": ["/1.webp", "/2.webp", "/3.webp", "/4.webp"],
     "seller": {
       "id": "123456789",
       "name": "Tienda oficial Samsung",
@@ -53,13 +53,13 @@
           "name": "Azul oscuro",
           "value": "blue",
           "available": true,
-          "image": "/1.png"
+          "image": "/1.webp"
         },
         {
           "name": "Blanco",
           "value": "white",
           "available": true,
-          "image": "/2.png"
+          "image": "/2.webp"
         },
         {
           "name": "Negro",
@@ -115,7 +115,7 @@
       "originalPrice": 479000,
       "discount": 12
     },
-    "images": ["/m55-1.png", "/m55-2.png", "/m55-3.png"],
+    "images": ["/m55.png", "/5.jpeg", "/1.webp"],
     "seller": {
       "id": "123456790",
       "name": "Tienda oficial Samsung",
@@ -152,13 +152,13 @@
           "name": "Azul",
           "value": "blue",
           "available": true,
-          "image": "/m55-1.png"
+          "image": "/m55.png"
         },
         {
           "name": "Verde",
           "value": "green",
           "available": true,
-          "image": "/m55-2.png"
+          "image": "/5.jpeg"
         }
       ]
     },
@@ -185,7 +185,7 @@
       "originalPrice": 423000,
       "discount": 1
     },
-    "images": ["/edge50-1.png", "/edge50-2.png"],
+    "images": ["/Edge50.webp", "/2.webp"],
     "seller": {
       "id": "123456791",
       "name": "Motorola Store",
@@ -222,13 +222,13 @@
           "name": "Negro",
           "value": "black",
           "available": true,
-          "image": "/edge50-1.png"
+          "image": "/Edge50.webp"
         },
         {
           "name": "Azul",
           "value": "blue",
           "available": true,
-          "image": "/edge50-2.png"
+          "image": "/2.webp"
         }
       ]
     },
@@ -255,7 +255,7 @@
       "originalPrice": 336000,
       "discount": 3
     },
-    "images": ["/a35-1.png", "/a35-2.png"],
+    "images": ["/A35.webp", "/Motorola.webp"],
     "seller": {
       "id": "123456792",
       "name": "Tienda oficial Samsung",
@@ -292,13 +292,13 @@
           "name": "Azul",
           "value": "blue",
           "available": true,
-          "image": "/a35-1.png"
+          "image": "/A35.webp"
         },
         {
           "name": "Blanco",
           "value": "white",
           "available": true,
-          "image": "/a35-2.png"
+          "image": "/Motorola.webp"
         }
       ]
     },
@@ -325,7 +325,7 @@
       "originalPrice": 365000,
       "discount": 10
     },
-    "images": ["/g85-1.png", "/g85-2.png"],
+    "images": ["/Motorola.webp", "/A35.webp"],
     "seller": {
       "id": "123456793",
       "name": "Motorola Store",
@@ -362,13 +362,13 @@
           "name": "Verde",
           "value": "green",
           "available": true,
-          "image": "/g85-1.png"
+          "image": "/Motorola.webp"
         },
         {
           "name": "Negro",
           "value": "black",
           "available": true,
-          "image": "/g85-2.png"
+          "image": "/A35.webp"
         }
       ]
     },

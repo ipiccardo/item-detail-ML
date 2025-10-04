@@ -67,7 +67,7 @@ export default function QuestionsAndAnswers({ className = "" }: QuestionsAndAnsw
             <h2 className="text-xl font-semibold ml-text-primary mb-4">Preguntas y respuestas</h2>
 
             {/* Search Bar */}
-            <div className="flex gap-2 mb-6">
+            <div className="flex mb-6">
                 <div className="flex-1 relative">
                     <input
                         type="text"
@@ -90,17 +90,17 @@ export default function QuestionsAndAnswers({ className = "" }: QuestionsAndAnsw
             {/* Ask Question Section */}
             <div className="mb-6">
                 <p className="text-sm ml-text-secondary mb-3">Preguntale al vendedor</p>
-                <div className="flex gap-2">
+                <div className="flex">
                     <input
                         type="text"
                         placeholder="Escribí tu pregunta..."
                         value={newQuestion}
                         onChange={(e) => setNewQuestion(e.target.value)}
-                        className="flex-1 border border-gray-300 rounded-md p-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="flex-1 border border-gray-300 p-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
                     <button
                         onClick={handleAskQuestion}
-                        className="bg-blue-600 text-white rounded-md px-4 py-2 text-sm font-semibold hover:bg-blue-700 transition-colors"
+                        className="bg-blue-600 text-white rounded-r-md px-4 py-2 text-sm font-semibold hover:bg-blue-700 transition-colors"
                     >
                         Preguntar
                     </button>

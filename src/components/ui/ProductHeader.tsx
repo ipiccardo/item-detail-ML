@@ -20,7 +20,7 @@ export const ProductHeader = ({ title, rating, sales }: ProductHeaderProps): JSX
             </div>
 
             {/* Mobile: Title First */}
-            <h1 className="lg:hidden text-sm font-normal ml-text-primary leading-tight mb-2">{title}</h1>
+            <h1 className="lg:hidden text-sm font-normal ml-text-primary leading-tight mb-2 ">{title}</h1>
 
             {/* Mobile: Nuevo + Vendidos + Rating */}
             <div className="lg:hidden mb-4">
@@ -57,10 +57,10 @@ export const ProductHeader = ({ title, rating, sales }: ProductHeaderProps): JSX
             </div>
 
             {/* Desktop: Title */}
-            <h1 className="hidden lg:block text-xl font-normal ml-text-primary leading-snug mb-3">{title}</h1>
+            <h1 className="hidden lg:block text-xl font-semibold ml-text-primary leading-snug ">{title}</h1>
 
             {/* Desktop: Rating */}
-            <div className="hidden lg:flex items-center gap-2 mb-4">
+            <div className="hidden lg:flex items-center gap-2 mb-3">
                 <span className="text-sm ml-text-primary">{rating.average}</span>
                 <div className="flex items-center">
                     <span className="ml-rating text-sm">{generateStars(rating.average)}</span>

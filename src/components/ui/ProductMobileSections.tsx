@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { JSX } from "react";
 import { Search } from "lucide-react";
 import { PaymentMethodsCard } from "./PaymentMethodsCard";

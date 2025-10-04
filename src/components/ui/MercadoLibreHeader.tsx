@@ -21,7 +21,7 @@ export const MercadoLibreHeader = (): JSX.Element => {
             {/* Main Header - Hide when mobile menu is open */}
             <div className={`max-w-[1200px] mx-auto px-4 lg:px-0 py-2 lg:py-3 ${isMobileMenuOpen ? 'hidden' : ''}`}>
                 {/* Top Row */}
-                <div className="flex items-center justify-between mb-2 lg:mb-3">
+                <div className="flex items-center mb-2 lg:mb-3">
                     {/* Mobile: Menu + Logo */}
                     <div className="flex items-center gap-3 lg:hidden">
                         <button
@@ -71,20 +71,7 @@ export const MercadoLibreHeader = (): JSX.Element => {
                     </button>
 
                     {/* Desktop: User Actions */}
-                    <div className="hidden lg:flex items-center gap-4 text-sm">
-                        <div className="flex items-center gap-1 text-gray-600">
-                            <MapPin className="w-4 h-4" />
-                            <span>Enviar a Capital Federal</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                            <a href="#" className="text-gray-600 hover:text-blue-600">Creá tu cuenta</a>
-                            <a href="#" className="text-gray-600 hover:text-blue-600">Ingresá</a>
-                            <a href="#" className="text-gray-600 hover:text-blue-600">Mis compras</a>
-                            <button className="text-gray-600 hover:text-blue-600">
-                                <ShoppingCart className="w-5 h-5" />
-                            </button>
-                        </div>
-                    </div>
+
                 </div>
 
                 {/* Mobile: Location */}
@@ -95,6 +82,10 @@ export const MercadoLibreHeader = (): JSX.Element => {
 
                 {/* Navigation - Desktop only */}
                 <div className="hidden lg:flex items-center gap-6 text-sm relative">
+                    <div className="flex items-center gap-1 text-gray-600">
+                        <MapPin className="w-4 h-4" />
+                        <span>Enviar a Capital Federal</span>
+                    </div>
                     <button
                         className="flex items-center gap-1 text-gray-600 hover:text-blue-600"
                         onClick={() => setIsCategoriesOpen(!isCategoriesOpen)}
@@ -119,6 +110,17 @@ export const MercadoLibreHeader = (): JSX.Element => {
                     </a>
                     <a href="#" className="text-gray-600 hover:text-blue-600">Vender</a>
                     <a href="#" className="text-gray-600 hover:text-blue-600">Ayuda</a>
+                    <div className="hidden lg:flex items-center gap-4 text-sm">
+
+                        <div className="flex items-center gap-3">
+                            <a href="#" className="text-gray-600 hover:text-blue-600">Creá tu cuenta</a>
+                            <a href="#" className="text-gray-600 hover:text-blue-600">Ingresá</a>
+                            <a href="#" className="text-gray-600 hover:text-blue-600">Mis compras</a>
+                            <button className="text-gray-600 hover:text-blue-600">
+                                <ShoppingCart className="w-5 h-5" />
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
 

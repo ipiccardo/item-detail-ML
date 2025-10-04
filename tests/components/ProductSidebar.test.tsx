@@ -14,6 +14,10 @@ jest.mock("../../src/components/ui/PaymentMethodsCard", () => ({
   PaymentMethodsCard: () => <div data-testid="payment-methods-card">Payment Methods Card Mock</div>,
 }));
 
+jest.mock("../../src/components/ui/ProductChat", () => ({
+  ProductChat: () => <div data-testid="product-chat">Product Chat Mock</div>,
+}));
+
 const mockSeller = {
   name: "TechStore",
   link: "#",
@@ -26,6 +30,30 @@ const mockShipping = {
   time: "Llega mañana",
 };
 
+const mockProduct = {
+  id: "1",
+  title: "Test Product",
+  description: "Test Description",
+  price: {
+    amount: 100,
+    currency: "USD",
+  },
+  images: ["image1.jpg"],
+  seller: mockSeller,
+  condition: "new" as const,
+  stock: 10,
+  shipping: mockShipping,
+  paymentMethods: ["credit", "debit"],
+  rating: {
+    average: 4.5,
+    totalReviews: 100,
+  },
+  specifications: {},
+  category: "Electronics",
+  brand: "Test Brand",
+  model: "Test Model",
+};
+
 describe("ProductSidebar", () => {
   const mockProps = {
     seller: mockSeller,
@@ -36,6 +64,7 @@ describe("ProductSidebar", () => {
     onDecrement: jest.fn(),
     onBuyNow: jest.fn(),
     onAddToCart: jest.fn(),
+    product: mockProduct,
   };
 
   beforeEach(() => {
@@ -144,5 +173,11 @@ describe("ProductSidebar", () => {
     render(<ProductSidebar {...mockProps} quantity={5} />);
 
     expect(screen.getByTestId("seller-info-card")).toBeInTheDocument();
+  });
+
+  it("should render product chat", () => {
+    render(<ProductSidebar {...mockProps} />);
+
+    expect(screen.getByTestId("product-chat")).toBeInTheDocument();
   });
 });

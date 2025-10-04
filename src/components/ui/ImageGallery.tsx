@@ -1,7 +1,8 @@
+/* eslint-disable quotes */
 /* eslint-disable max-len */
 "use client";
 
-import { JSX } from "react";
+import { JSX, useRef, useEffect } from "react";
 import Image from "next/image";
 import { useImageGallery } from "@/hooks/useImageGallery";
 
@@ -12,11 +13,72 @@ interface ImageGalleryProps {
 
 export default function ImageGallery({ images, title }: ImageGalleryProps): JSX.Element {
     const { selectedImage, selectImage } = useImageGallery(images);
+    const imageContainerRef = useRef<HTMLDivElement>(null);
+    const touchStartX = useRef<number>(0);
+    const touchEndX = useRef<number>(0);
+
+    // Handle wheel scroll for desktop
+    const handleWheel = (e: WheelEvent): void => {
+        e.preventDefault();
+        if (e.deltaY > 0) {
+            // Scroll down - next image
+            const nextIndex = (selectedImage + 1) % images.length;
+            selectImage(nextIndex);
+        } else {
+            // Scroll up - previous image
+            const prevIndex = selectedImage === 0 ? images.length - 1 : selectedImage - 1;
+            selectImage(prevIndex);
+        }
+    };
+
+    // Handle touch events for mobile
+    const handleTouchStart = (e: React.TouchEvent): void => {
+        touchStartX.current = e.targetTouches[0].clientX;
+    };
+
+    const handleTouchMove = (e: React.TouchEvent): void => {
+        touchEndX.current = e.targetTouches[0].clientX;
+    };
+
+    const handleTouchEnd = (): void => {
+        if (!touchStartX.current || !touchEndX.current) return;
+
+        const distance = touchStartX.current - touchEndX.current;
+        const isLeftSwipe = distance > 50;
+        const isRightSwipe = distance < -50;
+
+        if (isLeftSwipe) {
+            // Swipe left - next image
+            const nextIndex = (selectedImage + 1) % images.length;
+            selectImage(nextIndex);
+        } else if (isRightSwipe) {
+            // Swipe right - previous image
+            const prevIndex = selectedImage === 0 ? images.length - 1 : selectedImage - 1;
+            selectImage(prevIndex);
+        }
+    };
+
+    // Add wheel event listener for desktop
+    useEffect(() => {
+        const container = imageContainerRef.current;
+        if (container) {
+            container.addEventListener('wheel', handleWheel, { passive: false });
+            return () => {
+                container.removeEventListener('wheel', handleWheel);
+            };
+        }
+    }, [selectedImage, images.length, selectImage]);
 
     return (
         <div className="flex flex-col lg:flex-row">
             {/* Main Image */}
-            <div className="flex-1 aspect-square bg-white lg:rounded-md overflow-hidden relative order-1 lg:order-2">
+            <div
+                ref={imageContainerRef}
+                className="flex-1 aspect-square bg-white lg:rounded-md overflow-hidden relative order-1 lg:order-2 cursor-pointer"
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
+            >
                 <Image
                     src={images[selectedImage]}
                     alt={title}

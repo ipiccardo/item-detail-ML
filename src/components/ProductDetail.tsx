@@ -19,7 +19,6 @@ import { ProductMobileActions } from "./ui/ProductMobileActions";
 import { ProductSidebar } from "./ui/ProductSidebar";
 import { ProductMobileSections } from "./ui/ProductMobileSections";
 import { ProductMainContent } from "./ui/ProductMainContent";
-import { ProductChat } from "./ui/ProductChat";
 import { ChatWidget } from "./ui/ChatWidget";
 
 interface ProductDetailProps {
@@ -40,7 +39,7 @@ export default function ProductDetail({ product }: ProductDetailProps): JSX.Elem
                 <div className="flex flex-col lg:flex-row items-start bg-white">
                     {/* Left Column - Images (Sticky on desktop) */}
                     <div className="w-full lg:w-[478px] lg:flex-shrink-0 lg:sticky lg:top-4 lg:self-start">
-                        <div className="bg-white lg:rounded-md lg:p-6 p-0">
+                        <div className="bg-white lg:rounded-md p-0">
                             <ImageGallery images={updatedProduct.images} title={updatedProduct.title} />
                         </div>
                     </div>
@@ -87,6 +86,7 @@ export default function ProductDetail({ product }: ProductDetailProps): JSX.Elem
                         onDecrement={decrement}
                         onBuyNow={handleBuyNow}
                         onAddToCart={handleAddToCart}
+                        product={product}
                     />
                 </div>
 
@@ -100,11 +100,6 @@ export default function ProductDetail({ product }: ProductDetailProps): JSX.Elem
                                 relatedProducts={relatedProducts}
                                 isLoadingRelated={isLoadingRelated}
                             />
-                        </div>
-
-                        {/* Right side - Chat (desktop only) */}
-                        <div className="hidden lg:block lg:w-[309px] lg:flex-shrink-0">
-                            <ProductChat product={product} className="sticky top-4" />
                         </div>
                     </div>
                 </div>

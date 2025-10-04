@@ -194,6 +194,17 @@ describe("MercadoLibreHeader", () => {
         );
     });
 
+    it("should hide Menu icon in categories button on desktop", () => {
+        render(<MercadoLibreHeader />);
+
+        const menuIcons = screen.getAllByTestId("menu-icon");
+        const categoriesMenuIcon = menuIcons.find(icon =>
+            icon.closest("button")?.textContent?.includes("Categorías")
+        );
+
+        expect(categoriesMenuIcon).toHaveClass("lg:hidden");
+    });
+
     describe("Mobile Menu", () => {
         it("should not render mobile menu by default", () => {
             render(<MercadoLibreHeader />);

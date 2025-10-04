@@ -1,4 +1,7 @@
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { render, screen, fireEvent } from "@testing-library/react";
+import { JSX } from "react";
 import ImageGallery from "../../src/components/ui/ImageGallery";
 
 const mockImages = [
@@ -13,17 +16,19 @@ const mockTitle = "Samsung Galaxy S24 Ultra 256GB";
 // Mock next/image
 jest.mock("next/image", () => ({
     __esModule: true,
-    default: ({ src, alt, ...props }: any) => (
+    default: ({ src, alt, ...props }: { src: string; alt: string;[key: string]: unknown }): JSX.Element => (
         <img src={src} alt={alt} {...props} />
     ),
 }));
 
 // Mock lucide-react icons
 jest.mock("lucide-react", () => ({
-    Heart: (props: any) => <svg {...props} data-testid="heart-icon" />,
-    Share2: (props: any) => <svg {...props} data-testid="share-icon" />,
-    ChevronLeft: (props: any) => <svg {...props} data-testid="chevron-left-icon" />,
-    ChevronRight: (props: any) => <svg {...props} data-testid="chevron-right-icon" />,
+    Heart: (props: React.SVGProps<SVGSVGElement>): JSX.Element => <svg {...props} data-testid="heart-icon" />,
+    Share2: (props: React.SVGProps<SVGSVGElement>): JSX.Element => <svg {...props} data-testid="share-icon" />,
+    ChevronLeft: (props: React.SVGProps<SVGSVGElement>): JSX.Element =>
+        <svg {...props} data-testid="chevron-left-icon" />,
+    ChevronRight: (props: React.SVGProps<SVGSVGElement>): JSX.Element =>
+        <svg {...props} data-testid="chevron-right-icon" />,
 }));
 
 describe("ImageGallery", () => {
@@ -156,5 +161,112 @@ describe("ImageGallery", () => {
         );
 
         expect(actionButtons).toHaveLength(2);
+    });
+
+    describe("Scroll and Swipe functionality", () => {
+        it("should handle wheel scroll for next image", () => {
+            render(<ImageGallery images={mockImages} title={mockTitle} />);
+
+            const imageContainer = screen.getByAltText(mockTitle).closest("div");
+
+            // Simulate wheel scroll down (next image)
+            fireEvent.wheel(imageContainer!, { deltaY: 100 });
+
+            // Should show second image
+            expect(screen.getByText("2 / 4")).toBeInTheDocument();
+        });
+
+        it("should handle wheel scroll for previous image", () => {
+            render(<ImageGallery images={mockImages} title={mockTitle} />);
+
+            const imageContainer = screen.getByAltText(mockTitle).closest("div");
+
+            // First go to second image
+            fireEvent.wheel(imageContainer!, { deltaY: 100 });
+            expect(screen.getByText("2 / 4")).toBeInTheDocument();
+
+            // Then scroll up (previous image)
+            fireEvent.wheel(imageContainer!, { deltaY: -100 });
+
+            // Should show first image
+            expect(screen.getByText("1 / 4")).toBeInTheDocument();
+        });
+
+        it("should handle touch swipe for next image", () => {
+            render(<ImageGallery images={mockImages} title={mockTitle} />);
+
+            const imageContainer = screen.getByAltText(mockTitle).closest("div");
+
+            // Simulate swipe left (next image)
+            fireEvent.touchStart(imageContainer!, {
+                targetTouches: [{ clientX: 200 }],
+            });
+            fireEvent.touchMove(imageContainer!, {
+                targetTouches: [{ clientX: 100 }],
+            });
+            fireEvent.touchEnd(imageContainer!);
+
+            // Should show second image
+            expect(screen.getByText("2 / 4")).toBeInTheDocument();
+        });
+
+        it("should handle touch swipe for previous image", () => {
+            render(<ImageGallery images={mockImages} title={mockTitle} />);
+
+            const imageContainer = screen.getByAltText(mockTitle).closest("div");
+
+            // First go to second image
+            fireEvent.touchStart(imageContainer!, {
+                targetTouches: [{ clientX: 200 }],
+            });
+            fireEvent.touchMove(imageContainer!, {
+                targetTouches: [{ clientX: 100 }],
+            });
+            fireEvent.touchEnd(imageContainer!);
+            expect(screen.getByText("2 / 4")).toBeInTheDocument();
+
+            // Then swipe right (previous image)
+            fireEvent.touchStart(imageContainer!, {
+                targetTouches: [{ clientX: 100 }],
+            });
+            fireEvent.touchMove(imageContainer!, {
+                targetTouches: [{ clientX: 200 }],
+            });
+            fireEvent.touchEnd(imageContainer!);
+
+            // Should show first image
+            expect(screen.getByText("1 / 4")).toBeInTheDocument();
+        });
+
+        it("should cycle to last image when going back from first", () => {
+            render(<ImageGallery images={mockImages} title={mockTitle} />);
+
+            const imageContainer = screen.getByAltText(mockTitle).closest("div");
+
+            // Scroll up from first image
+            fireEvent.wheel(imageContainer!, { deltaY: -100 });
+
+            // Should show last image (4th)
+            expect(screen.getByText("4 / 4")).toBeInTheDocument();
+        });
+
+        it("should cycle to first image when going forward from last", () => {
+            render(<ImageGallery images={mockImages} title={mockTitle} />);
+
+            const imageContainer = screen.getByAltText(mockTitle).closest("div");
+
+            // Go to last image first
+            const dots = screen.getAllByRole("button").filter(button =>
+                button.getAttribute("aria-label")?.includes("Ver imagen 4"),
+            );
+            fireEvent.click(dots[0]);
+            expect(screen.getByText("4 / 4")).toBeInTheDocument();
+
+            // Then scroll down (next image)
+            fireEvent.wheel(imageContainer!, { deltaY: 100 });
+
+            // Should cycle back to first image
+            expect(screen.getByText("1 / 4")).toBeInTheDocument();
+        });
     });
 });

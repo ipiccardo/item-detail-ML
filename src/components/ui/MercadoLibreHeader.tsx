@@ -81,7 +81,7 @@ export const MercadoLibreHeader = (): JSX.Element => {
                 </div>
 
                 {/* Navigation - Desktop only */}
-                <div className="hidden lg:flex items-center gap-6 text-sm relative">
+                <div className="hidden lg:flex items-center gap-4 text-sm relative">
                     <div className="flex items-center gap-1 text-gray-600">
                         <MapPin className="w-4 h-4" />
                         <span>Enviar a Capital Federal</span>
@@ -110,8 +110,7 @@ export const MercadoLibreHeader = (): JSX.Element => {
                     </a>
                     <a href="#" className="text-gray-600 hover:text-blue-600">Vender</a>
                     <a href="#" className="text-gray-600 hover:text-blue-600">Ayuda</a>
-                    <div className="hidden lg:flex items-center gap-4 text-sm">
-
+                    <div className="hidden lg:flex items-center gap-4 text-sm ml-auto">
                         <div className="flex items-center gap-3">
                             <a href="#" className="text-gray-600 hover:text-blue-600">Creá tu cuenta</a>
                             <a href="#" className="text-gray-600 hover:text-blue-600">Ingresá</a>

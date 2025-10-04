@@ -1,6 +1,8 @@
+/* eslint-disable quotes */
+/* eslint-disable max-len */
 "use client";
 
-import { JSX } from "react";
+import { JSX, useState } from "react";
 import { Product } from "@/types/product";
 import {
     useQuantity,
@@ -33,6 +35,9 @@ export default function ProductDetail({ product }: ProductDetailProps): JSX.Elem
     const { handleBuyNow, handleAddToCart } = useProductActions({ productId: product.id, quantity });
     const { updatedProduct } = useProductWithVariants({ product });
 
+    // State for image hover
+    const [isImageHovered, setIsImageHovered] = useState(false);
+
     return (
         <div className="min-h-screen bg-white relative" style={{ backgroundColor: "#F5F5F5" }}>
             <div className="max-w-[1200px] mx-auto lg:pt-6 bg-white relative">
@@ -40,12 +45,16 @@ export default function ProductDetail({ product }: ProductDetailProps): JSX.Elem
                     {/* Left Column - Images (Sticky on desktop) */}
                     <div className="w-full lg:w-[478px] lg:flex-shrink-0 lg:sticky lg:top-4 lg:self-start">
                         <div className="bg-white lg:rounded-md p-0">
-                            <ImageGallery images={updatedProduct.images} title={updatedProduct.title} />
+                            <ImageGallery
+                                images={updatedProduct.images}
+                                title={updatedProduct.title}
+                                onHoverChange={setIsImageHovered}
+                            />
                         </div>
                     </div>
 
                     {/* Middle Column - Product Info */}
-                    <div className="w-full lg:flex-1 bg-white lg:rounded-md lg:max-w-[360px] px-4 lg:px-0 pt-3 lg:pt-0">
+                    <div className={`w-full lg:flex-1 bg-white lg:rounded-md lg:max-w-[360px] px-4 lg:px-0 pt-3 lg:pt-0 transition-opacity duration-200 ${isImageHovered ? 'lg:opacity-0 lg:pointer-events-none' : ''}`}>
                         <ProductHeader
                             title={product.title}
                             rating={product.rating}
@@ -77,17 +86,19 @@ export default function ProductDetail({ product }: ProductDetailProps): JSX.Elem
                     </div>
 
                     {/* Right Column - Sidebar (Desktop only) */}
-                    <ProductSidebar
-                        seller={product.seller}
-                        shipping={product.shipping}
-                        stock={product.stock}
-                        quantity={quantity}
-                        onIncrement={increment}
-                        onDecrement={decrement}
-                        onBuyNow={handleBuyNow}
-                        onAddToCart={handleAddToCart}
-                        product={product}
-                    />
+                    <div className={`transition-opacity duration-200 ${isImageHovered ? 'lg:opacity-0 lg:pointer-events-none' : ''}`}>
+                        <ProductSidebar
+                            seller={product.seller}
+                            shipping={product.shipping}
+                            stock={product.stock}
+                            quantity={quantity}
+                            onIncrement={increment}
+                            onDecrement={decrement}
+                            onBuyNow={handleBuyNow}
+                            onAddToCart={handleAddToCart}
+                            product={product}
+                        />
+                    </div>
                 </div>
 
                 {/* Full-width sections below main layout */}

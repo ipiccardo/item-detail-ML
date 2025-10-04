@@ -269,4 +269,57 @@ describe("ImageGallery", () => {
             expect(screen.getByText("1 / 4")).toBeInTheDocument();
         });
     });
+
+    describe("Image Viewer on Hover", () => {
+        it("should show image viewer on mouse enter", () => {
+            render(<ImageGallery images={mockImages} title={mockTitle} />);
+
+            const imageContainer = screen.getByAltText(mockTitle).closest("div");
+
+            // Simulate mouse enter
+            fireEvent.mouseEnter(imageContainer!);
+
+            // Should show the image viewer
+            expect(screen.getByAltText(`${mockTitle} - Vista ampliada`)).toBeInTheDocument();
+        });
+
+        it("should hide image viewer on mouse leave", () => {
+            render(<ImageGallery images={mockImages} title={mockTitle} />);
+
+            const imageContainer = screen.getByAltText(mockTitle).closest("div");
+
+            // Simulate mouse enter and then leave
+            fireEvent.mouseEnter(imageContainer!);
+            fireEvent.mouseLeave(imageContainer!);
+
+            // Should not show the image viewer
+            expect(screen.queryByAltText(`${mockTitle} - Vista ampliada`)).not.toBeInTheDocument();
+        });
+
+        it("should update image viewer position on mouse move", () => {
+            render(<ImageGallery images={mockImages} title={mockTitle} />);
+
+            const imageContainer = screen.getByAltText(mockTitle).closest("div");
+
+            // Simulate mouse enter and move
+            fireEvent.mouseEnter(imageContainer!);
+            fireEvent.mouseMove(imageContainer!, { clientX: 100, clientY: 200 });
+
+            // Should show the image viewer with updated position
+            expect(screen.getByAltText(`${mockTitle} - Vista ampliada`)).toBeInTheDocument();
+        });
+
+        it("should only show image viewer on desktop", () => {
+            render(<ImageGallery images={mockImages} title={mockTitle} />);
+
+            const imageContainer = screen.getByAltText(mockTitle).closest("div");
+
+            // Simulate mouse enter
+            fireEvent.mouseEnter(imageContainer!);
+
+            // Should show the image viewer with desktop-only classes
+            const imageViewer = screen.getByAltText(`${mockTitle} - Vista ampliada`).closest("div");
+            expect(imageViewer).toHaveClass("hidden", "lg:block");
+        });
+    });
 });

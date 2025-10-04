@@ -1,24 +1,28 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable quotes */
 /* eslint-disable max-len */
 "use client";
 
-import { JSX, useRef, useEffect } from "react";
+import { JSX, useRef, useEffect, useState, useCallback } from "react";
 import Image from "next/image";
 import { useImageGallery } from "@/hooks/useImageGallery";
 
 interface ImageGalleryProps {
     images: string[];
     title: string;
+    onHoverChange?: (isHovering: boolean) => void;
 }
 
-export default function ImageGallery({ images, title }: ImageGalleryProps): JSX.Element {
+export default function ImageGallery({ images, title, onHoverChange }: ImageGalleryProps): JSX.Element {
     const { selectedImage, selectImage } = useImageGallery(images);
     const imageContainerRef = useRef<HTMLDivElement>(null);
     const touchStartX = useRef<number>(0);
     const touchEndX = useRef<number>(0);
+    const [isHovering, setIsHovering] = useState(false);
+    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
     // Handle wheel scroll for desktop
-    const handleWheel = (e: WheelEvent): void => {
+    const handleWheel = useCallback((e: WheelEvent): void => {
         e.preventDefault();
         if (e.deltaY > 0) {
             // Scroll down - next image
@@ -29,6 +33,25 @@ export default function ImageGallery({ images, title }: ImageGalleryProps): JSX.
             const prevIndex = selectedImage === 0 ? images.length - 1 : selectedImage - 1;
             selectImage(prevIndex);
         }
+    }, [selectedImage, images.length, selectImage]);
+
+    // Handle mouse movement for image viewer
+    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>): void => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        setMousePosition({ x, y });
+    };
+
+    // Handle mouse enter/leave for image viewer
+    const handleMouseEnter = (): void => {
+        setIsHovering(true);
+        onHoverChange?.(true);
+    };
+
+    const handleMouseLeave = (): void => {
+        setIsHovering(false);
+        onHoverChange?.(false);
     };
 
     // Handle touch events for mobile
@@ -63,11 +86,11 @@ export default function ImageGallery({ images, title }: ImageGalleryProps): JSX.
         const container = imageContainerRef.current;
         if (container) {
             container.addEventListener('wheel', handleWheel, { passive: false });
-            return () => {
+            return (): void => {
                 container.removeEventListener('wheel', handleWheel);
             };
         }
-    }, [selectedImage, images.length, selectImage]);
+    }, [selectedImage, images.length, selectImage, handleWheel]);
 
     return (
         <div className="flex flex-col lg:flex-row">
@@ -78,6 +101,9 @@ export default function ImageGallery({ images, title }: ImageGalleryProps): JSX.
                 onTouchStart={handleTouchStart}
                 onTouchMove={handleTouchMove}
                 onTouchEnd={handleTouchEnd}
+                onMouseMove={handleMouseMove}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
             >
                 <Image
                     src={images[selectedImage]}
@@ -105,6 +131,7 @@ export default function ImageGallery({ images, title }: ImageGalleryProps): JSX.
                         </svg>
                     </button>
                 </div>
+
             </div>
 
             {/* Dot Indicators - Mobile only - Below image */}
@@ -138,6 +165,46 @@ export default function ImageGallery({ images, title }: ImageGalleryProps): JSX.
                     </button>
                 ))}
             </div>
+
+            {/* Desktop: Image Magnifier on Hover - Replaces columns */}
+            {isHovering && imageContainerRef.current && (
+                (() => {
+                    const scaleFactor = 2; // Nivel de zoom
+                    const rect = imageContainerRef.current!.getBoundingClientRect();
+
+                    // Ocupa todo el espacio desde el borde derecho de la imagen hasta el final del contenedor
+                    const containerWidth = 1200; // max-w-[1200px] del contenedor principal
+                    const magnifierWidth = containerWidth - rect.right - 10; // Aún más ancho
+                    const magnifierHeight = rect.height; // Misma altura que la imagen principal
+
+                    // Calcula la traslación para la imagen magnificada
+                    const translateX = -mousePosition.x * scaleFactor + magnifierWidth / 2;
+                    const translateY = -mousePosition.y * scaleFactor + magnifierHeight / 2;
+
+                    return (
+                        <div
+                            className="hidden lg:block absolute bg-white border border-gray-200 rounded-lg shadow-xl z-50 overflow-hidden pointer-events-none"
+                            style={{
+                                left: `${rect.right - 100}px`, // Completamente pegado a la imagen
+                                top: `${rect.top - 200}px`, // Mucho más arriba
+                                width: `${magnifierWidth}px`,
+                                height: `${magnifierHeight}px`,
+                            }}
+                        >
+                            <Image
+                                src={images[selectedImage]}
+                                alt={`${title} - Vista ampliada`}
+                                fill
+                                className="object-cover"
+                                style={{
+                                    transformOrigin: '0% 0%',
+                                    transform: `scale(${scaleFactor}) translate(${translateX}px, ${translateY}px)`,
+                                }}
+                            />
+                        </div>
+                    );
+                })()
+            )}
         </div>
     );
 }

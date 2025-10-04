@@ -54,6 +54,7 @@ export const CategoriesDropdown = ({ isOpen, onClose }: CategoriesDropdownProps)
                                 className="w-full px-4 py-3 text-left hover:bg-gray-700 flex items-center justify-between"
                                 onClick={() => {
                                     // Handle category click
+                                    // eslint-disable-next-line no-console
                                     console.log(`Clicked category: ${category}`);
                                     onClose();
                                 }}

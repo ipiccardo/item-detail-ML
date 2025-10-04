@@ -6,14 +6,14 @@ interface SpecificationsExpansionState {
   expandAndScroll: () => void;
 }
 
-export const useSpecificationsExpansionStore = create<SpecificationsExpansionState>((set, get) => ({
+export const useSpecificationsExpansionStore = create<SpecificationsExpansionState>((set) => ({
   isExpanded: false,
 
-  toggleExpansion: () => {
+  toggleExpansion: (): void => {
     set((state) => ({ isExpanded: !state.isExpanded }));
   },
 
-  expandAndScroll: () => {
+  expandAndScroll: (): void => {
     set({ isExpanded: true });
 
     // Scroll suave hacia la sección de especificaciones

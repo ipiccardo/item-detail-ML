@@ -101,7 +101,7 @@ export default function ProductMetadata({ product }: ProductMetadataProps): null
         document.head.appendChild(script);
 
         // Cleanup function
-        return () => {
+        return (): void => {
             if (script.parentNode) {
                 script.parentNode.removeChild(script);
             }

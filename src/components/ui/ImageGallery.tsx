@@ -22,20 +22,6 @@ export default function ImageGallery({ images, title }: ImageGalleryProps): JSX.
     const [isHovering, setIsHovering] = useState(false);
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
-    // Handle wheel scroll for desktop - DISABLED
-    // const handleWheel = useCallback((e: WheelEvent): void => {
-    //     e.preventDefault();
-    //     if (e.deltaY > 0) {
-    //         // Scroll down - next image
-    //         const nextIndex = (selectedImage + 1) % images.length;
-    //         selectImage(nextIndex);
-    //     } else {
-    //         // Scroll up - previous image
-    //         const prevIndex = selectedImage === 0 ? images.length - 1 : selectedImage - 1;
-    //         selectImage(prevIndex);
-    //     }
-    // }, [selectedImage, images.length, selectImage]);
-
     // Handle mouse movement for image viewer
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>): void => {
         const rect = e.currentTarget.getBoundingClientRect();
@@ -80,17 +66,6 @@ export default function ImageGallery({ images, title }: ImageGalleryProps): JSX.
             selectImage(prevIndex);
         }
     };
-
-    // Add wheel event listener for desktop - DISABLED
-    // useEffect(() => {
-    //     const container = imageContainerRef.current;
-    //     if (container) {
-    //         container.addEventListener('wheel', handleWheel, { passive: false });
-    //         return (): void => {
-    //             container.removeEventListener('wheel', handleWheel);
-    //         };
-    //     }
-    // }, [selectedImage, images.length, selectImage, handleWheel]);
 
     return (
         <div className="flex flex-col lg:flex-row">
@@ -190,9 +165,9 @@ export default function ImageGallery({ images, title }: ImageGalleryProps): JSX.
                     const magnifierHeight = rect.height * 1.5; // Más alto que la imagen principal
 
                     // Calcula la traslación para la imagen magnificada
-                    // Cálculo completamente nuevo y más preciso
-                    const backgroundX = -mousePosition.x * scaleFactor + magnifierWidth / 6;
-                    const backgroundY = -mousePosition.y * scaleFactor + magnifierHeight / 6;
+                    // Cálculo ajustado para centrar mejor el zoom
+                    const backgroundX = -mousePosition.x * scaleFactor + magnifierWidth / 10;
+                    const backgroundY = -mousePosition.y * scaleFactor + magnifierHeight / 10;
 
                     return (
                         <div

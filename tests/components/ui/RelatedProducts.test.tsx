@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-/* eslint-disable max-len */
 import { render, screen, fireEvent } from "@testing-library/react";
 import { RelatedProducts } from "@/components/ui/RelatedProducts";
 import { Product } from "@/types/product";
@@ -175,10 +174,10 @@ describe("RelatedProducts", () => {
             const images = screen.getAllByRole("img");
 
             // Verificar que se usan las imágenes de public/
-            expect(images[0]).toHaveAttribute("src", "/1.png");
-            expect(images[1]).toHaveAttribute("src", "/2.png");
+            expect(images[0]).toHaveAttribute("src", "/1.webp");
+            expect(images[1]).toHaveAttribute("src", "/2.webp");
             expect(images[2]).toHaveAttribute("src", "/3.png");
-            expect(images[3]).toHaveAttribute("src", "/4.png");
+            expect(images[3]).toHaveAttribute("src", "/5.jpeg");
         });
 
         it("should cycle images when there are more products than images", () => {
@@ -191,9 +190,9 @@ describe("RelatedProducts", () => {
 
             const images = screen.getAllByRole("img");
 
-            // El 5to producto debería usar la 1ra imagen nuevamente
-            expect(images[4]).toHaveAttribute("src", "/1.png");
-            expect(images[5]).toHaveAttribute("src", "/2.png");
+            // El 5to producto debería usar la 5ta imagen
+            expect(images[4]).toHaveAttribute("src", "/m55.png");
+            expect(images[5]).toHaveAttribute("src", "/Edge50.webp");
         });
     });
 

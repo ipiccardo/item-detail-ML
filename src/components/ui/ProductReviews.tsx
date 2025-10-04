@@ -137,7 +137,7 @@ export default function ProductReviews({ className = "" }: ProductReviewsProps):
                             <div className="relative">
                                 {/* eslint-disable-next-line @next/next/no-img-element */}
                                 <img
-                                    src="/1.png"
+                                    src="/1.webp"
                                     alt="Review photo"
                                     className="w-20 h-20 object-cover rounded border"
                                 />

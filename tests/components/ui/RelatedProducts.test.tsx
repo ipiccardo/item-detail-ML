@@ -174,10 +174,10 @@ describe("RelatedProducts", () => {
             const images = screen.getAllByRole("img");
 
             // Verificar que se usan las imágenes de public/
-            expect(images[0]).toHaveAttribute("src", "/1.webp");
-            expect(images[1]).toHaveAttribute("src", "/2.webp");
-            expect(images[2]).toHaveAttribute("src", "/3.png");
-            expect(images[3]).toHaveAttribute("src", "/5.jpeg");
+            expect(images[0]).toHaveAttribute("src", "/m55.webp");
+            expect(images[1]).toHaveAttribute("src", "/a35.webp");
+            expect(images[2]).toHaveAttribute("src", "/Edge50.webp");
+            expect(images[3]).toHaveAttribute("src", "/MG85.webp");
         });
 
         it("should cycle images when there are more products than images", () => {

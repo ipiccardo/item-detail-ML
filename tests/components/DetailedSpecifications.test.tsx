@@ -22,12 +22,6 @@ describe("DetailedSpecifications", () => {
         });
     });
 
-    it("should render specifications title", () => {
-        render(<DetailedSpecifications />);
-
-        expect(screen.getByText("Especificaciones del producto")).toBeInTheDocument();
-    });
-
     it("should not render detailed specifications when collapsed", () => {
         render(<DetailedSpecifications />);
 

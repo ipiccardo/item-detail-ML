@@ -96,7 +96,7 @@ export const DetailedSpecifications = ({ className = "" }: DetailedSpecification
     );
 
     return (
-        <div id="detailed-specifications" className={`${className}`}>
+        <div id="detailed-specifications" className={`${className} pb-0`}>
 
             {isExpanded && (
                 <>

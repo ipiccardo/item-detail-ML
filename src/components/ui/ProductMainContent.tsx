@@ -21,13 +21,13 @@ export const ProductMainContent = ({ relatedProducts = [], isLoadingRelated = fa
             </div>
 
             {/* Detailed Specifications */}
-            <div className="bg-white rounded-md p-4 lg:p-6 mb-0 mt-0 py-4 lg:py-0">
+            <div className="bg-white rounded-md p-4 lg:p-6 mb-0 mt-0 py-4 pt-0 lg:py-0">
                 <DetailedSpecifications />
             </div>
 
             {/* Description */}
             <div className="bg-white rounded-md p-4 lg:p-6">
-                <div className="mt-8 pt-8 border-t border-gray-200">
+                <div className="mt-0 pt-9 border-t border-gray-200">
                     <h2 className="text-xl font-semibold ml-text-primary mb-4">Descripción</h2>
                     <div className="space-y-4">
                         <p className="text-sm ml-text-secondary leading-relaxed">

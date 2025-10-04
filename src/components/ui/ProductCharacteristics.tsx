@@ -9,8 +9,8 @@ interface ProductCharacteristicsProps {
 
 export const ProductCharacteristics = ({ className = "" }: ProductCharacteristicsProps): JSX.Element => {
     return (
-        <div className={`ml-card pt-6 pb-6 ${className}`}>
-            <h2 className="text-lg font-semibold ml-text-primary mb-6">Características del producto</h2>
+        <div className={`ml-card pt-6 pb-4 ${className}`}>
+            <h2 className="text-lg font-semibold ml-text-primary mb-9">Características del producto</h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {/* Left Column */}

@@ -145,6 +145,7 @@ describe("RelatedProductsService", () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
+    RelatedProductsService.clearCache();
   });
 
   describe("getRelatedProducts", () => {

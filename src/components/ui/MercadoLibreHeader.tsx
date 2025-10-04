@@ -99,7 +99,7 @@ export const MercadoLibreHeader = (): JSX.Element => {
                         className="flex items-center gap-1 text-gray-600 hover:text-blue-600"
                         onClick={() => setIsCategoriesOpen(!isCategoriesOpen)}
                     >
-                        <Menu className="w-4 h-4" />
+                        <Menu className="w-4 h-4 lg:hidden" />
                         <span>Categorías</span>
                         <ChevronDown className="w-3 h-3" />
                     </button>

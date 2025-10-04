@@ -5,7 +5,7 @@ Una página de detalle de producto inspirada en MercadoLibre, desarrollada con N
 ## 🚀 Características
 
 - **Diseño Responsive**: Se asemeja al diseño de MercadoLibre con adaptación completa a mobile y desktop
-- **Galería Interactiva**: Navegación por imágenes con scroll (desktop) y swipe (mobile)
+- **Galería Interactiva**: Navegación por imágenes
 - **Chat con IA**: Sistema de chat con webhook n8n y fallback inteligente
 - **Header Dinámico**: Menú hamburguesa móvil y dropdown de categorías desktop
 - **Productos Relacionados**: Sección con imágenes dinámicas y precios

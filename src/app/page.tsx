@@ -7,38 +7,49 @@ import LoadingSpinner from "@/components/LoadingSpinner";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { MercadoLibreHeader } from "@/components/ui/MercadoLibreHeader";
 import { RelatedSearchesBar } from "@/components/ui/RelatedSearchesBar";
+import { Footer } from "@/components/ui/Footer";
+import { footerData } from "@/data/footerData";
 
 export default function HomePage(): JSX.Element {
   const { product, isLoading, error } = useProduct("MLA50303499");
 
   if (isLoading) {
     return (
-      <div>
+      <div className="min-h-screen flex flex-col">
         <MercadoLibreHeader />
         <RelatedSearchesBar />
-        <LoadingSpinner />
+        <main className="flex-1">
+          <LoadingSpinner />
+        </main>
+        <Footer data={footerData} />
       </div>
     );
   }
 
   if (error || !product) {
     return (
-      <div>
+      <div className="min-h-screen flex flex-col">
         <MercadoLibreHeader />
         <RelatedSearchesBar />
-        <ErrorBoundary
-          error={new Error(error ?? "No se pudo cargar el producto")}
-          reset={() => window.location.reload()}
-        />
+        <main className="flex-1">
+          <ErrorBoundary
+            error={new Error(error ?? "No se pudo cargar el producto")}
+            reset={() => window.location.reload()}
+          />
+        </main>
+        <Footer data={footerData} />
       </div>
     );
   }
 
   return (
-    <div>
+    <div className="min-h-screen flex flex-col">
       <MercadoLibreHeader />
       <RelatedSearchesBar />
-      <ProductDetail product={product} />
+      <main className="flex-1">
+        <ProductDetail product={product} />
+      </main>
+      <Footer data={footerData} />
     </div>
   );
 }

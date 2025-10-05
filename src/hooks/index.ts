@@ -9,3 +9,4 @@ export { useProductActions } from "./useProductActions";
 export { useProductWithVariants } from "./useProductWithVariants";
 export { useChat } from "./useChat";
 export { useSpecificationsExpansion } from "./useSpecificationsExpansion";
+export { useFooterToggle } from "./useFooterToggle";

@@ -244,3 +244,10 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* Specific fix for middle column width between 1023px and 1200px */
+@media (min-width: 1023px) and (max-width: 1200px) {
+  .product-info-column {
+    max-width: 210px !important;
+  }
+}

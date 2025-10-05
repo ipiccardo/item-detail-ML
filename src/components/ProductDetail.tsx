@@ -53,7 +53,7 @@ export default function ProductDetail({ product }: ProductDetailProps): JSX.Elem
                         </div>
 
                         {/* Middle Column - Product Info */}
-                        <div className="w-full lg:flex-1 bg-white lg:rounded-md lg:max-w-[360px] px-4 lg:px-0 pt-3 lg:pt-0">
+                        <div className="w-full lg:flex-1 bg-white lg:rounded-md lg:max-w-[360px] px-4 lg:px-0 pt-3 lg:pt-0 product-info-column">
                             <ProductHeader
                                 title={product.title}
                                 rating={product.rating}

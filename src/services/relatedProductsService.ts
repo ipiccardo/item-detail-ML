@@ -55,7 +55,7 @@ export class RelatedProductsService {
         (product) =>
           product.brand === currentProduct.brand ||
           product.category === currentProduct.category ||
-          product.subcategory === currentProduct.subcategory,
+          product.subcategory === currentProduct.subcategory
       )
       .sort((a, b) => {
         // Prioritize same brand, then same category

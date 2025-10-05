@@ -17,11 +17,8 @@ export class RelatedProductsService {
       // Check cache first
       const now = Date.now();
       if (cachedProducts && now - cacheTimestamp < CACHE_DURATION) {
-        console.log("Using cached products data");
         return this.filterRelatedProducts(cachedProducts, currentProductId, limit);
       }
-
-      console.log("Fetching products from API");
       // Fetch all products
       const response = await fetch("/api/products");
       const result = await response.json();
@@ -58,7 +55,7 @@ export class RelatedProductsService {
         (product) =>
           product.brand === currentProduct.brand ||
           product.category === currentProduct.category ||
-          product.subcategory === currentProduct.subcategory
+          product.subcategory === currentProduct.subcategory,
       )
       .sort((a, b) => {
         // Prioritize same brand, then same category

@@ -61,14 +61,16 @@ export default function ProductActions({
         <button
           onClick={actions.onAddToFavorites}
           className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-200
-                    hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 ${actions.isFavorite
+                    hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-red-500 
+                    focus:ring-offset-2 ${actions.isFavorite
               ? "text-red-600 hover:text-red-700 hover:bg-red-50"
               : "ml-text-secondary hover:text-gray-800"
             }`}
         >
           <Heart
-            className={`w-5 h-5 transition-transform duration-200 ${actions.isFavorite ? "fill-current scale-110" : "hover:scale-110"
-              }`}
+            className={`w-5 h-5 transition-transform duration-200 ${
+              actions.isFavorite ? "fill-current scale-110" : "hover:scale-110"
+            }`}
           />
           <span className="font-medium text-sm">{actions.isFavorite ? "En favoritos" : "Favoritos"}</span>
         </button>
@@ -85,8 +87,9 @@ export default function ProductActions({
             }`}
         >
           <GitCompare
-            className={`w-5 h-5 transition-transform duration-200 ${actions.canAddToCompare || actions.isInCompare ? "hover:scale-110" : ""
-              }`}
+            className={`w-5 h-5 transition-transform duration-200 ${
+              actions.canAddToCompare || actions.isInCompare ? "hover:scale-110" : ""
+            }`}
           />
           <span className="font-medium text-sm">
             {actions.isInCompare ? "En comparar" : actions.canAddToCompare ? "Comparar" : "Límite alcanzado"}

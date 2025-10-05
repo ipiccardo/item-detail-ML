@@ -1,3 +1,4 @@
+/* eslint-disable comma-dangle */
 import { Product } from "@/types/product";
 
 // Simple cache to avoid duplicate API calls
@@ -55,8 +56,8 @@ export class RelatedProductsService {
         (product) =>
           product.brand === currentProduct.brand ||
           product.category === currentProduct.category ||
-          product.subcategory === currentProduct.subcategory,
-        )
+          product.subcategory === currentProduct.subcategory
+      )
       .sort((a, b) => {
         // Prioritize same brand, then same category
         if (a.brand === currentProduct.brand && b.brand !== currentProduct.brand) return -1;

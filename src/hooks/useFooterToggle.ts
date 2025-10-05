@@ -3,7 +3,7 @@ import { useState, useCallback, useRef } from "react";
 export interface UseFooterToggleReturn {
   isOpen: boolean;
   toggle: () => void;
-  footerRef: React.RefObject<HTMLDivElement>;
+  footerRef: React.RefObject<HTMLDivElement | null>;
 }
 
 /**

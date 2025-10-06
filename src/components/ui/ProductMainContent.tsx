@@ -63,9 +63,17 @@ export const ProductMainContent = ({ relatedProducts = [], isLoadingRelated = fa
                     <div className="mt-4 pt-2">
                         <button
                             onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)}
-                            className="text-sm text-blue-600 hover:text-blue-800 hover:underline cursor-pointer font-medium"
+                            className="flex items-center gap-1 text-sm text-blue-600 hover:underline"
                         >
                             {isDescriptionExpanded ? "Ver menos" : "Ver descripción completa"}
+                            <svg
+                                className={`w-4 h-4 transition-transform ${isDescriptionExpanded ? "rotate-180" : ""}`}
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                            </svg>
                         </button>
                     </div>
                 </div>

@@ -110,7 +110,9 @@ describe("ProductMainContent", () => {
     it("should render expand button initially", () => {
         render(<ProductMainContent relatedProducts={[]} isLoadingRelated={false} />);
 
-        expect(screen.getByText("Ver descripción completa")).toBeInTheDocument();
+        const button = screen.getByText("Ver descripción completa");
+        expect(button).toBeInTheDocument();
+        expect(button).toHaveClass("flex", "items-center", "gap-1", "text-sm", "text-blue-600", "hover:underline");
     });
 
     it("should expand description when button is clicked", () => {
@@ -121,6 +123,10 @@ describe("ProductMainContent", () => {
 
         expect(screen.getByText("Ver menos")).toBeInTheDocument();
         expect(screen.queryByText("Ver descripción completa")).not.toBeInTheDocument();
+
+        // Check that the arrow rotates when expanded
+        const svg = expandButton.querySelector("svg");
+        expect(svg).toHaveClass("rotate-180");
     });
 
     it("should collapse description when 'Ver menos' is clicked", () => {
@@ -136,11 +142,28 @@ describe("ProductMainContent", () => {
 
         expect(screen.getByText("Ver descripción completa")).toBeInTheDocument();
         expect(screen.queryByText("Ver menos")).not.toBeInTheDocument();
+
+        // Check that the arrow is back to normal position when collapsed
+        const svg = expandButton.querySelector("svg");
+        expect(svg).not.toHaveClass("rotate-180");
     });
 
     it("should have description content visible", () => {
         render(<ProductMainContent relatedProducts={[]} isLoadingRelated={false} />);
 
         expect(screen.getByText(/Dale a tu estilo una ventaja con el Galaxy A26 5G/)).toBeInTheDocument();
+    });
+
+    it("should render arrow icon in expand button", () => {
+        render(<ProductMainContent relatedProducts={[]} isLoadingRelated={false} />);
+
+        const button = screen.getByText("Ver descripción completa");
+        const svg = button.querySelector("svg");
+
+        expect(svg).toBeInTheDocument();
+        expect(svg).toHaveClass("w-4", "h-4", "transition-transform");
+        expect(svg).toHaveAttribute("fill", "none");
+        expect(svg).toHaveAttribute("stroke", "currentColor");
+        expect(svg).toHaveAttribute("viewBox", "0 0 24 24");
     });
 });
